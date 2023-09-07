@@ -1,6 +1,7 @@
-public class Jott {
+public class JottTokenizer {
     public static void main(String[] args) {
         char[] string = new char[]{'/', '<', ':', ',', '1', '.', 'f'}; //todo get input from file
+        // todo handle comments
         for (int i = 0; i < string.length; i++) {
             String printString = "";
             switch (string[i]) {
@@ -12,10 +13,10 @@ public class Jott {
                 case ':' -> printString = "colon";
                 case ';' -> printString = "semicolon";
                 case '+', '-', '*', '/' -> printString = "mathOp";
-                case '<', '>' -> printString = "relOp";
-                case '=' -> printString = "assign";
-                case '!' -> printString = "notEquals";
-                case '"' -> printString = "string";
+                case '<', '>' -> printString = "relOp"; //todo the case of = (relOp)
+                case '=' -> printString = "assign"; //todo the case of = (relOp)
+                case '!' -> printString = "notEquals"; //todo the case of = (notEquals)
+                case '"' -> printString = "string"; //todo loop the string and the case of " (string)
                 case '.' -> {
                     if (Character.isDigit(string[i + 1])) { //passes = accept state
                         i++;
