@@ -1,3 +1,5 @@
+package src;
+
 public class JottTokenizer {
     public static void main(String[] args) {
         char[] string = new char[]{'/', '<', ':', ',', '1', '.', 'f'}; //todo get input from file
