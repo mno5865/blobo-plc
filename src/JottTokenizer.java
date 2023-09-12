@@ -1,3 +1,5 @@
+package src;
+
 public class JottTokenizer {
     public static void main(String[] args) {
         char[] string = new char[]{'/', '<', ':', ',', '1', '.', 'f'}; //todo get input from file
@@ -13,8 +15,22 @@ public class JottTokenizer {
                 case ':' -> printString = "colon";
                 case ';' -> printString = "semicolon";
                 case '+', '-', '*', '/' -> printString = "mathOp";
-                case '<', '>' -> printString = "relOp"; //todo the case of = (relOp)
-                case '=' -> printString = "assign"; //todo the case of = (relOp)
+                case '<', '>' -> {
+                    if (string[i + 1] == '=') {
+                        i++;
+                        printString = "relOp";
+                    } else {
+                        printString = "relOp";
+                    }
+                }
+                case '=' -> {
+                    if (string[i + 1] == '=') {
+                        i++;
+                        printString = "assign";
+                    } else {
+                        printString = "assign";
+                    }
+                }
                 case '!' -> printString = "notEquals"; //todo the case of = (notEquals)
                 case '"' -> printString = "string"; //todo loop the string and the case of " (string)
                 case '.' -> {
