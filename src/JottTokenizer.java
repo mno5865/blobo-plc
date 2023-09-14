@@ -26,7 +26,7 @@ public class JottTokenizer {
                 case '=' -> {
                     if (string[i + 1] == '=') {
                         i++;
-                        printString = "assign";
+                        printString = "relop";
                     } else {
                         printString = "assign";
                     }
