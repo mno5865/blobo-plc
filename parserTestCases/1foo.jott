@@ -1,0 +1,9 @@
+#this should fail due to 1foo function name
+#should tokenize fine but fail parsing
+#no rule for <int><id> in <func_def>
+#Error: Expected <id> got <int>
+
+def 1foo[]:Integer{
+    print[5];
+	return 5;
+}

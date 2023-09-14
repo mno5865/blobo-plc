@@ -1,0 +1,16 @@
+#this should fail phase 2
+#elseif after elseif
+#Error: <elsif> without an <if>
+
+def main[x:Integer]:Integer{
+    if[x==5]{
+	    print[x];
+	}
+	else{
+	    print["foo"];
+	}
+	elseif[x==7]{
+	    print["bar"];
+	}
+	return 5;
+}

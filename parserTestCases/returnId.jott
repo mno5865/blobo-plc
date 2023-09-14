@@ -1,0 +1,7 @@
+#this should pass parsing but fail sematic analysis (phase3)
+#return <id> is allowed
+
+def main[]:Integer{
+    Double x = 5.0;
+	return x;
+}

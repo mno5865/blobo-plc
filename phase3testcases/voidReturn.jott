@@ -1,0 +1,14 @@
+#this will fail phase 3 for void function with a return.
+
+def foo[x:Integer]:Void{
+    return x + 1;
+}
+
+def main[]:Void{
+    Integer x = 0;
+	while[x<10]{
+	    foo[x];
+		print[x];
+		x = x + 1;
+	}
+}

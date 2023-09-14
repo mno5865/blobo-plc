@@ -1,0 +1,15 @@
+#this will pass phase 2 and fail phase 3
+#main's return must be Void
+
+def foo[x:Integer]:Integer{
+    return x + 1;
+}
+
+def main[]:Double{
+    Integer x = 0;
+	while[x<10]{
+	    x = foo[x];
+		print[x];
+	}
+	return x;
+}

@@ -1,0 +1,15 @@
+#this will pass phase 2 but fail phase 3 for missing return;
+
+def foo[]:Integer{
+    Integer x = 5;
+    if[x > 5]{
+        x = x - 1;
+    }
+    else{
+        return x;
+    }
+}
+
+def main[]:Void{
+    Integer y = foo[];
+}
