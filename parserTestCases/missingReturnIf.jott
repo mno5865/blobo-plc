@@ -1,0 +1,16 @@
+# this will pass phase 2 but fail phase 3
+# function is missing a return.
+# if stmt that has an else must return in both, and any elifs for the if stmt to be returnable
+
+def foo[x:Integer]:Integer{
+    if[x > 10]{
+	    return 1;
+	}
+	else{
+	    ::print["Error"];
+    }
+}
+
+def main[]:Void{
+    ::print[foo[10]];
+}

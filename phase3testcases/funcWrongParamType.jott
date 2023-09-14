@@ -1,0 +1,13 @@
+#this will fail phase 3 for wrong type of return in function call.
+
+def foo[x:Double]:Integer{
+    return x + 1.0;
+}
+
+def main[]:Void{
+    Double x = 0.1;
+	while[x<10.0]{
+	    x = foo[x];
+		print[x];
+	}
+}

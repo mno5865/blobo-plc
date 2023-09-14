@@ -1,0 +1,8 @@
+#this is an example
+def foo[]:Void{
+    Integer x = 3;
+    Double y = 3.2 + x;
+    ::print[5];
+    #this is a comment
+    ::print[ "foo bar" ]
+}

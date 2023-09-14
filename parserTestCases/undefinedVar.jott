@@ -1,0 +1,10 @@
+#this should fail phase 2
+#missing { for the while loop
+#it does not complain about the undefined x. That will happen in phase 3
+#Error: Expected { got <keyword>
+
+def foo[]:Void{
+    while[ x <= 5]
+	    x = x + 1;
+	::print[x];
+}

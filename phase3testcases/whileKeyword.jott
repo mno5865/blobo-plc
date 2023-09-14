@@ -1,0 +1,9 @@
+#should pass phase 2 but fail phase 3
+#while is a keyword
+
+def foo[]:Void{
+    Integer while = 5;
+	print[while];
+}
+
+def main[]:void{}

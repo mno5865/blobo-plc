@@ -1,0 +1,7 @@
+#this should fail phase 2
+#stmt can only be asmt, var_dec, or func_call not expr
+#Error: Expected <stmt> got <Double/Expr>
+
+def main[]:Void{
+    3.2 + 4.1;
+]

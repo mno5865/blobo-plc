@@ -1,4 +1,4 @@
-package src;
+package provided;
 
 /**
  * This represents the types of tokens that can be in Jott.
