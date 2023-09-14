@@ -41,6 +41,15 @@ public class JottTokenizer {
                         printString = "error"; //todo change print to be more specific
                     }
                 }
+                case '#' -> {
+                    char currentChar = string[i];
+                    int skip = 0; // the number of chars that are part of the comment and need to be skipped/left out
+                    while (currentChar != '\n' && currentChar != '\u001a') {
+                        currentChar = string[skip + 1];
+                        skip++;
+                    }
+                    i += skip;
+                }
                 default -> {
                     if (Character.isDigit(string[i])) { //passes = accept state
                         i++;
