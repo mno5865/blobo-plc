@@ -1,5 +1,7 @@
 package provided;
 
+import java.util.ArrayList;
+
 public class JottTokenizer {
     public static void main(String[] args) {
         char[] string = new char[]{'/', '<', ':', ',', '1', '.', 'f'}; //todo get input from file
@@ -58,6 +60,10 @@ public class JottTokenizer {
             }
             System.out.println(printString);
         }
+    }
+
+    public static ArrayList<Token> tokenize(String filename) {
+        return null;
     }
 
     private static String digitCheck(char[] string, int i) {

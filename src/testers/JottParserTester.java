@@ -7,6 +7,11 @@ package testers;
   This tester assumes a working and valid tokenizer.
  */
 
+import provided.JottParser;
+import provided.JottTokenizer;
+import provided.JottTree;
+import provided.Token;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
