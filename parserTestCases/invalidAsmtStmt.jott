@@ -1,0 +1,7 @@
+#this will fail phase 2
+#should be a op of end_stmt
+#Error: Unexpected token <string> after <int>
+
+def main[]:Void{
+    Integer x = 5 "foo";
+}

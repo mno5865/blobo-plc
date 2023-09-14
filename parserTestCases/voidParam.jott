@@ -1,0 +1,7 @@
+#this will fail phase 2
+#void is not a valid variable type
+#Error: expected <type> got Void
+
+def foo[x:Void]:Integer{
+    ::print[x];
+}

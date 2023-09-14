@@ -1,0 +1,16 @@
+#this should fail phase 2
+#else without if
+#Error: <else> without <if>
+
+def main[]:Integer{
+    Integer x = 0;
+	while[x <10]{
+	    if[x==5]{
+		    print[True];
+		}
+	}
+	else{
+	    print[False];
+	}
+	return x;
+}

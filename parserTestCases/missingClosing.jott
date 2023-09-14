@@ -1,0 +1,15 @@
+#this should fail phase 2
+#missing closing } on the function
+#Error: <func_def> missing closing }
+
+def main[]:Integer{
+    Integer x = 0;
+	while[x <10]{
+	    if[x==5]{
+		    ::print[True];
+		}
+	    else{
+	        ::print[False];
+	    }
+	return x;
+    }

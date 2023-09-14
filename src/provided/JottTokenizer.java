@@ -1,4 +1,4 @@
-package src;
+package provided;
 
 public class JottTokenizer {
     public static void main(String[] args) {

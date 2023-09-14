@@ -1,0 +1,8 @@
+#this should fail phase 2
+#missing <exp>
+#Error: Expected <exp> got <end_stmt>
+
+def main[x1:Integer]:Void{
+    Integer x =;
+	::print[x];
+}

@@ -1,0 +1,8 @@
+#this will pass phase 2 but fail phase 3 for missing return;
+#and missing main
+
+def foo[x:String]:String{
+    print[x];
+}
+
+def main[]:Void{}

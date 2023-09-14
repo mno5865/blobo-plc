@@ -1,0 +1,13 @@
+#this will fail phase 3 for missing params in function call.
+
+def foo[x:Integer]:Integer{
+    return x + 1;
+}
+
+def main[]:Void{
+    Integer x = 0;
+	while[x<10]{
+	    x = foo[];
+		print[x];
+	}
+}

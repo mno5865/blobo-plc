@@ -1,0 +1,15 @@
+#this will pass phase 2 and fail phase 3
+#missing main function
+
+def foo[x:Integer]:Integer{
+    return x + 1;
+}
+
+def main1[]:Integer{
+    Integer x = 0;
+	while[x<10]{
+	    x = ::foo[x];
+		::print[x];
+	}
+	return x;
+}
