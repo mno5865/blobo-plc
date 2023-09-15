@@ -1,46 +1,46 @@
-package provided;
-
-import java.util.ArrayList;
+package src;
 
 public class JottTokenizer {
     public static void main(String[] args) {
         char[] string = new char[]{'/', '<', ':', ',', '1', '.', 'f'}; //todo get input from file
+        ArrayList<Token> tokens = new ArrayList<Token>();
         // todo handle comments
         for (int i = 0; i < string.length; i++) {
-            String printString = "";
-            switch (string[i]) {
-                case ',' -> printString = "comma";
-                case ']' -> printString = "rBracket";
-                case '[' -> printString = "lBracket";
-                case '}' -> printString = "rbrace";
-                case '{' -> printString = "lbrace";
-                case ':' -> printString = "colon";
-                case ';' -> printString = "semicolon";
-                case '+', '-', '*', '/' -> printString = "mathOp";
+            String token;
+            switch (string.get(i)) {
+                case ',' -> token = new Token("" + string.get(i), filename, linenum, TokenType.COMMA);
+                case ']' -> token = new Token("" + string.get(i), filename, linenum, TokenType.R_BRACKET);
+                case '[' -> token = new Token("" + string.get(i), filename, linenum, TokenType.L_BRACKET);
+                case '}' -> token = new Token("" + string.get(i), filename, linenum, TokenType.R_BRACE);
+                case '{' -> token = new Token("" + string.get(i), filename, linenum, TokenType.L_BRACE);
+                case ':' -> token = new Token("" + string.get(i), filename, linenum, TokenType.COLON);
+                case ';' -> token = new Token("" + string.get(i), filename, linenum, TokenType.SEMICOLON);
+                case '+', '-', '*', '/' -> token = new Token("" + string.get(i), filename, linenum, TokenType.MATH_OP);
                 case '<', '>' -> {
-                    if (string[i + 1] == '=') {
+                    if (string.get(i + 1) == '=') {
+                        token = new Token("" + string.get(i) + string.get(i + 1), filename, linenum, TokenType.REL_OP);
                         i++;
-                        printString = "relOp";
                     } else {
-                        printString = "relOp";
+                        token = new Token("" + string.get(i), filename, linenum, TokenType.REL_OP);
                     }
                 }
                 case '=' -> {
-                    if (string[i + 1] == '=') {
+                    if (string.get(i + 1) == '=') {
+                        token = new Token("" + string.get(i) + string.get(i + 1), filename, linenum, TokenType.REL_OP);
                         i++;
-                        printString = "relop";
                     } else {
-                        printString = "assign";
+                        token = new Token("" + string.get(i), filename, linenum, TokenType.ASSIGN);
                     }
                 }
-                case '!' -> printString = "notEquals"; //todo the case of = (notEquals)
-                case '"' -> printString = "string"; //todo loop the string and the case of " (string)
+                case '!' -> token = "notEquals"; //todo the case of = (notEquals)
+                case '"' -> token = "string"; //todo loop the string and the case of " (string)
                 case '.' -> {
-                    if (Character.isDigit(string[i + 1])) { //passes = accept state
+                    if (Character.isDigit(string.get(i + 1))) { //passes = accept state
+                        string s = "" + string.get(i) + string.get(i + 1)
                         i++;
-                        printString = digitCheck(string, i);
+                        token = digitCheck(s, string, i);
                     } else {
-                        printString = "error"; //todo change print to be more specific
+                        System.err.println("error"); //todo change print to be more specific
                     }
                 }
                 case '#' -> {
@@ -53,32 +53,37 @@ public class JottTokenizer {
                     i += skip;
                 }
                 default -> {
-                    if (Character.isDigit(string[i])) { //passes = accept state
+                    if (Character.isDigit(string.get(i))) { //passes = accept state
+                        string s = "" + string.get(i);
                         i++;
-                        while (i < string.length && Character.isDigit(string[i])) {
+                        while (i < string.length && Character.isDigit(string.get(i))) {
+                            s += string.get(i);
                             i++;
                         }
 
-                        if (i < string.length && string[i] == '.') {
-                            printString = digitCheck(string, i);
+                        if (i < string.length && string.get(i) == '.') {
+                            token = digitCheck(string, i);
                         }
-                    } else if (Character.isAlphabetic(string[i])) {
+                    } else if (Character.isAlphabetic(string.get(i))) {
                         //todo case if letter, id or keyword
                     }
                 }
             }
-            System.out.println(printString);
+            tokens.append(token)
         }
     }
 
-    public static ArrayList<Token> tokenize(String filename) {
-        return null;
-    }
-
-    private static String digitCheck(char[] string, int i) {
-        while (i + 1 < string.length && Character.isDigit(string[i + 1])) {
+    /**
+     * Builds the digit string
+     * @param string the current token string
+     * @param i the index of the char in the file
+     * @return the Token
+     */
+    private static Token digitCheck(s, char[] string, int i) {
+        while (i + 1 < string.length && Character.isDigit(string.get(i + 1))) {
+            s += string.get(i + 1);
             i++;
         }
-        return "number";
+        return token = new Token(s, filename, linenum, TokenType.NUMBER);
     }
 }
