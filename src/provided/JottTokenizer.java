@@ -1,4 +1,12 @@
-package src;
+package provided;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class JottTokenizer {
     public static void main(String[] args) {
@@ -71,6 +79,29 @@ public class JottTokenizer {
             }
             tokens.append(token);
         }
+        tokenize("testFile.txt");
+    }
+
+    public static ArrayList<Token> tokenize(String filename) {
+        ArrayList<Token> tokens = null;
+        File file = new File(filename);
+        try (FileReader fileReader = new FileReader(file)){
+            tokens = new ArrayList<>();
+            ArrayList<Character> contents = new ArrayList<>();
+            int i;
+            while((i = fileReader.read()) != -1) {
+                contents.add((char) i);
+            }
+
+            // todo place the logic for tokenizing here, modfy it
+
+
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return tokens;
     }
 
     /**
