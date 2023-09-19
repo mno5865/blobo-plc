@@ -36,7 +36,7 @@ public class JottTokenizer {
                 case '"' -> token = "string"; //todo loop the string and the case of " (string)
                 case '.' -> {
                     if (Character.isDigit(string.get(i + 1))) { //passes = accept state
-                        string s = "" + string.get(i) + string.get(i + 1)
+                        String s = "" + string.get(i) + string.get(i + 1)
                         i++;
                         token = digitCheck(s, string, i);
                     } else {
