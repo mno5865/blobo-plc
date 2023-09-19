@@ -69,7 +69,7 @@ public class JottTokenizer {
                     }
                 }
             }
-            tokens.append(token)
+            tokens.append(token);
         }
     }
 
