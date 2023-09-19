@@ -6,7 +6,7 @@ public class JottTokenizer {
         ArrayList<Token> tokens = new ArrayList<Token>();
         // todo handle comments
         for (int i = 0; i < string.length; i++) {
-            String token;
+            Token token = null;
             switch (string.get(i)) {
                 case ',' -> token = new Token("" + string.get(i), filename, linenum, TokenType.COMMA);
                 case ']' -> token = new Token("" + string.get(i), filename, linenum, TokenType.R_BRACKET);
@@ -54,7 +54,7 @@ public class JottTokenizer {
                 }
                 default -> {
                     if (Character.isDigit(string.get(i))) { //passes = accept state
-                        string s = "" + string.get(i);
+                        String s = "" + string.get(i);
                         i++;
                         while (i < string.length && Character.isDigit(string.get(i))) {
                             s += string.get(i);
@@ -79,7 +79,7 @@ public class JottTokenizer {
      * @param i the index of the char in the file
      * @return the Token
      */
-    private static Token digitCheck(s, char[] string, int i) {
+    private static Token digitCheck(String s, char[] string, int i) {
         while (i + 1 < string.length && Character.isDigit(string.get(i + 1))) {
             s += string.get(i + 1);
             i++;
