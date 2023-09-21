@@ -1,75 +1,133 @@
 package provided;
 
+import errors.SyntaxException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class JottTokenizer {
-    public static void (String[] args) {
-        char[] string = new char[]{'/', '<', ':', ',', '1', '.', 'f'}; //todo get input from file
-        // todo handle comments
-        for (int i = 0; i < string.length; i++) {
-            String printString = "";
-            switch (string[i]) {
-                case ',' -> printString = "comma";
-                case ']' -> printString = "rBracket";
-                case '[' -> printString = "lBracket";
-                case '}' -> printString = "rbrace";
-                case '{' -> printString = "lbrace";
-                case ':' -> printString = "colon";
-                case ';' -> printString = "semicolon";
-                case '+', '-', '*', '/' -> printString = "mathOp";
-                case '<', '>' -> {
-                    if (string[i + 1] == '=') {
-                        i++;
-                        printString = "relOp";
-                    } else {
-                        printString = "relOp";
-                    }
-                }
-                case '=' -> {
-                    if (string[i + 1] == '=') {
-                        i++;
-                        printString = "relop";
-                    } else {
-                        printString = "assign";
-                    }
-                }
-                case '!' -> printString = "notEquals"; //todo the case of = (notEquals)
-                case '"' -> printString = "string"; //todo loop the string and the case of " (string)
-                case '.' -> {
-                    if (Character.isDigit(string[i + 1])) { //passes = accept state
-                        i++;
-                        printString = digitCheck(string, i);
-                    } else {
-                        printString = "error"; //todo change print to be more specific
-                    }
-                }
-                default -> {
-                    if (Character.isDigit(string[i])) { //passes = accept state
-                        i++;
-                        while (i < string.length && Character.isDigit(string[i])) {
-                            i++;
-                        }
+    public static void main(String[] args) {
+        String inputFilename = args[0];
+        tokenize(inputFilename);
+    }
 
-                        if (i < string.length && string[i] == '.') {
-                            printString = digitCheck(string, i);
+    public static ArrayList<Token> tokenize(String fileName) {
+        ArrayList<Token> tokens = null;
+        File file = new File(fileName);
+        try (Scanner fileInput = new Scanner(file)) {
+            tokens = new ArrayList<>();
+
+            int lineNum = 1;
+            while(fileInput.hasNextLine()) {
+                String line = fileInput.nextLine().strip();
+                char[] string = line.toCharArray();
+
+                for (int i = 0; i < string.length; i++) {
+                    Token token = null;
+                    switch (string[i]) {
+                        case ',' -> token = new Token("" + string[i], fileName, lineNum, TokenType.COMMA);
+                        case ']' -> token = new Token("" + string[i], fileName, lineNum, TokenType.R_BRACKET);
+                        case '[' -> token = new Token("" + string[i], fileName, lineNum, TokenType.L_BRACKET);
+                        case '}' -> token = new Token("" + string[i], fileName, lineNum, TokenType.R_BRACE);
+                        case '{' -> token = new Token("" + string[i], fileName, lineNum, TokenType.L_BRACE);
+                        case ':' -> token = new Token("" + string[i], fileName, lineNum, TokenType.COLON);
+                        case ';' -> token = new Token("" + string[i], fileName, lineNum, TokenType.SEMICOLON);
+                        case '+', '-', '*', '/' -> token = new Token("" + string[i], fileName, lineNum, TokenType.MATH_OP);
+                        case '<', '>' -> {
+                            if (i + 1 == string.length) {
+                                throw new SyntaxException("File ends in invalid character, missing =", fileName, lineNum);
+                            }
+                            if (string[i + 1] == '=') {
+                                token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
+                                i++;
+                            } else {
+                                token = new Token("" + string[i], fileName, lineNum, TokenType.REL_OP);
+                            }
                         }
-                    } else if (Character.isAlphabetic(string[i])) {
-                        //todo case if letter, id or keyword
+                        case '=' -> {
+                            if (i + 1 == string.length) {
+                                throw new SyntaxException("File ends in invalid character, missing =", fileName, lineNum);
+                            }
+                            if (string[i + 1] == '=') {
+                                token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
+                                i++;
+                            } else {
+                                token = new Token("" + string[i], fileName, lineNum, TokenType.ASSIGN);
+                            }
+                        }
+                        case '!' -> {
+                            if (i + 1 == string.length) {
+                                throw new SyntaxException("File ends in invalid character, missing =", fileName, lineNum);
+                            }
+                            new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP); //todo the case of = (notEquals)
+                        }
+                        case '"' -> new Token("" + string[i], fileName, lineNum, TokenType.STRING); //todo loop the string and the case of " (string)
+                        case '.' -> {
+                            if (i + 1 == string.length) {
+                                throw new SyntaxException("File ends in invalid character, missing digit", fileName, lineNum);
+                            }
+                            if (Character.isDigit(string[i + 1])){ //passes = accept state
+                                String s = "" + string[i] + string[i + 1];
+                                i++;
+                                token = digitCheck(s, string, i, fileName, lineNum);
+                            } else {
+                                System.err.println("error"); //todo change print to be more specific
+                            }
+                        }
+                        case '#' -> {
+                            char currentChar = string[i];
+                            int skip = 0; // the number of chars that are part of the comment and need to be skipped/left out
+                            while (currentChar != '\n' && currentChar != '\u001a') {
+                                currentChar = string[skip + 1];
+                                skip++;
+                            }
+                            i += skip;
+                        }
+                        default -> {
+                            if (Character.isDigit(string[i])) { //passes = accept state
+                                StringBuilder s = new StringBuilder("" + string[i]);
+                                i++;
+                                while (i < string.length && Character.isDigit(string[i])) {
+                                    s.append(string[i]);
+                                    i++;
+                                }
+
+                                if (i < string.length && string[i] == '.') {
+                                    token = digitCheck(s.toString(), string, i, fileName, lineNum);
+                                }
+                            } else if (Character.isAlphabetic(string[i])) {
+                                //todo case if letter, id or keyword
+                            }
+                        }
                     }
+                    tokens.add(token);
                 }
+                lineNum++;
             }
-            System.out.println(printString);
+        } catch (FileNotFoundException | SyntaxException e) {
+            System.err.println(e);
         }
+        return tokens;
     }
 
-    public static ArrayList<Token> tokenize(String filename) {
-        return null;
-    }
-
-    private static String digitCheck(char[] string, int i) {
+    /**
+     * Builds the digit string
+     * @param s Current digit string
+     * @param string Current token string
+     * @param i Index of the char in the file
+     * @param filename Name of the file
+     * @param lineNum Current line number
+     * @return The Token
+     */
+    private static Token digitCheck(String s, char[] string, int i, String filename, int lineNum) {
+        StringBuilder sBuilder = new StringBuilder(s);
         while (i + 1 < string.length && Character.isDigit(string[i + 1])) {
+            sBuilder.append(string[i + 1]);
             i++;
         }
-        return "number";
+        s = sBuilder.toString();
+        return new Token(s, filename, lineNum, TokenType.NUMBER);
     }
 }
