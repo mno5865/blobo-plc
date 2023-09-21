@@ -75,7 +75,7 @@ public class JottTokenizer {
                                 }
                                 i++;
                                 if (string.get(i + 1) == '\n') {
-                                    //Syntax Error
+                                    //Syntax Errors
                                     System.err.println("ERROR - Invalid token [" + fileName + ":" + lineNum + "] - missing string end quotes");
                                 }
                             }
