@@ -52,12 +52,13 @@ public class JottTokenizer {
                             if (string.length - 1 != i && string[i + 1] == '=') {
                                 //Valid token
                                 token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
+                                i++;
                             } else {
                                 //Syntax Error
                                 throw new SyntaxException("ERROR - expected '=' after '!'", fileName, lineNum);
                             }
                         }
-                        case '"' -> {
+                        case '"' -> { //todo string crashes when there's no ending quote
                             StringBuilder str = new StringBuilder();
                             str.append('"');
                             while (string[i + 1] != '\n') {
@@ -105,6 +106,7 @@ public class JottTokenizer {
                                 }
 
                                 if (i < string.length && string[i] == '.') {
+                                    s.append('.');
                                     token = digitCheck(s.toString(), string, i, fileName, lineNum);
                                 }
                             } else if (Character.isAlphabetic(string[i])) {
