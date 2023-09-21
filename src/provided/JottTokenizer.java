@@ -42,8 +42,41 @@ public class JottTokenizer {
                         token = new Token("" + string.get(i), filename, lineNum, TokenType.ASSIGN);
                     }
                 }
-                case '!' -> new Token("" + string.get(i) + string.get(i + 1), filename, lineNum, TokenType.REL_OP); //todo the case of = (notEquals)
-                case '"' -> new Token("" + string.get(i), filename, lineNum, TokenType.STRING); //todo loop the string and the case of " (string)
+                case '!' ->
+                {
+                    if(string.get(i + 1) == '=')
+                    {
+                        //Valid token
+                        token = new Token("" + string.get(i) + string.get(i + 1), filename, lineNum, TokenType.REL_OP);
+                    }
+                    else
+                    {
+                        //Syntax Error
+                        System.err.println("ERROR - Invalid token [" + filename + ":" +lineNum +  "] - expected '=' after '!'");
+                    }
+
+                }
+                case '"' ->
+                {
+                    StringBuilder str = new StringBuilder();
+                    str.append('"');
+                    while(string.get(i + 1) != '\n')
+                    {
+                        str.append(string.get(i + 1));
+                        if(string.get(i + 1) == '"')
+                        {
+                            i++;
+                            break;
+                        }
+                        i++;
+                        if(string.get(i + 1) == '\n')
+                        {
+                            //Syntax Error
+                            System.err.println("ERROR - Invalid token [" + filename + ":" +lineNum +  "] - missing string end quotes");
+                        }
+                    }
+                    token = new Token(str.toString(), filename, lineNum, TokenType.STRING); //todo loop the string and the case of " (string)
+                }
                 case '.' -> {
                     if (Character.isDigit(string.get(i + 1))) { //passes = accept state
                         String s = "" + string.get(i) + string.get(i + 1);
