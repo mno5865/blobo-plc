@@ -1,5 +1,7 @@
 package provided;
 
+import errors.SyntaxException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -35,6 +37,9 @@ public class JottTokenizer {
                         case ';' -> token = new Token("" + string[i], filename, lineNum, TokenType.SEMICOLON);
                         case '+', '-', '*', '/' -> token = new Token("" + string[i], filename, lineNum, TokenType.MATH_OP);
                         case '<', '>' -> {
+                            if (i + 1 == string.length) {
+                                throw new SyntaxException("Syntax Error: File ends in invalid character, missing =");
+                            }
                             if (string[i + 1] == '=') {
                                 token = new Token("" + string[i] + string[i + 1], filename, lineNum, TokenType.REL_OP);
                                 i++;
@@ -43,6 +48,9 @@ public class JottTokenizer {
                             }
                         }
                         case '=' -> {
+                            if (i + 1 == string.length) {
+                                throw new SyntaxException("Syntax Error: File ends in invalid character, missing =");
+                            }
                             if (string[i + 1] == '=') {
                                 token = new Token("" + string[i] + string[i + 1], filename, lineNum, TokenType.REL_OP);
                                 i++;
@@ -50,9 +58,17 @@ public class JottTokenizer {
                                 token = new Token("" + string[i], filename, lineNum, TokenType.ASSIGN);
                             }
                         }
-                        case '!' -> new Token("" + string[i] + string[i + 1], filename, lineNum, TokenType.REL_OP); //todo the case of = (notEquals)
+                        case '!' -> {
+                            if (i + 1 == string.length) {
+                                throw new SyntaxException("Syntax Error: File ends in invalid character, missing =");
+                            }
+                            new Token("" + string[i] + string[i + 1], filename, lineNum, TokenType.REL_OP); //todo the case of = (notEquals)
+                        }
                         case '"' -> new Token("" + string[i], filename, lineNum, TokenType.STRING); //todo loop the string and the case of " (string)
                         case '.' -> {
+                            if (i + 1 == string.length) {
+                                throw new SyntaxException("Syntax Error: File ends in invalid character, missing digit");
+                            }
                             if (Character.isDigit(string[i + 1])){ //passes = accept state
                                 String s = "" + string[i] + string[i + 1];
                                 i++;
@@ -91,7 +107,7 @@ public class JottTokenizer {
                 }
                 lineNum++;
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | SyntaxException e) {
             System.err.println(e.getMessage());
         }
         return tokens;
