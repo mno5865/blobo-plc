@@ -58,7 +58,7 @@ public class JottTokenizer {
                                 throw new SyntaxException("ERROR - expected '=' after '!'", fileName, lineNum);
                             }
                         }
-                        case '"' -> { //todo string crashes when there's no ending quote
+                        case '"' -> {
                             StringBuilder str = new StringBuilder();
                             str.append('"');
                             while (string.length - 1 != i) {
