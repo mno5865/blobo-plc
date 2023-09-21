@@ -61,14 +61,14 @@ public class JottTokenizer {
                         case '"' -> { //todo string crashes when there's no ending quote
                             StringBuilder str = new StringBuilder();
                             str.append('"');
-                            while (string[i + 1] != '\n') {
+                            while (string.length - 1 != i) {
                                 str.append(string[i + 1]);
                                 if (string[i + 1] == '"') {
                                     i++;
                                     break;
                                 }
                                 i++;
-                                if (string[i + 1] == '\n') {
+                                if (string.length - 1 == i) {
                                     //Syntax Errors
                                     throw new SyntaxException("ERROR - missing string end quotes", fileName, lineNum);
                                 }
