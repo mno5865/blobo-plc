@@ -33,10 +33,7 @@ public class JottTokenizer {
                         case '+', '-', '*', '/' ->
                                 token = new Token("" + string[i], fileName, lineNum, TokenType.MATH_OP);
                         case '<', '>' -> {
-                            if (i + 1 == string.length) {
-                                throw new SyntaxException("File ends in invalid character, missing =", fileName, lineNum);
-                            }
-                            if (string[i + 1] == '=') {
+                            if (string.length - 1 != i && string[i + 1] == '=') {
                                 token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
                                 i++;
                             } else {
@@ -44,10 +41,7 @@ public class JottTokenizer {
                             }
                         }
                         case '=' -> {
-                            if (i + 1 == string.length) {
-                                throw new SyntaxException("File ends in invalid character, missing =", fileName, lineNum);
-                            }
-                            if (string[i + 1] == '=') {
+                            if (string.length - 1 != i && string[i + 1] == '=') {
                                 token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
                                 i++;
                             } else {
@@ -55,7 +49,7 @@ public class JottTokenizer {
                             }
                         }
                         case '!' -> {
-                            if (string[i + 1] == '=') {
+                            if (string.length - 1 != i && string[i + 1] == '=') {
                                 //Valid token
                                 token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
                             } else {
