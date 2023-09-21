@@ -10,13 +10,12 @@ import java.util.Scanner;
 public class JottTokenizer {
     public static void main(String[] args) {
         String inputFilename = args[0];
-
         tokenize(inputFilename);
     }
 
-    public static ArrayList<Token> tokenize(String filename) {
+    public static ArrayList<Token> tokenize(String fileName) {
         ArrayList<Token> tokens = null;
-        File file = new File(filename);
+        File file = new File(fileName);
         try (Scanner fileInput = new Scanner(file)) {
             tokens = new ArrayList<>();
 
@@ -28,51 +27,51 @@ public class JottTokenizer {
                 for (int i = 0; i < string.length; i++) {
                     Token token = null;
                     switch (string[i]) {
-                        case ',' -> token = new Token("" + string[i], filename, lineNum, TokenType.COMMA);
-                        case ']' -> token = new Token("" + string[i], filename, lineNum, TokenType.R_BRACKET);
-                        case '[' -> token = new Token("" + string[i], filename, lineNum, TokenType.L_BRACKET);
-                        case '}' -> token = new Token("" + string[i], filename, lineNum, TokenType.R_BRACE);
-                        case '{' -> token = new Token("" + string[i], filename, lineNum, TokenType.L_BRACE);
-                        case ':' -> token = new Token("" + string[i], filename, lineNum, TokenType.COLON);
-                        case ';' -> token = new Token("" + string[i], filename, lineNum, TokenType.SEMICOLON);
-                        case '+', '-', '*', '/' -> token = new Token("" + string[i], filename, lineNum, TokenType.MATH_OP);
+                        case ',' -> token = new Token("" + string[i], fileName, lineNum, TokenType.COMMA);
+                        case ']' -> token = new Token("" + string[i], fileName, lineNum, TokenType.R_BRACKET);
+                        case '[' -> token = new Token("" + string[i], fileName, lineNum, TokenType.L_BRACKET);
+                        case '}' -> token = new Token("" + string[i], fileName, lineNum, TokenType.R_BRACE);
+                        case '{' -> token = new Token("" + string[i], fileName, lineNum, TokenType.L_BRACE);
+                        case ':' -> token = new Token("" + string[i], fileName, lineNum, TokenType.COLON);
+                        case ';' -> token = new Token("" + string[i], fileName, lineNum, TokenType.SEMICOLON);
+                        case '+', '-', '*', '/' -> token = new Token("" + string[i], fileName, lineNum, TokenType.MATH_OP);
                         case '<', '>' -> {
                             if (i + 1 == string.length) {
-                                throw new SyntaxException("Syntax Error: File ends in invalid character, missing =");
+                                throw new SyntaxException("File ends in invalid character, missing =", fileName, lineNum);
                             }
                             if (string[i + 1] == '=') {
-                                token = new Token("" + string[i] + string[i + 1], filename, lineNum, TokenType.REL_OP);
+                                token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
                                 i++;
                             } else {
-                                token = new Token("" + string[i], filename, lineNum, TokenType.REL_OP);
+                                token = new Token("" + string[i], fileName, lineNum, TokenType.REL_OP);
                             }
                         }
                         case '=' -> {
                             if (i + 1 == string.length) {
-                                throw new SyntaxException("Syntax Error: File ends in invalid character, missing =");
+                                throw new SyntaxException("File ends in invalid character, missing =", fileName, lineNum);
                             }
                             if (string[i + 1] == '=') {
-                                token = new Token("" + string[i] + string[i + 1], filename, lineNum, TokenType.REL_OP);
+                                token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
                                 i++;
                             } else {
-                                token = new Token("" + string[i], filename, lineNum, TokenType.ASSIGN);
+                                token = new Token("" + string[i], fileName, lineNum, TokenType.ASSIGN);
                             }
                         }
                         case '!' -> {
                             if (i + 1 == string.length) {
-                                throw new SyntaxException("Syntax Error: File ends in invalid character, missing =");
+                                throw new SyntaxException("File ends in invalid character, missing =", fileName, lineNum);
                             }
-                            new Token("" + string[i] + string[i + 1], filename, lineNum, TokenType.REL_OP); //todo the case of = (notEquals)
+                            new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP); //todo the case of = (notEquals)
                         }
-                        case '"' -> new Token("" + string[i], filename, lineNum, TokenType.STRING); //todo loop the string and the case of " (string)
+                        case '"' -> new Token("" + string[i], fileName, lineNum, TokenType.STRING); //todo loop the string and the case of " (string)
                         case '.' -> {
                             if (i + 1 == string.length) {
-                                throw new SyntaxException("Syntax Error: File ends in invalid character, missing digit");
+                                throw new SyntaxException("File ends in invalid character, missing digit", fileName, lineNum);
                             }
                             if (Character.isDigit(string[i + 1])){ //passes = accept state
                                 String s = "" + string[i] + string[i + 1];
                                 i++;
-                                token = digitCheck(s, string, i, filename, lineNum);
+                                token = digitCheck(s, string, i, fileName, lineNum);
                             } else {
                                 System.err.println("error"); //todo change print to be more specific
                             }
@@ -96,7 +95,7 @@ public class JottTokenizer {
                                 }
 
                                 if (i < string.length && string[i] == '.') {
-                                    token = digitCheck(s.toString(), string, i, filename, lineNum);
+                                    token = digitCheck(s.toString(), string, i, fileName, lineNum);
                                 }
                             } else if (Character.isAlphabetic(string[i])) {
                                 //todo case if letter, id or keyword
@@ -108,7 +107,7 @@ public class JottTokenizer {
                 lineNum++;
             }
         } catch (FileNotFoundException | SyntaxException e) {
-            System.err.println(e.getMessage());
+            System.err.println(e);
         }
         return tokens;
     }
