@@ -1,6 +1,7 @@
 import provided.JottTokenizer;
 import provided.Token;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *  This class is used for handling the tokenization for Jott, Java, Python, and C files
@@ -17,11 +18,12 @@ public class Jott {
 
         switch (languageSpec) {
             case "Jott":
-                if (inputFilename.split("\\.")[1] != "Jott") {
+                if (!Objects.equals(inputFilename.split("\\.")[1], "jott")) {
                     System.err.println("Incorrect File Extension");
                     return;
                 }
                 ArrayList<Token> tokenList = JottTokenizer.tokenize(inputFilename);
+                System.out.println(tokenList); //remove this
             case "Java": // TODO add case for Java tokenizer
             case "Python": // TODO add case for Python tokenizer
             case "C": // TODO add case for C tokenizer
