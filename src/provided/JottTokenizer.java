@@ -8,11 +8,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JottTokenizer {
-    public static void main(String[] args) {
-        String inputFilename = args[0];
-        tokenize(inputFilename);
-    }
-
     public static ArrayList<Token> tokenize(String fileName) {
         ArrayList<Token> tokens = null;
         File file = new File(fileName);
@@ -58,10 +53,32 @@ public class JottTokenizer {
                             }
                         }
                         case '!' -> {
-                            if (i + 1 == string.length) {
-                                throw new SyntaxException("File ends in invalid character, missing =", fileName, lineNum);
+                          if (string.get(i + 1) == '=') {
+                            //Valid token
+                            token = new Token("" + string.get(i) + string.get(i + 1), filename, lineNum, TokenType.REL_OP);
+                          }
+                          else {
+                            //Syntax Error
+                            System.err.println("ERROR - Invalid token [" + filename + ":" +lineNum +  "] - expected '=' after '!'");
+                          }
+
+                        }
+                        case '"' -> {
+                          StringBuilder str = new StringBuilder();
+                          str.append('"');
+                          while (string.get(i + 1) != '\n') {
+                            str.append(string.get(i + 1));
+                            if(string.get(i + 1) == '"') {
+                              i++;
+                              break;
                             }
-                            new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP); //todo the case of = (notEquals)
+                            i++;
+                            if(string.get(i + 1) == '\n') {
+                              //Syntax Error
+                              System.err.println("ERROR - Invalid token [" + filename + ":" +lineNum +  "] - missing string end quotes");
+                            }
+                          }
+                          token = new Token(str.toString(), filename, lineNum, TokenType.STRING); //todo loop the string and the case of " (string)
                         }
                         case '"' -> new Token("" + string[i], fileName, lineNum, TokenType.STRING); //todo loop the string and the case of " (string)
                         case '.' -> {
