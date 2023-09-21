@@ -3,7 +3,7 @@ package provided;
 import java.util.ArrayList;
 
 public class JottTokenizer {
-    public static void main(String[] args) {
+    public static void (String[] args) {
         char[] string = new char[]{'/', '<', ':', ',', '1', '.', 'f'}; //todo get input from file
         // todo handle comments
         for (int i = 0; i < string.length; i++) {
