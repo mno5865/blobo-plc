@@ -55,34 +55,31 @@ public class JottTokenizer {
                             }
                         }
                         case '!' -> {
-                            if (string.get(i + 1) == '=') {
+                            if (string[i + 1] == '=') {
                                 //Valid token
-                                token = new Token("" + string.get(i) + string.get(i + 1), fileName, lineNum, TokenType.REL_OP);
+                                token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
                             } else {
                                 //Syntax Error
-                                System.err.println("ERROR - Invalid token [" + fileName + ":" + lineNum + "] - expected '=' after '!'");
+                                throw new SyntaxException("ERROR - expected '=' after '!'", fileName, lineNum);
                             }
-
                         }
                         case '"' -> {
                             StringBuilder str = new StringBuilder();
                             str.append('"');
-                            while (string.get(i + 1) != '\n') {
-                                str.append(string.get(i + 1));
-                                if (string.get(i + 1) == '"') {
+                            while (string[i + 1] != '\n') {
+                                str.append(string[i + 1]);
+                                if (string[i + 1] == '"') {
                                     i++;
                                     break;
                                 }
                                 i++;
-                                if (string.get(i + 1) == '\n') {
+                                if (string[i + 1] == '\n') {
                                     //Syntax Errors
-                                    System.err.println("ERROR - Invalid token [" + fileName + ":" + lineNum + "] - missing string end quotes");
+                                    throw new SyntaxException("ERROR - missing string end quotes", fileName, lineNum);
                                 }
                             }
-                            token = new Token(str.toString(), fileName, lineNum, TokenType.STRING); //todo loop the string and the case of " (string)
+                            token = new Token(str.toString(), fileName, lineNum, TokenType.STRING);
                         }
-                        case '"' ->
-                                new Token("" + string[i], fileName, lineNum, TokenType.STRING); //todo loop the string and the case of " (string)
                         case '.' -> {
                             if (i + 1 == string.length) {
                                 throw new SyntaxException("File ends in invalid character, missing digit", fileName, lineNum);
