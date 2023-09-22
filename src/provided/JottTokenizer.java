@@ -128,7 +128,13 @@ public class JottTokenizer {
                                 }
                                 token = new Token(sBuilder.toString(), fileName, lineNum, TokenType.NUMBER);
                             } else if (Character.isAlphabetic(string[i])) {
-                                //todo case if letter, id or keyword
+                                StringBuilder str = new StringBuilder("" + string[i]);
+                                i++;
+                                while(i < string.length && (Character.isDigit(string[i]) || Character.isAlphabetic(string[i]))) {
+                                    str.append(string[i]);
+                                    i++;
+                                }
+                                token = new Token(str.toString(),fileName,lineNum,TokenType.ID_KEYWORD);
                             }
                         }
                     }
