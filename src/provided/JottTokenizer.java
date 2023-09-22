@@ -108,6 +108,9 @@ public class JottTokenizer {
                             }
                             i += skip;
                         }
+                        case ' ' -> {
+                            continue;
+                        }
                         default -> {
                             if (Character.isDigit(string[i])) { //passes = accept state
                                 StringBuilder sBuilder = new StringBuilder("" + string[i]);
