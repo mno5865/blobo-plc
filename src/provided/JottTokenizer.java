@@ -96,7 +96,7 @@ public class JottTokenizer {
                                 }
                                 token = new Token(sBuilder.toString(), fileName, lineNum,TokenType.NUMBER);
                             } else {
-                                System.err.println("error"); //todo change print to be more specific
+                                throw new SyntaxException("requires digit after . token not letter", fileName, lineNum);
                             }
                         }
                         case '#' -> {
