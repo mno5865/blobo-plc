@@ -1,12 +1,1 @@
-hello"world"123
-apple,banana"cherry"
-func()100+200
-#ThisIsA"Comment
-if(x>=10list[5])
-dict["key"=value
-"embedded \"quotes" within a string"
-variable_name "value"=
-This is a string in quotes"Another" string
-100++200--50/*25*10
-!=!=
-<=<<=
+"

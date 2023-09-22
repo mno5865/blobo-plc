@@ -66,18 +66,21 @@ public class JottTokenizer {
                         case '"' -> {
                             StringBuilder str = new StringBuilder();
                             str.append('"');
+                            boolean closedQuote = false;
                             while (string.length - 1 != i) {
                                 str.append(string[i + 1]);
                                 if (string[i + 1] == '"') {
                                     i++;
+                                    closedQuote = true;
                                     break;
                                 }
                                 i++;
-                                if (string.length - 1 == i) {
-                                    throw new SyntaxException("Missing string end quotes", fileName, lineNum);
-                                }
                             }
-                            token = new Token(str.toString(), fileName, lineNum, TokenType.STRING);
+                            if (closedQuote) {
+                                token = new Token(str.toString(), fileName, lineNum, TokenType.STRING);
+                            } else {
+                                throw new SyntaxException("Missing string end quotes", fileName, lineNum);
+                            }
                         }
                         case '.' -> {
                             if (i + 1 != string.length && Character.isDigit(string[i + 1])) {
@@ -101,9 +104,6 @@ public class JottTokenizer {
                                 skip++;
                             }
                             i += skip;
-                            continue;
-                        }
-                        case ' ' -> {
                             continue;
                         }
                         default -> {
@@ -134,7 +134,9 @@ public class JottTokenizer {
                             }
                         }
                     }
-                    tokens.add(token);
+                    if (token != null) {
+                        tokens.add(token);
+                    }
                 }
                 lineNum++;
             }
