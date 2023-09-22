@@ -27,7 +27,6 @@ public class Jott {
                     return;
                 }
                 ArrayList<Token> tokenList = JottTokenizer.tokenize(inputFilename);
-                System.out.println(tokenList); //remove this
             case "Java": // TODO add case for Java tokenizer
             case "Python": // TODO add case for Python tokenizer
             case "C": // TODO add case for C tokenizer
