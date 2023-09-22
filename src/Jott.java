@@ -12,6 +12,10 @@ public class Jott {
      * @param args The command line arguments (inputFileName, outputFileName, and languageSpec)
      */
     public static void main(String[] args) {
+        if (args.length != 3) {
+            System.err.println("Incorrect number of args. Expected form: inputFile outputFile language");
+            return;
+        }
         String inputFilename = args[0]; // the name of the user's input file
         String outputFilename = args[1]; // the name of the user's output file
         String languageSpec = args[2]; // the language that we will translate into
