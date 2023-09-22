@@ -28,6 +28,9 @@ public class JottTokenizer {
                         case '[' -> token = new Token("" + string[i], fileName, lineNum, TokenType.L_BRACKET);
                         case '}' -> token = new Token("" + string[i], fileName, lineNum, TokenType.R_BRACE);
                         case '{' -> token = new Token("" + string[i], fileName, lineNum, TokenType.L_BRACE);
+                        case ';' -> token = new Token("" + string[i], fileName, lineNum, TokenType.SEMICOLON);
+                        case '+', '-', '*', '/' ->
+                                token = new Token("" + string[i], fileName, lineNum, TokenType.MATH_OP);
                         case ':' -> {
                             if (string.length - 1 != i && string[i + 1] == ':') {
                                 token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.FC_HEADER);
@@ -36,9 +39,6 @@ public class JottTokenizer {
                                 token = new Token("" + string[i], fileName, lineNum, TokenType.COLON);
                             }
                         }
-                        case ';' -> token = new Token("" + string[i], fileName, lineNum, TokenType.SEMICOLON);
-                        case '+', '-', '*', '/' ->
-                                token = new Token("" + string[i], fileName, lineNum, TokenType.MATH_OP);
                         case '<', '>' -> {
                             if (string.length - 1 != i && string[i + 1] == '=') {
                                 token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
@@ -84,7 +84,7 @@ public class JottTokenizer {
                                 StringBuilder sBuilder = new StringBuilder("" + string[i] + string[i + 1]);
                                 i++;
 
-                                while (i < string.length && Character.isDigit(string[i + 1])) {
+                                while (i + 1 < string.length && Character.isDigit(string[i + 1])) {
                                     sBuilder.append(string[i + 1]);
                                     i++;
                                 }
