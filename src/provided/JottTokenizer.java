@@ -62,7 +62,7 @@ public class JottTokenizer {
                                 i++;
                             } else {
                                 //Syntax Error
-                                throw new SyntaxException("ERROR - expected '=' after '!'", fileName, lineNum);
+                                throw new SyntaxException("Expected '=' after '!'", fileName, lineNum);
                             }
                         }
                         case '"' -> {
@@ -76,15 +76,14 @@ public class JottTokenizer {
                                 }
                                 i++;
                                 if (string.length - 1 == i) {
-                                    //Syntax Errors
-                                    throw new SyntaxException("ERROR - missing string end quotes", fileName, lineNum);
+                                    throw new SyntaxException("Missing string end quotes", fileName, lineNum);
                                 }
                             }
                             token = new Token(str.toString(), fileName, lineNum, TokenType.STRING);
                         }
                         case '.' -> {
                             if (i + 1 == string.length) {
-                                throw new SyntaxException("File ends in invalid character, missing digit", fileName, lineNum);
+                                throw new SyntaxException("Line ends in invalid character, missing digit", fileName, lineNum);
                             }
                             if (Character.isDigit(string[i + 1])) { //passes = accept state
                                 StringBuilder sBuilder = new StringBuilder("" + string[i] + string[i + 1]);
@@ -94,9 +93,9 @@ public class JottTokenizer {
                                     sBuilder.append(string[i + 1]);
                                     i++;
                                 }
-                                token = new Token(sBuilder.toString(), fileName, lineNum,TokenType.NUMBER);
+                                token = new Token(sBuilder.toString(), fileName, lineNum, TokenType.NUMBER);
                             } else {
-                                throw new SyntaxException("requires digit after . token not letter", fileName, lineNum);
+                                throw new SyntaxException("Digit required after . token", fileName, lineNum);
                             }
                         }
                         case '#' -> {
@@ -115,30 +114,28 @@ public class JottTokenizer {
                         default -> {
                             if (Character.isDigit(string[i])) { //passes = accept state
                                 StringBuilder sBuilder = new StringBuilder("" + string[i]);
-                                i++;
 
-                                while (i < string.length && Character.isDigit(string[i])) {
-                                    sBuilder.append(string[i]);
+                                while (i + 1 < string.length && Character.isDigit(string[i + 1])) {
+                                    sBuilder.append(string[i + 1]);
                                     i++;
                                 }
 
-                                if (i < string.length && string[i] == '.') {
+                                if (i + 1 < string.length && string[i + 1] == '.') {
                                     sBuilder.append('.');
                                     i++;
-                                    while (i < string.length && Character.isDigit(string[i])) {
-                                        sBuilder.append(string[i]);
+                                    while (i + 1 < string.length && Character.isDigit(string[i + 1])) {
+                                        sBuilder.append(string[i + 1]);
                                         i++;
                                     }
                                 }
                                 token = new Token(sBuilder.toString(), fileName, lineNum, TokenType.NUMBER);
                             } else if (Character.isAlphabetic(string[i])) {
                                 StringBuilder str = new StringBuilder("" + string[i]);
-                                i++;
-                                while(i < string.length && (Character.isDigit(string[i]) || Character.isAlphabetic(string[i]))) {
-                                    str.append(string[i]);
+                                while (i + 1 < string.length && (Character.isDigit(string[i + 1]) || Character.isAlphabetic(string[i + 1]))) {
+                                    str.append(string[i + 1]);
                                     i++;
                                 }
-                                token = new Token(str.toString(),fileName,lineNum,TokenType.ID_KEYWORD);
+                                token = new Token(str.toString(), fileName, lineNum, TokenType.ID_KEYWORD);
                             }
                         }
                     }

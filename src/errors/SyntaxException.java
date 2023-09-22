@@ -17,6 +17,6 @@ public class SyntaxException extends Exception {
 
     @Override
     public String toString() {
-        return "Syntax Error:\n" + errorMessage + "\n" + fileName + ":" + lineNum;
+        return "Syntax Error:\n" + errorMessage + "\n" + fileName + ":" + lineNum + "\n";
     }
 }
