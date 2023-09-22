@@ -80,9 +80,14 @@ public class JottTokenizer {
                                 throw new SyntaxException("File ends in invalid character, missing digit", fileName, lineNum);
                             }
                             if (Character.isDigit(string[i + 1])) { //passes = accept state
-                                String s = "" + string[i] + string[i + 1];
+                                StringBuilder sBuilder = new StringBuilder("" + string[i] + string[i + 1]);
                                 i++;
-                                token = digitCheck(s, string, i, fileName, lineNum);
+
+                                while (i < string.length && Character.isDigit(string[i])) {
+                                    sBuilder.append(string[i]);
+                                    i++;
+                                }
+                                token = new Token(sBuilder.toString(), fileName, lineNum,TokenType.NUMBER);
                             } else {
                                 System.err.println("error"); //todo change print to be more specific
                             }
@@ -98,17 +103,23 @@ public class JottTokenizer {
                         }
                         default -> {
                             if (Character.isDigit(string[i])) { //passes = accept state
-                                StringBuilder s = new StringBuilder("" + string[i]);
+                                StringBuilder sBuilder = new StringBuilder("" + string[i]);
                                 i++;
+
                                 while (i < string.length && Character.isDigit(string[i])) {
-                                    s.append(string[i]);
+                                    sBuilder.append(string[i]);
                                     i++;
                                 }
 
                                 if (i < string.length && string[i] == '.') {
-                                    s.append('.');
-                                    token = digitCheck(s.toString(), string, i, fileName, lineNum);
+                                    sBuilder.append('.');
+                                    i++;
+                                    while (i < string.length && Character.isDigit(string[i])) {
+                                        sBuilder.append(string[i]);
+                                        i++;
+                                    }
                                 }
+                                token = new Token(sBuilder.toString(), fileName, lineNum, TokenType.NUMBER);
                             } else if (Character.isAlphabetic(string[i])) {
                                 //todo case if letter, id or keyword
                             }
@@ -122,25 +133,5 @@ public class JottTokenizer {
             System.err.println(e);
         }
         return tokens;
-    }
-
-    /**
-     * Builds the digit string
-     *
-     * @param s        Current digit string
-     * @param string   Current token string
-     * @param i        Index of the char in the file
-     * @param filename Name of the file
-     * @param lineNum  Current line number
-     * @return The Token
-     */
-    private static Token digitCheck(String s, char[] string, int i, String filename, int lineNum) {
-        StringBuilder sBuilder = new StringBuilder(s);
-        while (i + 1 < string.length && Character.isDigit(string[i + 1])) {
-            sBuilder.append(string[i + 1]);
-            i++;
-        }
-        s = sBuilder.toString();
-        return new Token(s, filename, lineNum, TokenType.NUMBER);
     }
 }
