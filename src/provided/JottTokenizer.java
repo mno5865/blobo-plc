@@ -28,7 +28,14 @@ public class JottTokenizer {
                         case '[' -> token = new Token("" + string[i], fileName, lineNum, TokenType.L_BRACKET);
                         case '}' -> token = new Token("" + string[i], fileName, lineNum, TokenType.R_BRACE);
                         case '{' -> token = new Token("" + string[i], fileName, lineNum, TokenType.L_BRACE);
-                        case ':' -> token = new Token("" + string[i], fileName, lineNum, TokenType.COLON);
+                        case ':' -> {
+                            if (string.length - 1 != i && string[i + 1] == ':') {
+                                token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.FC_HEADER);
+                                i++;
+                            } else {
+                                token = new Token("" + string[i], fileName, lineNum, TokenType.COLON);
+                            }
+                        }
                         case ';' -> token = new Token("" + string[i], fileName, lineNum, TokenType.SEMICOLON);
                         case '+', '-', '*', '/' ->
                                 token = new Token("" + string[i], fileName, lineNum, TokenType.MATH_OP);
