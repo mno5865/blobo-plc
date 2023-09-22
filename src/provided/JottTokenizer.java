@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class JottTokenizer {
     public static ArrayList<Token> tokenize(String fileName) {
-        ArrayList<Token> tokens = null;
+        ArrayList<Token> tokens;
         File file = new File(fileName);
 
         try (Scanner fileInput = new Scanner(file)) {
@@ -57,11 +57,9 @@ public class JottTokenizer {
                         }
                         case '!' -> {
                             if (string.length - 1 != i && string[i + 1] == '=') {
-                                //Valid token
                                 token = new Token("" + string[i] + string[i + 1], fileName, lineNum, TokenType.REL_OP);
                                 i++;
                             } else {
-                                //Syntax Error
                                 throw new SyntaxException("Expected '=' after '!'", fileName, lineNum);
                             }
                         }
@@ -82,10 +80,7 @@ public class JottTokenizer {
                             token = new Token(str.toString(), fileName, lineNum, TokenType.STRING);
                         }
                         case '.' -> {
-                            if (i + 1 == string.length) {
-                                throw new SyntaxException("Line ends in invalid character, missing digit", fileName, lineNum);
-                            }
-                            if (Character.isDigit(string[i + 1])) { //passes = accept state
+                            if (i + 1 != string.length && Character.isDigit(string[i + 1])) {
                                 StringBuilder sBuilder = new StringBuilder("" + string[i] + string[i + 1]);
                                 i++;
 
@@ -100,7 +95,7 @@ public class JottTokenizer {
                         }
                         case '#' -> {
                             char currentChar = string[i];
-                            int skip = 0; // the number of chars that are part of the comment and need to be skipped/left out
+                            int skip = 0;
                             while (currentChar != '\n' && skip + 1 < string.length) {
                                 currentChar = string[skip + 1];
                                 skip++;
@@ -112,7 +107,7 @@ public class JottTokenizer {
                             continue;
                         }
                         default -> {
-                            if (Character.isDigit(string[i])) { //passes = accept state
+                            if (Character.isDigit(string[i])) {
                                 StringBuilder sBuilder = new StringBuilder("" + string[i]);
 
                                 while (i + 1 < string.length && Character.isDigit(string[i + 1])) {
