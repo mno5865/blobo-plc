@@ -88,10 +88,10 @@ public class JottTokenizer {
                             }
                             if (Character.isDigit(string[i + 1])) { //passes = accept state
                                 StringBuilder sBuilder = new StringBuilder("" + string[i] + string[i + 1]);
-                                i += 2;
+                                i++;
 
-                                while (i < string.length && Character.isDigit(string[i])) {
-                                    sBuilder.append(string[i]);
+                                while (i < string.length && Character.isDigit(string[i + 1])) {
+                                    sBuilder.append(string[i + 1]);
                                     i++;
                                 }
                                 token = new Token(sBuilder.toString(), fileName, lineNum,TokenType.NUMBER);
