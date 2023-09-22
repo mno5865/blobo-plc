@@ -88,7 +88,7 @@ public class JottTokenizer {
                             }
                             if (Character.isDigit(string[i + 1])) { //passes = accept state
                                 StringBuilder sBuilder = new StringBuilder("" + string[i] + string[i + 1]);
-                                i++;
+                                i += 2;
 
                                 while (i < string.length && Character.isDigit(string[i])) {
                                     sBuilder.append(string[i]);
