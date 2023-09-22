@@ -102,11 +102,12 @@ public class JottTokenizer {
                         case '#' -> {
                             char currentChar = string[i];
                             int skip = 0; // the number of chars that are part of the comment and need to be skipped/left out
-                            while (currentChar != '\n' && currentChar != '\u001a') {
+                            while (currentChar != '\n' && skip + 1 < string.length) {
                                 currentChar = string[skip + 1];
                                 skip++;
                             }
                             i += skip;
+                            continue;
                         }
                         case ' ' -> {
                             continue;
@@ -147,6 +148,7 @@ public class JottTokenizer {
             }
         } catch (FileNotFoundException | SyntaxException e) {
             System.err.println(e);
+            return null;
         }
         return tokens;
     }
