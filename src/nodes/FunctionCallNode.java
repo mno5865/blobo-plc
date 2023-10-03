@@ -25,7 +25,7 @@ public class FunctionCallNode implements JottTree {
         IDNode funcName = IDNode.parseIDNode(tokens);
 
         token = tokens.get(0);
-        if (token.getTokenType() != TokenType.L_BRACE) {
+        if (token.getTokenType() != TokenType.L_BRACKET) {
             throw new SyntaxException("", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);
