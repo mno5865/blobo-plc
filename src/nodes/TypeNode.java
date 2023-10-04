@@ -1,17 +1,8 @@
 package nodes;
 
-import errors.SyntaxException;
 import provided.JottTree;
-import provided.Token;
-import provided.TokenType;
 
-import java.util.ArrayList;
-
-public class FuncDefParamNode implements JottTree {
-    private IDNode paramName;
-    private TypeNode paramType;
-//    private ArrayList<FuncDefParamTailNode> paramType; //todo idk
-
+public class TypeNode implements JottTree {
     @Override
     public String convertToJott() {
         return null;
