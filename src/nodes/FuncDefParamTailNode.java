@@ -24,19 +24,19 @@ public class FuncDefParamTailNode implements JottTree {
         tokens.remove(0);
 
         token = tokens.get(0);
-        if (token.getTokenType() != TokenType.ID_KEYWORD{
+        if (token.getTokenType() != TokenType.ID_KEYWORD){
             throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
         }
         IDNode paramName = IDNode.parseIDNode(tokens);
 
         tokens.get(0);
-        if (token.getTokenType() != TokenType.COLON{
+        if (token.getTokenType() != TokenType.COLON){
             throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
         }
         tokens.remove(0);
 
         token = tokens.get(0);
-        if (token.getTokenType() != TokenType.STRING{
+        if (token.getTokenType() != TokenType.STRING){
             throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
         }
         TypeNode paramType = TypeNode.parseTypeNode(tokens);
