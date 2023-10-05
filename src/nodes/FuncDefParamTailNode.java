@@ -6,9 +6,16 @@ import provided.Token;
 import provided.TokenType;
 
 public class FuncDefParamTailNode implements JottTree {
+    private IDNode paramName;
+    private TypeNode paramType;
+
     @Override
     public String convertToJott() {
-        return null;
+        String out = ",";
+        out += this.paramName.convertToJott();
+        out += ":";
+        out += this.paramType.convertToJott();
+        return out;
     }
 
     @Override
