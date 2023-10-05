@@ -7,6 +7,8 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
+import static nodes.BasicParsers.parseToken;
+
 public class FunctionCallNode implements JottTree {
     private IDNode funcName;
     private FuncCallParamNode fcp;
@@ -17,25 +19,11 @@ public class FunctionCallNode implements JottTree {
     }
 
     public static FunctionCallNode parseFunctionCallNode(ArrayList<Token> tokens) throws SyntaxException {
-        Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.FC_HEADER) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum());
-        }
-        tokens.remove(0);
+        parseToken(TokenType.FC_HEADER, tokens);
         IDNode funcName = IDNode.parseIDNode(tokens);
-
-        token = tokens.get(0);
-        if (token.getTokenType() != TokenType.L_BRACKET) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum());
-        }
-        tokens.remove(0);
+        parseToken(TokenType.L_BRACKET, tokens);
         FuncCallParamNode funcCallParamNode = FuncCallParamNode.parseFCPN(tokens);
-
-        token = tokens.get(0);
-        if (token.getTokenType() != TokenType.R_BRACKET) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum());
-        }
-        tokens.remove(0);
+        parseToken(TokenType.R_BRACKET, tokens);
 
         return new FunctionCallNode(funcName, funcCallParamNode);
     }

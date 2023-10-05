@@ -7,6 +7,8 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
+import static nodes.BasicParsers.parseToken;
+
 public class FuncDefNode implements JottTree {
     private IDNode funcName;
     private FuncDefParamNode params;
@@ -21,49 +23,16 @@ public class FuncDefNode implements JottTree {
     }
 
     public static FuncDefNode parseFuncDefNode(ArrayList<Token> tokens) throws SyntaxException{
-        Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.STRING) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
-        }
-        tokens.remove(0);
-
+        parseToken(TokenType.STRING, tokens);
         IDNode funcName = IDNode.parseIDNode(tokens);
-
-        token = tokens.get(0);
-        if (token.getTokenType() != TokenType.L_BRACKET) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
-        }
-        tokens.remove(0);
-
+        parseToken(TokenType.L_BRACKET, tokens);
         FuncDefParamNode params = FuncDefParamNode.parseFuncDefParamNode(tokens);
-
-        token = tokens.get(0);
-        if (token.getTokenType() != TokenType.R_BRACKET) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
-        }
-        tokens.remove(0);
-
-        token = tokens.get(0);
-        if (token.getTokenType() != TokenType.COLON) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
-        }
-        tokens.remove(0);
-
+        parseToken(TokenType.R_BRACKET, tokens);
+        parseToken(TokenType.COLON, tokens);
         TypeNode returnType = TypeNode.parseTypeNode(tokens);
-
-        token = tokens.get(0);
-        if (token.getTokenType() != TokenType.L_BRACE) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
-        }
-        tokens.remove(0);
-
+        parseToken(TokenType.L_BRACE, tokens);
         BodyNode body = BodyNode.parseBodyNode(tokens);
-
-        token = tokens.get(0);
-        if (token.getTokenType() != TokenType.R_BRACE) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
-        }
-        tokens.remove(0);
+        parseToken(TokenType.R_BRACE, tokens);
 
         return new FuncDefNode(funcName, params, returnType, body);
     }
