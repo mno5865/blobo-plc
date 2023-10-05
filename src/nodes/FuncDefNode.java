@@ -40,7 +40,16 @@ public class FuncDefNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        return null;
+        String out = "public ";
+        out += this.returnType.convertToJava(""); //todo className
+        out += " ";
+        out += this.funcName.convertToJava(""); //todo className
+        out += "(";
+        out += this.params.convertToJava(""); //todo className
+        out += "){";
+        out += this.body.convertToJava(""); //todo className
+        out += "}";
+        return out;
     }
 
     @Override

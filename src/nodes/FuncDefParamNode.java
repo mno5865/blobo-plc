@@ -21,7 +21,7 @@ public class FuncDefParamNode implements JottTree {
     @Override
     public String convertToJott() {
         String out = "";
-        if (paramName == null){
+        if (paramName != null){
             out += this.paramName.convertToJott();
             out += ":";
             out += this.paramType.convertToJott();
@@ -34,7 +34,16 @@ public class FuncDefParamNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        return null;
+        String out = "";
+        if (paramName != null){
+            out += this.paramType.convertToJava(""); //todo className
+            out += " ";
+            out += this.paramName.convertToJava(""); //todo className
+            for (FuncDefParamTailNode param : paramTail){
+                out += param.convertToJava(""); //todo className
+            }
+        }
+        return out;
     }
 
     @Override
