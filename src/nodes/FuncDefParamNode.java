@@ -12,6 +12,12 @@ public class FuncDefParamNode implements JottTree {
     private TypeNode paramType;
     private ArrayList<FuncDefParamTailNode> paramTail;
 
+    public FuncDefParamNode(IDNode paramName, TypeNode paramType, ArrayList<FuncDefParamTailNode> paramTail){
+        this.paramName = paramName;
+        this.paramType = paramType;
+        this.paramTail = paramTail;
+    }
+
     @Override
     public String convertToJott() {
         String out = "";
