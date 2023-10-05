@@ -18,7 +18,11 @@ public class FuncDefParamNode implements JottTree {
         this.paramTail = paramTail;
     }
 
-    @Override
+    public static FuncDefParamNode parseFuncDefParamNode(ArrayList<Token> tokens) throws SyntaxException {
+        return null;
+    }
+
+        @Override
     public String convertToJott() {
         String out = "";
         if (paramName != null){
