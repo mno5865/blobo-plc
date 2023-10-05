@@ -35,7 +35,7 @@ public class FuncDefNode implements JottTree {
         }
         tokens.remove(0);
 
-        FuncDefParamNode params = FuncDefParamNode.parseFuncDefParamNode();
+        FuncDefParamNode params = FuncDefParamNode.parseFuncDefParamNode(tokens);
 
         token = tokens.get(0);
         if (token.getTokenType() != TokenType.R_BRACKET) {
