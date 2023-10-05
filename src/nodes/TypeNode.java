@@ -1,8 +1,20 @@
 package nodes;
 
 import provided.JottTree;
+import provided.Token;
+
+import java.util.ArrayList;
 
 public class TypeNode implements JottTree {
+
+    public TypeNode() {
+
+    }
+
+    public static TypeNode parseTypeNode(ArrayList<Token> tokens) {
+        return null;
+    }
+
     @Override
     public String convertToJott() {
         return null;
