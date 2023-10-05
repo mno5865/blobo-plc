@@ -21,7 +21,7 @@ public class FuncDefNode implements JottTree {
     }
 
     public static FuncDefNode parseFuncDefNode(ArrayList<Token> tokens) throws SyntaxException{
-        return null
+        return null;
     }
 
     @Override
