@@ -10,11 +10,26 @@ import java.util.ArrayList;
 public class FuncDefParamNode implements JottTree {
     private IDNode paramName;
     private TypeNode paramType;
-//    private ArrayList<FuncDefParamTailNode> paramType; //todo idk
+    private ArrayList<FuncDefParamTailNode> paramTail;
+
+    public FuncDefParamNode(IDNode paramName, TypeNode paramType, ArrayList<FuncDefParamTailNode> paramTail){
+        this.paramName = paramName;
+        this.paramType = paramType;
+        this.paramTail = paramTail;
+    }
 
     @Override
     public String convertToJott() {
-        return null;
+        String out = "";
+        if (paramName == null){
+            out += this.paramName.convertToJott();
+            out += ":";
+            out += this.paramType.convertToJott();
+            for (FuncDefParamTailNode param : paramTail){
+                out += param.convertToJott();
+            }
+        }
+        return out;
     }
 
     @Override
