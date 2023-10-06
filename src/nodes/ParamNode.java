@@ -2,6 +2,7 @@ package nodes;
 
 import provided.JottTree;
 import provided.Token;
+import provided.TokenType;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,20 @@ public class ParamNode implements JottTree {
     }
 
     public static ParamNode parseParamNode(ArrayList<Token> tokens) {
-        return null;
+        Token token = tokens.get(0);
+        if (token.getTokenType() != TokenType.R_BRACKET) {
+            ExprNode expr = ExprNode.parseExprNode(tokens);
+
+            token = tokens.get(0);
+            ArrayList<ParamTailNode> paramTail = new ArrayList<>();
+            while (token.getTokenType() != TokenType.R_BRACKET) {
+                paramTail.add(ParamTailNode.parseParamTailNode(tokens));
+                token = tokens.get(0);
+            }
+            return new ParamNode(expr, paramTail);
+        }
+
+        return new ParamNode(null, null);
     }
 
     @Override

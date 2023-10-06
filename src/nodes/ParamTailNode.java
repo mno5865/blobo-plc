@@ -1,8 +1,15 @@
 package nodes;
 
 import provided.JottTree;
+import provided.Token;
+
+import java.util.ArrayList;
 
 public class ParamTailNode implements JottTree {
+    public static ParamTailNode parseParamTailNode(ArrayList<Token> tokens) {
+        return null;
+    }
+
     @Override
     public String convertToJott() {
         return null;
