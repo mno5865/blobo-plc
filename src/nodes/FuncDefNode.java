@@ -7,7 +7,7 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
-import static nodes.BasicParsers.parseToken;
+import static nodes.BasicParsers.*;
 
 public class FuncDefNode implements JottTree {
     private IDNode funcName;
@@ -23,7 +23,6 @@ public class FuncDefNode implements JottTree {
     }
 
     public static FuncDefNode parseFuncDefNode(ArrayList<Token> tokens) throws SyntaxException{
-        parseToken(TokenType.STRING, tokens);
         IDNode funcName = IDNode.parseIDNode(tokens);
         parseToken(TokenType.L_BRACKET, tokens);
         FuncDefParamNode params = FuncDefParamNode.parseFuncDefParamNode(tokens);

@@ -7,6 +7,8 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
+import static nodes.BasicParsers.parseToken;
+
 public class FuncDefParamTailNode implements JottTree {
     private IDNode paramName;
     private TypeNode paramType;
@@ -17,28 +19,9 @@ public class FuncDefParamTailNode implements JottTree {
     }
 
     public static FuncDefParamTailNode parseFuncDefParamTailNode(ArrayList<Token> tokens) throws SyntaxException{
-        Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.COMMA){
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
-        }
-        tokens.remove(0);
-
-        token = tokens.get(0);
-        if (token.getTokenType() != TokenType.ID_KEYWORD){
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
-        }
+        parseToken(TokenType.COMMA, tokens);
         IDNode paramName = IDNode.parseIDNode(tokens);
-
-        tokens.get(0);
-        if (token.getTokenType() != TokenType.COLON){
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
-        }
-        tokens.remove(0);
-
-        token = tokens.get(0);
-        if (token.getTokenType() != TokenType.STRING){
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo error description
-        }
+        parseToken(TokenType.COLON, tokens);
         TypeNode paramType = TypeNode.parseTypeNode(tokens);
 
         return new FuncDefParamTailNode(paramName, paramType);

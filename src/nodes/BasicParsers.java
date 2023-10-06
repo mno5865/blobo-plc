@@ -11,34 +11,20 @@ public class BasicParsers {
         Token token = tokens.get(0);
         if (token.getTokenType() != type) {
             String out = "Next token must be '";
-            switch (type){//todo error descriptions
-                case COLON:
-                    out += ":";
-                    break;
-                case STRING:
-                    out += "string";
-                    break;
-                case L_BRACKET:
-                    out += "[";
-                    break;
-                case R_BRACKET:
-                    out += "]";
-                    break;
-                case L_BRACE:
-                    out += "{";
-                    break;
-                case R_BRACE:
-                    out += "}";
-                    break;
-                case FC_HEADER:
-                    out += "::";
-                    break;
-
+            //todo add more error descriptions
+            switch (type) {
+                case COLON -> out += ":";
+                case COMMA -> out += ",";
+                case STRING -> out += "string";
+                case L_BRACKET -> out += "[";
+                case R_BRACKET -> out += "]";
+                case L_BRACE -> out += "{";
+                case R_BRACE -> out += "}";
+                case FC_HEADER -> out += "::";
             }
             out += "'";
             throw new SyntaxException(out, token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);
     }
-
 }
