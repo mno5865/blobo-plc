@@ -68,12 +68,29 @@ public class FuncDefParamNode implements JottTree {
 
     @Override
     public String convertToC() {
-        return null;
+        String out = "";
+        if (paramName != null) {
+            out += paramType.convertToC();
+            out += " ";
+            out += paramName.convertToC();
+            for (FuncDefParamTailNode param : paramTail) {
+                out += param.convertToC();
+            }
+        }
+
+        return out;
     }
 
     @Override
     public String convertToPython() {
-        return null;
+        String out = "";
+        if (paramName != null) {
+            out += paramName.convertToPython();
+            for (FuncDefParamTailNode param : paramTail) {
+                out += param.convertToPython();
+            }
+        }
+        return out;
     }
 
     @Override

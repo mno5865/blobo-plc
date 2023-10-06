@@ -66,12 +66,26 @@ public class FuncDefNode implements JottTree {
 
     @Override
     public String convertToC() {
-        return null;
+        String out = "";
+        out += returnType.convertToC();
+        out += funcName.convertToC();
+        out += "(";
+        out += params.convertToC();
+        out += "){";
+        out += body.convertToC();
+        out += "}";
+        return out;
     }
 
     @Override
     public String convertToPython() {
-        return null;
+        String out = "def ";
+        out += funcName.convertToPython();
+        out += "(";
+        out += params.convertToPython();
+        out += "):\n";
+        out += body.convertToPython();
+        return out;
     }
 
     @Override

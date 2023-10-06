@@ -29,7 +29,7 @@ public class FuncDefParamTailNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = ",";
+        String out = ", ";
         out += this.paramName.convertToJott();
         out += ":";
         out += this.paramType.convertToJott();
@@ -38,7 +38,7 @@ public class FuncDefParamTailNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        String out = ",";
+        String out = ", ";
         out += this.paramType.convertToJava(""); //todo className
         out += " ";
         out += this.paramName.convertToJava(""); //todo className
@@ -47,12 +47,18 @@ public class FuncDefParamTailNode implements JottTree {
 
     @Override
     public String convertToC() {
-        return null;
+        String out = ", ";
+        out += paramType.convertToC();
+        out += " ";
+        out += paramName.convertToC();
+        return out;
     }
 
     @Override
     public String convertToPython() {
-        return null;
+        String out = ", ";
+        out += paramName.convertToPython();
+        return out;
     }
 
     @Override
