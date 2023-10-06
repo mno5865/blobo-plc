@@ -6,7 +6,7 @@ import provided.Token;
 import java.util.ArrayList;
 
 public class FuncCallParamNode implements JottTree {
-    public static FuncCallParamNode parseFCPN(ArrayList<Token> tokens) {
+    public static FuncCallParamNode parseFuncCallParamNode(ArrayList<Token> tokens) {
         return null;
     }
 

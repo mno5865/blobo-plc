@@ -9,23 +9,23 @@ import java.util.ArrayList;
 
 import static nodes.BasicParsers.parseToken;
 
-public class FunctionCallNode implements JottTree {
+public class FuncCallNode implements JottTree {
     private IDNode funcName;
-    private FuncCallParamNode fcp;
+    private FuncCallParamNode params;
 
-    public FunctionCallNode(IDNode funcName, FuncCallParamNode funcCallParamNode) {
+    public FuncCallNode(IDNode funcName, FuncCallParamNode funcCallParamNode) {
         this.funcName = funcName;
-        this.fcp = funcCallParamNode;
+        this.params = funcCallParamNode;
     }
 
-    public static FunctionCallNode parseFunctionCallNode(ArrayList<Token> tokens) throws SyntaxException {
+    public static FuncCallNode parseFunctionCallNode(ArrayList<Token> tokens) throws SyntaxException {
         parseToken(TokenType.FC_HEADER, tokens);
         IDNode funcName = IDNode.parseIDNode(tokens);
         parseToken(TokenType.L_BRACKET, tokens);
-        FuncCallParamNode funcCallParamNode = FuncCallParamNode.parseFCPN(tokens);
+        FuncCallParamNode funcCallParamNode = FuncCallParamNode.parseFuncCallParamNode(tokens);
         parseToken(TokenType.R_BRACKET, tokens);
 
-        return new FunctionCallNode(funcName, funcCallParamNode);
+        return new FuncCallNode(funcName, funcCallParamNode);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class FunctionCallNode implements JottTree {
         String out = "::";
         out += this.funcName.convertToJott();
         out += "[";
-        out += this.fcp.convertToJott();
+        out += this.params.convertToJott();
         out += "]";
         return out;
     }
