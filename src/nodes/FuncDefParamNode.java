@@ -22,12 +22,18 @@ public class FuncDefParamNode implements JottTree {
 
     public static FuncDefParamNode parseFuncDefParamNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.L_BRACKET) {
+        if (token.getTokenType() != TokenType.R_BRACKET) {
             IDNode paramName = IDNode.parseIDNode(tokens);
             parseToken(TokenType.COLON, tokens);
             TypeNode paramType = TypeNode.parseTypeNode(tokens);
-            FuncDefParamTailNode paramTail = FuncDefParamTailNode.parseFuncDefParamTailNode(tokens); //todo loop until end
-//            return new FuncDefParamNode(paramName, paramType, paramTail);
+            ArrayList<FuncDefParamTailNode> paramTail = new ArrayList<>();
+
+            token = tokens.get(0);
+            while (token.getTokenType() != TokenType.R_BRACKET) {
+                paramTail.add(FuncDefParamTailNode.parseFuncDefParamTailNode(tokens));
+                token = tokens.get(0);
+            }
+            return new FuncDefParamNode(paramName, paramType, paramTail);
         }
         return new FuncDefParamNode(null, null, null);
     }
