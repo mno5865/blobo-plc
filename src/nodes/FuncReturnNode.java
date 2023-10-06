@@ -3,6 +3,14 @@ package nodes;
 import provided.JottTree;
 
 public class FuncReturnNode implements JottTree {
+    public FuncReturnNode(){
+
+    }
+
+    public FuncReturnNode parseFuncReturnNode(){
+        return new FuncReturnNode();
+    }
+
     @Override
     public String convertToJott() {
         String out = "";

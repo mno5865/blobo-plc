@@ -3,6 +3,14 @@ package nodes;
 import provided.JottTree;
 
 public class IfStmtNode implements JottTree {
+    public IfStmtNode(){
+
+    }
+
+    public IfStmtNode parseIfStmtNode(){
+        return new IfStmtNode();
+    }
+
     @Override
     public String convertToJott() {
         String out = "";

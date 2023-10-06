@@ -3,6 +3,13 @@ package nodes;
 import provided.JottTree;
 
 public class OpNode implements JottTree {
+    public OpNode(){
+
+    }
+
+    public OpNode parseOpNode(){
+        return new OpNode();
+    }
     @Override
     public String convertToJott() {
         String out = "";

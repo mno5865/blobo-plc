@@ -3,6 +3,14 @@ package nodes;
 import provided.JottTree;
 
 public class WhileLoopNode implements JottTree {
+    public WhileLoopNode(){
+
+    }
+
+    public WhileLoopNode parseWhileLoopNode(){
+        return new WhileLoopNode();
+    }
+
     @Override
     public String convertToJott() {
         String out = "";

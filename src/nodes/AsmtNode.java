@@ -3,6 +3,13 @@ package nodes;
 import provided.JottTree;
 
 public class AsmtNode implements JottTree {
+    public AsmtNode(){
+
+    }
+
+    public AsmtNode parseAsmtNode(){
+        return new AsmtNode();
+    }
     @Override
     public String convertToJott() {
         String out = "";

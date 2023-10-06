@@ -3,6 +3,14 @@ package nodes;
 import provided.JottTree;
 
 public class VarDecNode implements JottTree {
+    public VarDecNode(){
+
+    }
+
+    public VarDecNode parseVarDecNode(){
+        return new VarDecNode();
+    }
+
     @Override
     public String convertToJott() {
         String out = "";

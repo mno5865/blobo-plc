@@ -3,6 +3,14 @@ package nodes;
 import provided.JottTree;
 
 public class BoolNode implements JottTree {
+    public BoolNode(){
+
+    }
+
+    public BoolNode parseBoolNode(){
+        return new BoolNode();
+    }
+
     @Override
     public String convertToJott() {
         String out = "";

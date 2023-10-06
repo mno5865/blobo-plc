@@ -3,6 +3,14 @@ package nodes;
 import provided.JottTree;
 
 public class ElseNode implements JottTree {
+    public ElseNode(){
+
+    }
+
+    public ElseNode parseElseNode(){
+        return new ElseNode();
+    }
+
     @Override
     public String convertToJott() {
         String out = "";
