@@ -40,17 +40,20 @@ public class FuncCallNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        return null;
+        String out = "";
+        return out;
     }
 
     @Override
     public String convertToC() {
-        return null;
+        String out = "";
+        return out;
     }
 
     @Override
     public String convertToPython() {
-        return null;
+        String out = "";
+        return out;
     }
 
     @Override

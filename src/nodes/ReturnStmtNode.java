@@ -1,15 +1,8 @@
 package nodes;
 
 import provided.JottTree;
-import provided.Token;
 
-import java.util.ArrayList;
-
-public class ExprNode implements JottTree {
-    public static ExprNode parseExprNode(ArrayList<Token> tokens) {
-        return null;
-    }
-
+public class ReturnStmtNode implements JottTree {
     @Override
     public String convertToJott() {
         String out = "";
@@ -30,7 +23,8 @@ public class ExprNode implements JottTree {
 
     @Override
     public String convertToPython() {
-        return null;
+        String out = "";
+        return out;
     }
 
     @Override
