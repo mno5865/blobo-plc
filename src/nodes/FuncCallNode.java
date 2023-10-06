@@ -11,21 +11,21 @@ import static nodes.BasicParsers.parseToken;
 
 public class FuncCallNode implements JottTree {
     private IDNode funcName;
-    private FuncCallParamNode params;
+    private ParamNode params;
 
-    public FuncCallNode(IDNode funcName, FuncCallParamNode funcCallParamNode) {
+    public FuncCallNode(IDNode funcName, ParamNode ParamNode) {
         this.funcName = funcName;
-        this.params = funcCallParamNode;
+        this.params = ParamNode;
     }
 
     public static FuncCallNode parseFunctionCallNode(ArrayList<Token> tokens) throws SyntaxException {
         parseToken(TokenType.FC_HEADER, tokens);
         IDNode funcName = IDNode.parseIDNode(tokens);
         parseToken(TokenType.L_BRACKET, tokens);
-        FuncCallParamNode funcCallParamNode = FuncCallParamNode.parseFuncCallParamNode(tokens);
+        ParamNode ParamNode = nodes.ParamNode.parseParamNode(tokens);
         parseToken(TokenType.R_BRACKET, tokens);
 
-        return new FuncCallNode(funcName, funcCallParamNode);
+        return new FuncCallNode(funcName, ParamNode);
     }
 
     @Override

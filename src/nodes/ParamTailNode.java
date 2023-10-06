@@ -1,15 +1,8 @@
 package nodes;
 
 import provided.JottTree;
-import provided.Token;
 
-import java.util.ArrayList;
-
-public class FuncCallParamNode implements JottTree {
-    public static FuncCallParamNode parseFuncCallParamNode(ArrayList<Token> tokens) {
-        return null;
-    }
-
+public class ParamTailNode implements JottTree {
     @Override
     public String convertToJott() {
         return null;
