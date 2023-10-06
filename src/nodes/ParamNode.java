@@ -20,7 +20,14 @@ public class ParamNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        return null;
+        String out = "";
+        if (expr != null) {
+            out += this.expr.convertToJott();
+            for (ParamTailNode param : paramTail) {
+                out += param.convertToJott();
+            }
+        }
+        return out;
     }
 
     @Override

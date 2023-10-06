@@ -16,7 +16,7 @@ public class ProgramNode implements JottTree {
     public static ProgramNode parseProgramNode(ArrayList<Token> tokens) throws SyntaxException {
         if (!tokens.isEmpty()) {
             ArrayList<FuncDefNode> funcDefs = new ArrayList<>();
-            while (!tokens.isEmpty()){
+            while (!tokens.isEmpty()) {
                 funcDefs.add(FuncDefNode.parseFuncDefNode(tokens));
             }
 

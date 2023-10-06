@@ -7,7 +7,7 @@ import provided.TokenType;
 import java.util.ArrayList;
 
 public class BasicParsers {
-    public static void parseToken(TokenType type, ArrayList<Token> tokens) throws SyntaxException{
+    public static void parseToken(TokenType type, ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
         if (token.getTokenType() != type) {
             String out = "Next token must be '";

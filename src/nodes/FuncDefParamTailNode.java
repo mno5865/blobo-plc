@@ -13,12 +13,12 @@ public class FuncDefParamTailNode implements JottTree {
     private IDNode paramName;
     private TypeNode paramType;
 
-    public FuncDefParamTailNode(IDNode paramName, TypeNode paramType){
+    public FuncDefParamTailNode(IDNode paramName, TypeNode paramType) {
         this.paramName = paramName;
         this.paramType = paramType;
     }
 
-    public static FuncDefParamTailNode parseFuncDefParamTailNode(ArrayList<Token> tokens) throws SyntaxException{
+    public static FuncDefParamTailNode parseFuncDefParamTailNode(ArrayList<Token> tokens) throws SyntaxException {
         parseToken(TokenType.COMMA, tokens);
         IDNode paramName = IDNode.parseIDNode(tokens);
         parseToken(TokenType.COLON, tokens);

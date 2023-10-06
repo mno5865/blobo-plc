@@ -15,14 +15,14 @@ public class FuncDefNode implements JottTree {
     private TypeNode returnType;
     private BodyNode body;
 
-    public FuncDefNode(IDNode funcName, FuncDefParamNode params, TypeNode returnType, BodyNode body){
+    public FuncDefNode(IDNode funcName, FuncDefParamNode params, TypeNode returnType, BodyNode body) {
         this.funcName = funcName;
         this.params = params;
         this.returnType = returnType;
         this.body = body;
     }
 
-    public static FuncDefNode parseFuncDefNode(ArrayList<Token> tokens) throws SyntaxException{
+    public static FuncDefNode parseFuncDefNode(ArrayList<Token> tokens) throws SyntaxException {
         IDNode funcName = IDNode.parseIDNode(tokens);
         parseToken(TokenType.L_BRACKET, tokens);
         FuncDefParamNode params = FuncDefParamNode.parseFuncDefParamNode(tokens);
