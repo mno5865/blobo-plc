@@ -1,18 +1,34 @@
 package nodes;
 
+import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
+import provided.TokenType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TypeNode implements JottTree {
 
-    public TypeNode() {
+    private String type;
 
+    public TypeNode(String type) {
+        this.type = type;
     }
 
-    public static TypeNode parseTypeNode(ArrayList<Token> tokens) {
-        return null;
+    public static TypeNode parseTypeNode(ArrayList<Token> tokens) throws SyntaxException {
+        Token token = tokens.get(0);
+        String tokenString = token.getToken();
+        if (token.getTokenType() != TokenType.ID_KEYWORD) {
+            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
+        }
+        return switch (tokenString) {
+            case "Double" -> new TypeNode("Double");
+            case "Integer" -> new TypeNode("Integer");
+            case "String" -> new TypeNode("String");
+            case "Boolean" -> new TypeNode("Boolean");
+            default -> null;
+        };
     }
 
     @Override
