@@ -1,13 +1,16 @@
 package nodes;
 
 import provided.JottTree;
+import provided.Token;
+
+import java.util.ArrayList;
 
 public class OpNode implements JottTree {
     public OpNode(){
 
     }
 
-    public OpNode parseOpNode(){
+    public static OpNode parseOpNode(ArrayList<Token> tokens){
         return new OpNode();
     }
     @Override

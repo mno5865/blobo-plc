@@ -1,13 +1,16 @@
 package nodes;
 
 import provided.JottTree;
+import provided.Token;
+
+import java.util.ArrayList;
 
 public class IfStmtNode implements JottTree {
     public IfStmtNode(){
 
     }
 
-    public IfStmtNode parseIfStmtNode(){
+    public static IfStmtNode parseIfStmtNode(ArrayList<Token> tokens){
         return new IfStmtNode();
     }
 
