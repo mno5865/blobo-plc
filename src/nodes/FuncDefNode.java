@@ -12,10 +12,10 @@ import static nodes.BasicParsers.*;
 public class FuncDefNode implements JottTree {
     private IDNode funcName;
     private FuncDefParamNode params;
-    private TypeNode returnType;
+    private FuncReturnNode returnType;
     private BodyNode body;
 
-    public FuncDefNode(IDNode funcName, FuncDefParamNode params, TypeNode returnType, BodyNode body) {
+    public FuncDefNode(IDNode funcName, FuncDefParamNode params, FuncReturnNode returnType, BodyNode body) {
         this.funcName = funcName;
         this.params = params;
         this.returnType = returnType;
@@ -28,7 +28,7 @@ public class FuncDefNode implements JottTree {
         FuncDefParamNode params = FuncDefParamNode.parseFuncDefParamNode(tokens);
         parseToken(TokenType.R_BRACKET, tokens);
         parseToken(TokenType.COLON, tokens);
-        TypeNode returnType = TypeNode.parseTypeNode(tokens);
+        FuncReturnNode returnType = FuncReturnNode.parseFuncReturnNode(tokens);
         parseToken(TokenType.L_BRACE, tokens);
         BodyNode body = BodyNode.parseBodyNode(tokens);
         parseToken(TokenType.R_BRACE, tokens);

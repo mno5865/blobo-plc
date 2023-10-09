@@ -1,13 +1,18 @@
 package nodes;
 
 import provided.JottTree;
+import provided.Token;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class FuncReturnNode implements JottTree {
+    private TypeNode type;
     public FuncReturnNode(){
 
     }
 
-    public FuncReturnNode parseFuncReturnNode(){
+    public static FuncReturnNode parseFuncReturnNode(ArrayList<Token> tokens){
         return new FuncReturnNode();
     }
 
