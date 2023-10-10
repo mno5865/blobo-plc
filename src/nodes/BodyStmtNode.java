@@ -53,17 +53,7 @@ public class BodyStmtNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = "";
-        if (ifStmt != null)
-            out += ifStmt.convertToJott();
-        else if (whileLoop != null)
-            out += whileLoop.convertToJott();
-        else if (assignment != null)
-            out += assignment.convertToJott();
-        else if (varDec != null)
-            out += varDec.convertToJott();
-        else if (funcCall != null)
-            out += funcCall.convertToJott();
+        String out = this.bodyStmt.convertToJott();
         return out + ";";
     }
 
