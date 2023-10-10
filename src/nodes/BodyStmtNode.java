@@ -7,6 +7,8 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
+import static nodes.BasicParsers.parseToken;
+
 public class BodyStmtNode implements JottTree {
 
     private final JottTree bodyStmt;
@@ -44,10 +46,7 @@ public class BodyStmtNode implements JottTree {
         } else if (token.getTokenType() == TokenType.FC_HEADER) {
             bodyStmtNode = FuncCallNode.parseFunctionCallNode(tokens);
         }
-
-        if (token.getTokenType() != TokenType.SEMICOLON) {
-            throw new SyntaxException(); // elaborate later
-        }
+        parseToken(TokenType.SEMICOLON, tokens);
         return new BodyStmtNode(bodyStmtNode);
     }
 

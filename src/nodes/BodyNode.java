@@ -29,16 +29,10 @@ public class BodyNode implements JottTree {
             } else {
                 bodyStmtNodes.add(BodyStmtNode.parseBodyStmtNode(tokens));
             }
-            if (token.getTokenType() != TokenType.SEMICOLON) {
-                throw new SyntaxException("Insert message here", token.getFilename(), token.getLineNum());
-            }
         }
         ReturnStmtNode returnStmtNode = null;
         if (!tokens.isEmpty()){
             returnStmtNode = ReturnStmtNode.parseReturnStmtnode(tokens);
-            if (token.getTokenType() != TokenType.SEMICOLON) {
-                throw new SyntaxException("Insert message here", token.getFilename(), token.getLineNum());
-            }
         }
         return new BodyNode(bodyStmtNodes, returnStmtNode);
     }
