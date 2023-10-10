@@ -12,10 +12,10 @@ import static nodes.BasicParsers.*;
 public class FuncDefNode implements JottTree {
     private IDNode funcName;
     private FuncDefParamNode params;
-    private TypeNode returnType;
+    private FuncReturnNode returnType;
     private BodyNode body;
 
-    public FuncDefNode(IDNode funcName, FuncDefParamNode params, TypeNode returnType, BodyNode body) {
+    public FuncDefNode(IDNode funcName, FuncDefParamNode params, FuncReturnNode returnType, BodyNode body) {
         this.funcName = funcName;
         this.params = params;
         this.returnType = returnType;
@@ -23,12 +23,20 @@ public class FuncDefNode implements JottTree {
     }
 
     public static FuncDefNode parseFuncDefNode(ArrayList<Token> tokens) throws SyntaxException {
+        Token token = tokens.get(0);
+        if (token.getTokenType() != TokenType.ID_KEYWORD) {
+            throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
+        } else if (!token.getToken().equals("def")) {
+            throw new SyntaxException("Next token must be an id_keyword of def", token.getFilename(), token.getLineNum());
+        }
+        tokens.remove(0);
+
         IDNode funcName = IDNode.parseIDNode(tokens);
         parseToken(TokenType.L_BRACKET, tokens);
         FuncDefParamNode params = FuncDefParamNode.parseFuncDefParamNode(tokens);
         parseToken(TokenType.R_BRACKET, tokens);
         parseToken(TokenType.COLON, tokens);
-        TypeNode returnType = TypeNode.parseTypeNode(tokens);
+        FuncReturnNode returnType = FuncReturnNode.parseFuncReturnNode(tokens);
         parseToken(TokenType.L_BRACE, tokens);
         BodyNode body = BodyNode.parseBodyNode(tokens);
         parseToken(TokenType.R_BRACE, tokens);

@@ -13,6 +13,7 @@ public class AsmtNode implements JottTree {
     public static AsmtNode parseAsmtNode(ArrayList<Token> tokens){
         return new AsmtNode();
     }
+
     @Override
     public String convertToJott() {
         String out = "";

@@ -6,6 +6,11 @@ import provided.Token;
 import java.util.ArrayList;
 
 public class ParamTailNode implements JottTree {
+
+    public ParamTailNode(){
+
+    }
+
     public static ParamTailNode parseParamTailNode(ArrayList<Token> tokens) {
         return null;
     }
