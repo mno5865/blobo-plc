@@ -44,17 +44,21 @@ public class BodyStmtNode implements JottTree {
             TypeNode.parseTypeNode(tempTokens);
             IDNode.parseIDNode(tempTokens);
             token = tempTokens.get(0);
-            if (token.getToken().equals("=")){
+            if (token.getTokenType() == TokenType.ASSIGN){
                 TypeNode.parseTypeNode(tokens);
                 IDNode.parseIDNode(tokens);
                 assignmentNode = AsmtNode.parseAsmtNode(tokens);
-            } else if (token.getToken().equals(";")) {
+            } else if (token.getTokenType() == TokenType.SEMICOLON) {
                 TypeNode.parseTypeNode(tokens);
                 IDNode.parseIDNode(tokens);
                 varDecNode = VarDecNode.parseVarDecNode(tokens);
             }
         } else if (token.getTokenType() == TokenType.FC_HEADER) {
             funcCallNode = FuncCallNode.parseFunctionCallNode(tokens);
+        }
+
+        if (token.getTokenType() != TokenType.SEMICOLON) {
+            throw new SyntaxException(); // elaborate later
         }
         return new BodyStmtNode(ifStmtNode, whileLoopNode, assignmentNode, varDecNode, funcCallNode);
     }

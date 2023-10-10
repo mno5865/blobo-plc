@@ -21,10 +21,6 @@ public class BodyNode implements JottTree {
     }
 
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxException {
-        if (tokens.get(0).getTokenType() != TokenType.L_BRACE) {
-            throw new SyntaxException("Insert message here", tokens.get(0).getFilename(), tokens.get(0).getLineNum());
-        }
-        parseToken(TokenType.L_BRACE, tokens);
         ArrayList<BodyStmtNode> bodyStmtNodes = new ArrayList<>();
         Token token = tokens.get(0);
         while(!tokens.isEmpty() && !token.getToken().equals("return")) {
@@ -33,15 +29,17 @@ public class BodyNode implements JottTree {
             } else {
                 bodyStmtNodes.add(BodyStmtNode.parseBodyStmtNode(tokens));
             }
+            if (token.getTokenType() != TokenType.SEMICOLON) {
+                throw new SyntaxException("Insert message here", token.getFilename(), token.getLineNum());
+            }
         }
         ReturnStmtNode returnStmtNode = null;
         if (!tokens.isEmpty()){
             returnStmtNode = ReturnStmtNode.parseReturnStmtnode(tokens);
+            if (token.getTokenType() != TokenType.SEMICOLON) {
+                throw new SyntaxException("Insert message here", token.getFilename(), token.getLineNum());
+            }
         }
-        if (token.getTokenType() != TokenType.R_BRACE) {
-            throw new SyntaxException("Insert message here", token.getFilename(), token.getLineNum());
-        }
-        parseToken(TokenType.R_BRACE, tokens);
         return new BodyNode(bodyStmtNodes, returnStmtNode);
     }
 
