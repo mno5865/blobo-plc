@@ -20,13 +20,14 @@ public class ReturnStmtNode implements JottTree {
     }
 
     public static ReturnStmtNode parseReturnStmtnode(ArrayList<Token> tokens) throws SyntaxException {
-        if(tokens.get(0).getTokenType() != TokenType.ID_KEYWORD){
+        if (tokens.get(0).getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException(); //elaborate here
         }
         IDNode returnID = IDNode.parseIDNode(tokens);
         ExprNode exprNode = ExprNode.parseExprNode(tokens);
         return new ReturnStmtNode(returnID, exprNode);
     }
+
     @Override
     public String convertToJott() {
         String out = returnKeyword.convertToJott();
