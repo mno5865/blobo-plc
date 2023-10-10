@@ -1,13 +1,16 @@
 package nodes;
 
 import provided.JottTree;
+import provided.Token;
+
+import java.util.ArrayList;
 
 public class WhileLoopNode implements JottTree {
     public WhileLoopNode(){
 
     }
 
-    public WhileLoopNode parseWhileLoopNode(){
+    public static WhileLoopNode parseWhileLoopNode(ArrayList<Token> tokens){
         return new WhileLoopNode();
     }
 
