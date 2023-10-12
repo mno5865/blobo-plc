@@ -1,48 +1,44 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
 
-public class OpNode implements ExprNode {
-    private Token operator;
+public class StringNode implements ExprNode {
+    private Token stringLiteral;
 
-    public OpNode(Token operator){
-        this.operator = operator;
+    public StringNode(Token str) {
+        this.stringLiteral = str;
     }
 
-    public static OpNode parseOpNode(ArrayList<Token> tokens) throws SyntaxException {
+    public static StringNode parseStringNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.REL_OP || token.getTokenType() != TokenType.MATH_OP) {
+        if (token.getTokenType() != TokenType.STRING) {
             throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
         }
-        return new OpNode(tokens.remove(0));
+        return new StringNode(tokens.remove(0));
     }
 
     @Override
     public String convertToJott() {
-        return this.operator.getToken();
+        return this.stringLiteral.getToken();
     }
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return null;
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        return null;
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        return null;
     }
 
     @Override

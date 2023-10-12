@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static nodes.BasicParsers.parseToken;
 
-public class FuncCallNode implements JottTree {
+public class FuncCallNode implements ExprNode {
     private IDNode funcName;
     private ParamNode params;
 

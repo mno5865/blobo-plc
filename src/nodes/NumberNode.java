@@ -7,7 +7,7 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
-public class NumberNode implements JottTree {
+public class NumberNode implements ExprNode {
     private Token number;
 
     public NumberNode(Token number) {

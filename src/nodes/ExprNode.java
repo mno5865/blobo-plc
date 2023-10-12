@@ -1,40 +1,46 @@
 package nodes;
 
+import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
+import provided.TokenType;
 
 import java.util.ArrayList;
 
-public class ExprNode implements JottTree {
-    public static ExprNode parseExprNode(ArrayList<Token> tokens) {
-        return null;
-    }
+public interface ExprNode extends JottTree {
+    public static ExprNode parseExprNode(ArrayList<Token> tokens) throws SyntaxException {
+        TokenType type = tokens.get(0).getTokenType();
+        boolean tokenIsBoolean = tokens.get(0).getToken().equals("True") || tokens.get(0).getToken().equals("False");
 
-    @Override
-    public String convertToJott() {
-        String out = "";
-        return out;
-    }
+        if (type == TokenType.ID_KEYWORD && tokenIsBoolean) {
+            return BoolNode.parseBoolNode(tokens);
+        } if (type == TokenType.STRING) {
+            return StringNode.parseStringNode(tokens);
+        }
 
-    @Override
-    public String convertToJava(String className) {
-        String out = "";
-        return out;
-    }
+        ExprNode left = null;
 
-    @Override
-    public String convertToC() {
-        String out = "";
-        return out;
-    }
+        if (type == TokenType.ID_KEYWORD) {
+            left = IDNode.parseIDNode(tokens);
+        } else if (type == TokenType.NUMBER) {
+            left = NumberNode.parseNumberNode(tokens);
+        } else if (type == TokenType.FC_HEADER) {
+            left = FuncCallNode.parseFunctionCallNode(tokens);
+        }
 
-    @Override
-    public String convertToPython() {
-        return null;
-    }
+        if (left == null) {
+            throw new SyntaxException("", tokens.get(0).getFilename(), tokens.get(0).getLineNum()); //todo syntax exception
+        }
 
-    @Override
-    public boolean validateTree() {
-        return false;
+        ExprNode operator;
+        type = tokens.get(0).getTokenType();
+
+        if (type == TokenType.MATH_OP || type == TokenType.REL_OP) {
+            operator = OpNode.parseOpNode(tokens);
+            ExprNode right = ExprNode.parseExprNode(tokens);
+            return new BinaryOperationNode(operator, left, right);
+        } else {
+            return left;
+        }
     }
 }

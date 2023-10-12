@@ -1,20 +1,31 @@
 package nodes;
 
+import errors.SyntaxException;
 import provided.JottTree;
+import provided.Token;
+import provided.TokenType;
 
-public class BoolNode implements JottTree {
-    public BoolNode(){
+import java.util.ArrayList;
 
+public class BoolNode implements ExprNode {
+    private Token bool;
+
+    public BoolNode(Token bool) {
+        this.bool = bool;
     }
 
-    public BoolNode parseBoolNode(){
-        return new BoolNode();
+    public static BoolNode parseBoolNode(ArrayList<Token> tokens) throws SyntaxException {
+        Token token = tokens.get(0);
+        boolean tokenIsBoolean = tokens.get(0).getToken().equals("True") || tokens.get(0).getToken().equals("False");
+        if (token.getTokenType() != TokenType.ID_KEYWORD || !tokenIsBoolean) {
+            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
+        }
+        return new BoolNode(tokens.remove(0));
     }
 
     @Override
     public String convertToJott() {
-        String out = "";
-        return out;
+        return this.bool.getToken();
     }
 
     @Override
