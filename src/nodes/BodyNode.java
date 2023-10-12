@@ -20,7 +20,6 @@ public class BodyNode implements JottTree {
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxException {
         ArrayList<BodyStmtNode> bodyStmtNodes = new ArrayList<>();
         Token token = tokens.get(0);
-        while(!tokens.isEmpty() && !token.getToken().equals("return")) {
         while (!tokens.isEmpty() && !token.getToken().equals("return")) {
             if (token.getTokenType() != TokenType.ID_KEYWORD || token.getTokenType() != TokenType.FC_HEADER) {
                 throw new SyntaxException("Next token must be header, id, keyword", token.getFilename(), token.getLineNum());
@@ -38,10 +37,10 @@ public class BodyNode implements JottTree {
     @Override
     public String convertToJott() {
         StringBuilder out = new StringBuilder();
-        for (BodyStmtNode stmt: this.bodyStmts) {
+        for (BodyStmtNode stmt : this.bodyStmts) {
             out.append(stmt.convertToJott()).append(";\n");
         }
-        out = new StringBuilder((this.returnStmt != null) ? out.toString() + this.returnStmt: out.toString());
+        out = new StringBuilder((this.returnStmt != null) ? out.toString() + this.returnStmt : out.toString());
         return out.toString();
     }
 

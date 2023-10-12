@@ -53,7 +53,7 @@ public class BodyStmtNode implements JottTree {
     @Override
     public String convertToJott() {
         String out = this.bodyStmt.convertToJott();
-        if(this.isFunctionHeader)
+        if (this.isFunctionHeader)
             out += ";";
         return out;
     }
