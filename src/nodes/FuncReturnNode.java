@@ -18,7 +18,7 @@ public class FuncReturnNode implements JottTree {
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
         }
-        return new FuncReturnNode(token);
+        return new FuncReturnNode(tokens.remove(0));
     }
 
     @Override
