@@ -11,34 +11,31 @@ import static nodes.BasicParsers.parseToken;
 
 public class ReturnStmtNode implements JottTree {
 
-    private final IDNode returnKeyword;
     private final ExprNode expression;
 
-    public ReturnStmtNode(IDNode returnKeyword, ExprNode expression) {
-        this.returnKeyword = returnKeyword;
+    public ReturnStmtNode(ExprNode expression) {
         this.expression = expression;
     }
 
     public static ReturnStmtNode parseReturnStmtnode(ArrayList<Token> tokens) throws SyntaxException {
         if (!tokens.isEmpty()) {
-            if (tokens.get(0).getTokenType() != TokenType.ID_KEYWORD) {
-                throw new SyntaxException(); //elaborate here
+            if (tokens.get(0).getTokenType() != TokenType.ID_KEYWORD || !tokens.get(0).getToken().equals("return")) {
+                throw new SyntaxException("Missing return keyword", tokens.get(0).getFilename(), tokens.get(0).getLineNum());
             }
-            IDNode returnID = IDNode.parseIDNode(tokens);
+            IDNode.parseIDNode(tokens);
             ExprNode exprNode = ExprNode.parseExprNode(tokens);
             parseToken(TokenType.SEMICOLON, tokens);
-            return new ReturnStmtNode(returnID, exprNode);
+            return new ReturnStmtNode(exprNode);
         } else {
-            return null;
+            return new ReturnStmtNode(null);
         }
     }
 
     @Override
     public String convertToJott() {
-        String out = returnKeyword.convertToJott();
-        out += " ";
-        out += expression.convertToJott();
-        return out;
+        if (this.expression != null)
+            return "return " + expression.convertToJott() + ";";
+        else return "";
     }
 
     @Override
