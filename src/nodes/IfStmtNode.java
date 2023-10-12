@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
 
@@ -10,7 +11,7 @@ public class IfStmtNode implements JottTree {
 
     }
 
-    public static IfStmtNode parseIfStmtNode(ArrayList<Token> tokens){
+    public static IfStmtNode parseIfStmtNode(ArrayList<Token> tokens) throws SyntaxException {
         return new IfStmtNode();
     }
 
