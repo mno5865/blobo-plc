@@ -23,6 +23,10 @@ public class BodyNode implements JottTree {
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxException {
         ArrayList<BodyStmtNode> bodyStmtNodes = new ArrayList<>();
         Token token = tokens.get(0);
+        if (token.getTokenType() != TokenType.L_BRACE) {
+            throw new SyntaxException(); // elaborate
+        }
+        parseToken(TokenType.L_BRACE, tokens);
         while(!tokens.isEmpty() && !token.getToken().equals("return")) {
             if (token.getTokenType() != TokenType.ID_KEYWORD || token.getTokenType() != TokenType.FC_HEADER) {
                 throw new SyntaxException("Insert message here", token.getFilename(), token.getLineNum());
@@ -34,6 +38,10 @@ public class BodyNode implements JottTree {
         if (!tokens.isEmpty()){
             returnStmtNode = ReturnStmtNode.parseReturnStmtnode(tokens);
         }
+        if (token.getTokenType() != TokenType.R_BRACE) {
+            throw new SyntaxException(); // elaborate
+        }
+        parseToken(TokenType.R_BRACE, tokens);
         return new BodyNode(bodyStmtNodes, returnStmtNode);
     }
 
