@@ -38,6 +38,8 @@ public class BodyStmtNode implements JottTree {
             if (token.getTokenType() == TokenType.ASSIGN) {
                 bodyStmtNode = AsmtNode.parseAsmtNode(tokens);
             } else if (token.getTokenType() == TokenType.SEMICOLON) {
+                TypeNode.parseTypeNode(tokens);
+                IDNode.parseIDNode(tokens);
                 bodyStmtNode = VarDecNode.parseVarDecNode(tokens);
             }
         } else if (token.getTokenType() == TokenType.FC_HEADER) {
@@ -51,7 +53,7 @@ public class BodyStmtNode implements JottTree {
     @Override
     public String convertToJott() {
         String out = this.bodyStmt.convertToJott();
-        if (this.isFunctionHeader)
+        if(this.isFunctionHeader)
             out += ";";
         return out;
     }
@@ -75,5 +77,4 @@ public class BodyStmtNode implements JottTree {
     public boolean validateTree() {
         return false;
     }
-
 }
