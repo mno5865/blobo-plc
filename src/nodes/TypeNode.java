@@ -21,6 +21,7 @@ public class TypeNode implements JottTree {
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
         }
+        tokens.remove(0);
         return switch (tokenString) {
             case "Double" -> new TypeNode("Double");
             case "Integer" -> new TypeNode("Integer");
