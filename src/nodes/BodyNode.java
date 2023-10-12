@@ -7,9 +7,6 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
-import static nodes.BasicParsers.parseToken;
-
-
 public class BodyNode implements JottTree {
 
     private ArrayList<BodyStmtNode> bodyStmts;
@@ -23,35 +20,27 @@ public class BodyNode implements JottTree {
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxException {
         ArrayList<BodyStmtNode> bodyStmtNodes = new ArrayList<>();
         Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.L_BRACE) {
-            throw new SyntaxException(); // elaborate
-        }
-        parseToken(TokenType.L_BRACE, tokens);
-        while(!tokens.isEmpty() && !token.getToken().equals("return")) {
+        while (!tokens.isEmpty() && !token.getToken().equals("return")) {
             if (token.getTokenType() != TokenType.ID_KEYWORD || token.getTokenType() != TokenType.FC_HEADER) {
-                throw new SyntaxException("Insert message here", token.getFilename(), token.getLineNum());
+                throw new SyntaxException("Next token must be header, id, keyword", token.getFilename(), token.getLineNum());
             } else {
                 bodyStmtNodes.add(BodyStmtNode.parseBodyStmtNode(tokens));
             }
         }
         ReturnStmtNode returnStmtNode = null;
-        if (!tokens.isEmpty()){
+        if (!tokens.isEmpty()) {
             returnStmtNode = ReturnStmtNode.parseReturnStmtnode(tokens);
         }
-        if (token.getTokenType() != TokenType.R_BRACE) {
-            throw new SyntaxException(); // elaborate
-        }
-        parseToken(TokenType.R_BRACE, tokens);
         return new BodyNode(bodyStmtNodes, returnStmtNode);
     }
 
     @Override
     public String convertToJott() {
         StringBuilder out = new StringBuilder();
-        for (BodyStmtNode stmt: this.bodyStmts) {
+        for (BodyStmtNode stmt : this.bodyStmts) {
             out.append(stmt.convertToJott()).append(";\n");
         }
-        out = new StringBuilder((this.returnStmt != null) ? out.toString() + this.returnStmt + ";" : out.toString());
+        out = new StringBuilder((this.returnStmt != null) ? out.toString() + this.returnStmt : out.toString());
         return out.toString();
     }
 
@@ -64,7 +53,7 @@ public class BodyNode implements JottTree {
     @Override
     public String convertToC() {
         String out = "";
-        for (BodyStmtNode bodyStmt: bodyStmts) {
+        for (BodyStmtNode bodyStmt : bodyStmts) {
             out += "\t" + bodyStmt.convertToC();
         }
         out += "\t" + returnStmt.convertToC();
@@ -74,7 +63,7 @@ public class BodyNode implements JottTree {
     @Override
     public String convertToPython() {
         String out = "";
-        for (BodyStmtNode bodyStmt: bodyStmts) {
+        for (BodyStmtNode bodyStmt : bodyStmts) {
             out += "\t" + bodyStmt.convertToPython();
         }
         out += "\t" + returnStmt.convertToPython();
