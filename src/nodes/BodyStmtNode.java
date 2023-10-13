@@ -21,7 +21,7 @@ public class BodyStmtNode implements JottTree {
 
     public static BodyStmtNode parseBodyStmtNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.ID_KEYWORD || token.getTokenType() != TokenType.FC_HEADER) {
+        if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.FC_HEADER)) {
             throw new SyntaxException("Body statement must start with function header, id, or keyword", token.getFilename(), token.getLineNum());
         }
         JottTree bodyStmtNode = null;

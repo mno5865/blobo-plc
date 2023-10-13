@@ -20,15 +20,16 @@ public class BodyNode implements JottTree {
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxException {
         ArrayList<BodyStmtNode> bodyStmtNodes = new ArrayList<>();
         Token token = tokens.get(0);
-        while (!tokens.isEmpty() && !token.getToken().equals("return")) {
-            if (token.getTokenType() != TokenType.ID_KEYWORD || token.getTokenType() != TokenType.FC_HEADER) {
+        while (!tokens.isEmpty() && token.getTokenType() != TokenType.R_BRACE && !token.getToken().equals("return")) {
+            if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.FC_HEADER)) {
                 throw new SyntaxException("Next token must be header, id, keyword", token.getFilename(), token.getLineNum());
             } else {
                 bodyStmtNodes.add(BodyStmtNode.parseBodyStmtNode(tokens));
             }
+            token = tokens.get(0); //todo if there's no closing right brace and the function just ends abruptly this might crash, prob should add error checking here
         }
         ReturnStmtNode returnStmtNode = null;
-        if (!tokens.isEmpty()) {
+        if (!tokens.isEmpty() && token.getTokenType() != TokenType.R_BRACE) {
             returnStmtNode = ReturnStmtNode.parseReturnStmtnode(tokens);
         }
         return new BodyNode(bodyStmtNodes, returnStmtNode);
@@ -38,10 +39,10 @@ public class BodyNode implements JottTree {
     public String convertToJott() {
         StringBuilder out = new StringBuilder();
         for (BodyStmtNode stmt : this.bodyStmts) {
-            out.append(stmt.convertToJott()).append(";\n");
+            out.append("\n\t").append(stmt.convertToJott());
         }
         out = new StringBuilder((this.returnStmt != null) ? out.toString() + this.returnStmt : out.toString());
-        return out.toString();
+        return out.toString().concat("\n");
     }
 
     @Override
