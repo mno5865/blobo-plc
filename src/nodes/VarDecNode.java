@@ -27,8 +27,7 @@ public class VarDecNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = "";
-        return out;
+        return this.type.getToken() + this.id;
     }
 
     @Override
