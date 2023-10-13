@@ -7,6 +7,9 @@ package provided;
  * @author
  */
 
+import errors.SyntaxException;
+import nodes.ProgramNode;
+
 import java.util.ArrayList;
 
 public class JottParser {
@@ -18,6 +21,12 @@ public class JottParser {
      *         or null upon an error in parsing.
      */
     public static JottTree parse(ArrayList<Token> tokens){
-		return null;
+        JottTree tree = null;
+        try {
+            tree = ProgramNode.parseProgramNode(tokens);
+        } catch (SyntaxException e)  {
+            System.err.print(e);
+        }
+        return tree;
     }
 }

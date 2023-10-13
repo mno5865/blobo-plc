@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
@@ -15,7 +16,7 @@ public class ParamNode implements JottTree {
         this.paramTail = paramTail;
     }
 
-    public static ParamNode parseParamNode(ArrayList<Token> tokens) {
+    public static ParamNode parseParamNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
         if (token.getTokenType() != TokenType.R_BRACKET) {
             ExprNode expr = ExprNode.parseExprNode(tokens);
