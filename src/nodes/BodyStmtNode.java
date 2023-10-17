@@ -21,12 +21,9 @@ public interface BodyStmtNode extends JottTree {
         } else if (token.getToken().equals("while")) {
             return WhileLoopNode.parseWhileLoopNode(tokens);
         } else if (token.getTokenType() == TokenType.ID_KEYWORD) {
-            TypeNode.parseTypeNode(tokens);
-            IDNode.parseIDNode(tokens);
-            token = tokens.get(0);
-            if (token.getTokenType() == TokenType.ASSIGN) {
+            if (tokens.get(2).getTokenType() == TokenType.ASSIGN) {
                 return AsmtNode.parseAsmtNode(tokens);
-            } else if (token.getTokenType() == TokenType.SEMICOLON) {
+            } else if (tokens.get(2).getTokenType() == TokenType.SEMICOLON) {
                 TypeNode.parseTypeNode(tokens);
                 IDNode.parseIDNode(tokens);
                 return VarDecNode.parseVarDecNode(tokens);
