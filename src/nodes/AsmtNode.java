@@ -18,19 +18,32 @@ public class AsmtNode implements JottTree {
     }
 
     public static AsmtNode parseAsmtNode(ArrayList<Token> tokens) throws SyntaxException {
-        Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
+        Token token1 = tokens.get(0);
+        Token token2 = tokens.get(1);
+        if (token1.getTokenType() != TokenType.ID_KEYWORD) {
+            throw new SyntaxException("Next token must be 'id_keyword'", token1.getFilename(), token1.getLineNum());
         }
-        Token type = tokens.remove(0);
+        if (token2.getTokenType() != TokenType.ID_KEYWORD && token2.getTokenType() != TokenType.ASSIGN) {
+            throw new SyntaxException("Next token must be 'id_keyword' or 'assign'", token2.getFilename(),
+                    token2.getLineNum());
+        }
+        Token type = null;
+        if (token2.getTokenType() == TokenType.ID_KEYWORD) {
+            type = tokens.remove(0);
+        }
         IDNode id = IDNode.parseIDNode(tokens);
+        BasicParsers.parseToken(TokenType.ASSIGN, tokens);
         ExprNode expr = ExprNode.parseExprNode(tokens);
         return new AsmtNode(type, id, expr);
     }
 
     @Override
     public String convertToJott() {
-        return this.type.getToken() + this.id + this.expr;
+        String out = "";
+        if (this.type != null) {
+            out += this.type.getToken();
+        }
+        return out + this.id + "=" + this.expr + ";";
     }
 
     @Override
