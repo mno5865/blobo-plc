@@ -1,7 +1,6 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 
 import static nodes.BasicParsers.parseToken;
 
-public class IfStmtNode implements JottTree {
+public class IfStmtNode implements BodyStmtNode {
 
     private final ExprNode expr;
     private final BodyNode body;
@@ -79,20 +78,17 @@ public class IfStmtNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override

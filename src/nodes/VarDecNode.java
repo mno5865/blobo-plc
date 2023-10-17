@@ -1,15 +1,15 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
 
-public class VarDecNode implements JottTree {
-    private Token type;
-    private IDNode id;
+public class VarDecNode implements BodyStmtNode {
+
+    private final Token type;
+    private final IDNode id;
 
     public VarDecNode(Token type, IDNode id) {
         this.type = type;
@@ -33,20 +33,17 @@ public class VarDecNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override

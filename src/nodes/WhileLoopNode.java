@@ -1,7 +1,6 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
@@ -9,10 +8,10 @@ import java.util.ArrayList;
 
 import static nodes.BasicParsers.parseToken;
 
-public class WhileLoopNode implements JottTree {
+public class WhileLoopNode implements BodyStmtNode {
 
-    private ExprNode expr;
-    private BodyNode body;
+    private final ExprNode expr;
+    private final BodyNode body;
 
     public WhileLoopNode(ExprNode expr, BodyNode body) {
         this.expr = expr;
@@ -50,20 +49,17 @@ public class WhileLoopNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override

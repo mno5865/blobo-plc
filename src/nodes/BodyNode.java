@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class BodyNode implements JottTree {
 
-    private ArrayList<BodyStmtNode> bodyStmts;
-    private ReturnStmtNode returnStmt;
+    private final ArrayList<BodyStmtNode> bodyStmts;
+    private final ReturnStmtNode returnStmt;
 
     public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt) {
         this.bodyStmts = bodyStmts;
@@ -22,13 +22,13 @@ public class BodyNode implements JottTree {
         Token token = tokens.get(0);
         while (token.getTokenType() != TokenType.R_BRACE && !token.getToken().equals("return")) {
             if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.FC_HEADER)) {
-                throw new SyntaxException("Next token must be header, id, keyword", token.getFilename(), token.getLineNum());
+                throw new SyntaxException("Next token must be header, id or keyword", token.getFilename(), token.getLineNum());
             } else {
                 bodyStmtNodes.add(BodyStmtNode.parseBodyStmtNode(tokens));
             }
             if (tokens.isEmpty()) {
                 throw new SyntaxException("Missing closing brace }",
-                        tokens.get(0).getFilename(), tokens.get(0).getLineNum());
+                        token.getFilename(), token.getLineNum());
             }
             token = tokens.get(0);
         }
@@ -51,28 +51,27 @@ public class BodyNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToC() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         for (BodyStmtNode bodyStmt : bodyStmts) {
-            out += "\t" + bodyStmt.convertToC();
+            out.append("\t").append(bodyStmt.convertToC());
         }
-        out += "\t" + returnStmt.convertToC();
-        return out;
+        out.append("\t").append(returnStmt.convertToC());
+        return out.toString();
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         for (BodyStmtNode bodyStmt : bodyStmts) {
-            out += "\t" + bodyStmt.convertToPython();
+            out.append("\t").append(bodyStmt.convertToPython());
         }
-        out += "\t" + returnStmt.convertToPython();
-        return out;
+        out.append("\t").append(returnStmt.convertToPython());
+        return out.toString();
     }
 
     @Override

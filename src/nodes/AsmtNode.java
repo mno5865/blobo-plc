@@ -1,16 +1,15 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
 
-public class AsmtNode implements JottTree {
-    private Token type;
-    private IDNode id;
-    private ExprNode expr;
+public class AsmtNode implements BodyStmtNode {
+    private final Token type;
+    private final IDNode id;
+    private final ExprNode expr;
 
     public AsmtNode(Token type, IDNode id, ExprNode expr) {
         this.type = type;
@@ -49,20 +48,17 @@ public class AsmtNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override

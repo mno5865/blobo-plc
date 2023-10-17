@@ -1,7 +1,6 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
@@ -9,9 +8,10 @@ import java.util.ArrayList;
 
 import static nodes.BasicParsers.parseToken;
 
-public class FuncCallNode implements ExprNode {
-    private IDNode funcName;
-    private ParamNode params;
+public class FuncCallNode implements ExprNode, BodyStmtNode {
+
+    private final IDNode funcName;
+    private final ParamNode params;
 
     public FuncCallNode(IDNode funcName, ParamNode ParamNode) {
         this.funcName = funcName;
@@ -40,20 +40,17 @@ public class FuncCallNode implements ExprNode {
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
