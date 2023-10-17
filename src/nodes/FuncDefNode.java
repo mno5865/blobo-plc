@@ -31,6 +31,9 @@ public class FuncDefNode implements JottTree {
         }
         tokens.remove(0);
 
+        if (tokens.get(0).getTokenType() != TokenType.ID_KEYWORD) {
+            throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
+        }
         IDNode funcName = IDNode.parseIDNode(tokens);
         parseToken(TokenType.L_BRACKET, tokens);
         FuncDefParamNode params = FuncDefParamNode.parseFuncDefParamNode(tokens);
