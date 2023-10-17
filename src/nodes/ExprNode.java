@@ -8,13 +8,14 @@ import provided.TokenType;
 import java.util.ArrayList;
 
 public interface ExprNode extends JottTree {
-    public static ExprNode parseExprNode(ArrayList<Token> tokens) throws SyntaxException {
+    static ExprNode parseExprNode(ArrayList<Token> tokens) throws SyntaxException {
         TokenType type = tokens.get(0).getTokenType();
         boolean tokenIsBoolean = tokens.get(0).getToken().equals("True") || tokens.get(0).getToken().equals("False");
 
         if (type == TokenType.ID_KEYWORD && tokenIsBoolean) {
             return BoolNode.parseBoolNode(tokens);
-        } if (type == TokenType.STRING) {
+        }
+        if (type == TokenType.STRING) {
             return StringNode.parseStringNode(tokens);
         }
 
@@ -29,7 +30,8 @@ public interface ExprNode extends JottTree {
         }
 
         if (left == null) {
-            throw new SyntaxException("", tokens.get(0).getFilename(), tokens.get(0).getLineNum()); //todo syntax exception
+            throw new SyntaxException("Operator must be followed by ID, NUMBER, or FC_HEADER",
+                    tokens.get(0).getFilename(), tokens.get(0).getLineNum());
         }
 
         ExprNode operator;

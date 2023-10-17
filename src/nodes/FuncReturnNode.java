@@ -8,8 +8,9 @@ import provided.TokenType;
 import java.util.ArrayList;
 
 public class FuncReturnNode implements JottTree {
-    private Token type;
-    public FuncReturnNode(Token type){
+    private final Token type;
+
+    public FuncReturnNode(Token type) {
         this.type = type;
     }
 

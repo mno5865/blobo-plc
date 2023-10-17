@@ -20,13 +20,17 @@ public class BodyNode implements JottTree {
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxException {
         ArrayList<BodyStmtNode> bodyStmtNodes = new ArrayList<>();
         Token token = tokens.get(0);
-        while (!tokens.isEmpty() && token.getTokenType() != TokenType.R_BRACE && !token.getToken().equals("return")) {
+        while (token.getTokenType() != TokenType.R_BRACE && !token.getToken().equals("return")) {
             if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.FC_HEADER)) {
                 throw new SyntaxException("Next token must be header, id, keyword", token.getFilename(), token.getLineNum());
             } else {
                 bodyStmtNodes.add(BodyStmtNode.parseBodyStmtNode(tokens));
             }
-            token = tokens.get(0); //todo if there's no closing right brace and the function just ends abruptly this might crash, prob should add error checking here
+            if (tokens.isEmpty()) {
+                throw new SyntaxException("Missing closing brace }",
+                        tokens.get(0).getFilename(), tokens.get(0).getLineNum());
+            }
+            token = tokens.get(0);
         }
         ReturnStmtNode returnStmtNode = null;
         if (!tokens.isEmpty() && token.getTokenType() != TokenType.R_BRACE) {

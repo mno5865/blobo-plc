@@ -1,14 +1,13 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
 
 public class IDNode implements ExprNode {
-    private Token id_name;
+    private final Token id_name;
 
     private IDNode(Token ID) {
         this.id_name = ID;
@@ -17,7 +16,7 @@ public class IDNode implements ExprNode {
     public static IDNode parseIDNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
+            throw new SyntaxException("parseID expects ID", token.getFilename(), token.getLineNum());
         }
         return new IDNode(tokens.remove(0));
     }

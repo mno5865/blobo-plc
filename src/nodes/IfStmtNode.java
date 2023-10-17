@@ -11,12 +11,12 @@ import static nodes.BasicParsers.parseToken;
 
 public class IfStmtNode implements JottTree {
 
-    private ExprNode expr;
-    private BodyNode body;
-    private ArrayList<ElseifNode> elseIfList;
-    private ElseNode elseNode;
+    private final ExprNode expr;
+    private final BodyNode body;
+    private final ArrayList<ElseifNode> elseIfList;
+    private final ElseNode elseNode;
 
-    public IfStmtNode(ExprNode expr, BodyNode body, ArrayList<ElseifNode> elseIfList, ElseNode elseNode){
+    public IfStmtNode(ExprNode expr, BodyNode body, ArrayList<ElseifNode> elseIfList, ElseNode elseNode) {
         this.expr = expr;
         this.body = body;
         this.elseIfList = new ArrayList<ElseifNode>(elseIfList);
@@ -25,11 +25,9 @@ public class IfStmtNode implements JottTree {
 
     public static IfStmtNode parseIfStmtNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if(token.getTokenType() != TokenType.ID_KEYWORD)
-        {
+        if (token.getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
-        } else if(!token.getToken().equals("if"))
-        {
+        } else if (!token.getToken().equals("if")) {
             throw new SyntaxException("Next token must be an id_keyword of if", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);
@@ -44,16 +42,14 @@ public class IfStmtNode implements JottTree {
         token = tokens.get(0);
         // else if node list
         ElseifNode elseifNode = null;
-        while(token.getTokenType() != TokenType.ID_KEYWORD && !token.getToken().equals("elseif"))
-        {
+        while (token.getTokenType() != TokenType.ID_KEYWORD && !token.getToken().equals("elseif")) {
             elseifNode = ElseifNode.parseElseifNode(tokens);
             elseIfNodes.add(elseifNode);
         }
         //else node
         token = tokens.get(0);
         ElseNode elseNode = null;
-        if(token.getTokenType() != TokenType.ID_KEYWORD && !token.getToken().equals("else"))
-        {
+        if (token.getTokenType() != TokenType.ID_KEYWORD && !token.getToken().equals("else")) {
             elseNode = ElseNode.parseElseNode(tokens);
         }
         return new IfStmtNode(expr, body, elseIfNodes, elseNode);
@@ -68,15 +64,13 @@ public class IfStmtNode implements JottTree {
         out.append("{");
         out.append(this.body.convertToJott());
         out.append("}");
-        if(this.elseIfList != null && !this.elseIfList.isEmpty())
-        {
+        if (this.elseIfList != null && !this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
                 String out2 = elseifNode.convertToJott();
                 out.append(out2);
             }
         }
-        if(this.elseNode != null)
-        {
+        if (this.elseNode != null) {
             String out3 = this.elseNode.convertToJott();
             out.append(out3);
         }

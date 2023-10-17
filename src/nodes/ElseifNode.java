@@ -14,7 +14,7 @@ public class ElseifNode implements JottTree {
     private ExprNode expr;
     private BodyNode body;
 
-    public ElseifNode(ExprNode expr, BodyNode body){
+    public ElseifNode(ExprNode expr, BodyNode body) {
         this.expr = expr;
         this.body = body;
     }
