@@ -4,7 +4,7 @@ import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
 
-public class BinaryOperationNode implements ExprNode {  //todo ask scott about this class cause I just invented it
+public class BinaryOperationNode implements ExprNode {
     ExprNode operator;
     ExprNode leftExpr;
     ExprNode rightExpr;
