@@ -21,6 +21,7 @@ public class BasicParsers {
                 case L_BRACE -> out += "{";
                 case R_BRACE -> out += "}";
                 case FC_HEADER -> out += "::";
+                case SEMICOLON -> out += ";";
             }
             out += "'";
             throw new SyntaxException(out, token.getFilename(), token.getLineNum());
