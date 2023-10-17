@@ -16,18 +16,26 @@ public class FuncReturnNode implements JottTree {
 
     public static FuncReturnNode parseFuncReturnNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
-        } else if (!token.getToken().equals("return")) {
+        if (token.getTokenType() != TokenType.ID_KEYWORD || token.getTokenType() != TokenType.R_BRACE) {
+            throw new SyntaxException("Next token must be 'id_keyword' or 'r_brace'", token.getFilename(),
+                    token.getLineNum());
+        } else if (token.getTokenType() == TokenType.ID_KEYWORD && !token.getToken().equals("return")) {
             throw new SyntaxException("Next token must be an id_keyword of return", token.getFilename(),
                     token.getLineNum());
         }
-        return new FuncReturnNode(tokens.remove(0));
+        if (token.getTokenType() == TokenType.ID_KEYWORD) {
+            return new FuncReturnNode(tokens.remove(0));
+        } else {
+            return new FuncReturnNode(null);
+        }
     }
 
     @Override
     public String convertToJott() {
-        return this.type.getToken();
+        if (this.type != null) {
+            return "return";
+        }
+        return "";
     }
 
     @Override
