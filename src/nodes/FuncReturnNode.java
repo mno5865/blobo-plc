@@ -21,6 +21,7 @@ public class FuncReturnNode implements JottTree {
             throw new SyntaxException("Missing return type", token.getFilename(), token.getLineNum());
         }
         if (token.getToken().equals("Void")) {
+            tokens.remove(0);
             return new FuncReturnNode(null);
         }
         TypeNode typeNode = TypeNode.parseTypeNode(tokens);
