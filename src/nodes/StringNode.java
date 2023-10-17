@@ -16,7 +16,7 @@ public class StringNode implements ExprNode {
     public static StringNode parseStringNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
         if (token.getTokenType() != TokenType.STRING) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
+            throw new SyntaxException("parseString expects string", token.getFilename(), token.getLineNum());
         }
         return new StringNode(tokens.remove(0));
     }
