@@ -3,22 +3,84 @@ package nodes;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
+import provided.TokenType;
 
 import java.util.ArrayList;
 
-public class IfStmtNode implements JottTree {
-    public IfStmtNode(){
+import static nodes.BasicParsers.parseToken;
 
+public class IfStmtNode implements JottTree {
+
+    private ExprNode expr;
+    private BodyNode body;
+    private ArrayList<ElseifNode> elseIfList;
+    private ElseNode elseNode;
+
+    public IfStmtNode(ExprNode expr, BodyNode body, ArrayList<ElseifNode> elseIfList, ElseNode elseNode){
+        this.expr = expr;
+        this.body = body;
+        this.elseIfList = new ArrayList<ElseifNode>(elseIfList);
+        this.elseNode = elseNode;
     }
 
     public static IfStmtNode parseIfStmtNode(ArrayList<Token> tokens) throws SyntaxException {
-        return new IfStmtNode();
+        Token token = tokens.get(0);
+        if(token.getTokenType() != TokenType.ID_KEYWORD)
+        {
+            throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
+        } else if(!token.getToken().equals("if"))
+        {
+            throw new SyntaxException("Next token must be an id_keyword of if", token.getFilename(), token.getLineNum());
+        }
+        tokens.remove(0);
+
+        parseToken(TokenType.L_BRACKET, tokens);
+        ExprNode expr = ExprNode.parseExprNode(tokens);
+        parseToken(TokenType.R_BRACKET, tokens);
+        parseToken(TokenType.L_BRACE, tokens);
+        BodyNode body = BodyNode.parseBodyNode(tokens);
+        parseToken(TokenType.R_BRACE, tokens);
+        ArrayList<ElseifNode> elseIfNodes = new ArrayList<>();
+        token = tokens.get(0);
+        // else if node list
+        ElseifNode elseifNode = null;
+        while(token.getTokenType() != TokenType.ID_KEYWORD && !token.getToken().equals("elseif"))
+        {
+            elseifNode = ElseifNode.parseElseifNode(tokens);
+            elseIfNodes.add(elseifNode);
+        }
+        //else node
+        token = tokens.get(0);
+        ElseNode elseNode = null;
+        if(token.getTokenType() != TokenType.ID_KEYWORD && !token.getToken().equals("else"))
+        {
+            elseNode = ElseNode.parseElseNode(tokens);
+        }
+        return new IfStmtNode(expr, body, elseIfNodes, elseNode);
     }
 
     @Override
     public String convertToJott() {
-        String out = "";
-        return out;
+        StringBuilder out = new StringBuilder("if");
+        out.append("[");
+        out.append(this.expr.convertToJott());
+        out.append("]");
+        out.append("{");
+        out.append(this.body.convertToJott());
+        out.append("}");
+        if(this.elseIfList != null && !this.elseIfList.isEmpty())
+        {
+            for (ElseifNode elseifNode : this.elseIfList) {
+                String out2 = elseifNode.convertToJott();
+                out.append(out2);
+            }
+        }
+        if(this.elseNode != null)
+        {
+            String out3 = this.elseNode.convertToJott();
+            out.append(out3);
+        }
+        return out.toString();
     }
 
     @Override
