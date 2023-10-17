@@ -34,6 +34,7 @@ public class AsmtNode implements BodyStmtNode {
         IDNode id = IDNode.parseIDNode(tokens);
         BasicParsers.parseToken(TokenType.ASSIGN, tokens);
         ExprNode expr = ExprNode.parseExprNode(tokens);
+        tokens.remove(0);
         return new AsmtNode(type, id, expr);
     }
 
