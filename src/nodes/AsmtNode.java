@@ -20,7 +20,7 @@ public class AsmtNode implements JottTree {
     public static AsmtNode parseAsmtNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
+            throw new SyntaxException("parseAsmt expects ID", token.getFilename(), token.getLineNum());
         }
         Token type = tokens.remove(0);
         IDNode id = IDNode.parseIDNode(tokens);
