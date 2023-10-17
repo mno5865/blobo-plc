@@ -48,7 +48,7 @@ public class BodyNode implements JottTree {
             }
             out.append("\n\t").append(stmt.convertToJott());
         }
-        out = new StringBuilder((this.returnStmt != null) ? out.toString() + this.returnStmt : out.toString());
+        out = new StringBuilder((this.returnStmt != null) ? out + this.returnStmt.convertToJott() : out.toString());
         return out.toString().concat("\n");
     }
 
