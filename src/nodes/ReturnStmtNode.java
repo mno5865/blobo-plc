@@ -18,17 +18,22 @@ public class ReturnStmtNode implements JottTree {
     }
 
     public static ReturnStmtNode parseReturnStmtnode(ArrayList<Token> tokens) throws SyntaxException {
-        if (!tokens.isEmpty()) {
-            if (tokens.get(0).getTokenType() != TokenType.ID_KEYWORD || !tokens.get(0).getToken().equals("return")) {
-                throw new SyntaxException("Missing return keyword", tokens.get(0).getFilename(), tokens.get(0).getLineNum());
-            }
-            IDNode.parseIDNode(tokens);
-            ExprNode exprNode = ExprNode.parseExprNode(tokens);
-            parseToken(TokenType.SEMICOLON, tokens);
-            return new ReturnStmtNode(exprNode);
-        } else {
+        Token token = tokens.get(0);
+        if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.R_BRACE)) {
+            throw new SyntaxException("Next token must be 'id_keyword' or 'r_brace'", token.getFilename(),
+                    token.getLineNum());
+        } else if (token.getTokenType() == TokenType.ID_KEYWORD && !token.getToken().equals("return")) {
+            throw new SyntaxException("Next token must be an id_keyword of return", token.getFilename(),
+                    token.getLineNum());
+        }
+
+        if (token.getTokenType() == TokenType.R_BRACE) {
             return new ReturnStmtNode(null);
         }
+        tokens.remove(0);
+        ExprNode expr = ExprNode.parseExprNode(tokens);
+        parseToken(TokenType.SEMICOLON, tokens);
+        return new ReturnStmtNode(expr);
     }
 
     @Override

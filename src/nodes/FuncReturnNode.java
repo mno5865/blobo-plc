@@ -6,36 +6,33 @@ import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FuncReturnNode implements JottTree {
-    private final Token type;
+    private final TypeNode type;
 
-    public FuncReturnNode(Token type) {
+    public FuncReturnNode(TypeNode type) {
         this.type = type;
     }
 
     public static FuncReturnNode parseFuncReturnNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.R_BRACE)) {
-            throw new SyntaxException("Next token must be 'id_keyword' or 'r_brace'", token.getFilename(),
-                    token.getLineNum());
-        } else if (token.getTokenType() == TokenType.ID_KEYWORD && !token.getToken().equals("return")) {
-            throw new SyntaxException("Next token must be an id_keyword of return", token.getFilename(),
-                    token.getLineNum());
+        if (token.getTokenType() != TokenType.ID_KEYWORD) {
+            throw new SyntaxException("Missing return type", token.getFilename(), token.getLineNum());
         }
-        if (token.getTokenType() == TokenType.ID_KEYWORD) {
-            return new FuncReturnNode(tokens.remove(0));
-        } else {
+        if (token.getToken().equals("Void")) {
             return new FuncReturnNode(null);
         }
+        TypeNode typeNode = TypeNode.parseTypeNode(tokens);
+        return new FuncReturnNode(typeNode);
     }
 
     @Override
     public String convertToJott() {
-        if (this.type != null) {
-            return "return";
+        if (this.type == null) {
+            return "Void";
         }
-        return "";
+        return type.convertToJott();
     }
 
     @Override
