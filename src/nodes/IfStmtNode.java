@@ -18,7 +18,7 @@ public class IfStmtNode implements BodyStmtNode {
     public IfStmtNode(ExprNode expr, BodyNode body, ArrayList<ElseifNode> elseIfList, ElseNode elseNode) {
         this.expr = expr;
         this.body = body;
-        this.elseIfList = new ArrayList<ElseifNode>(elseIfList);
+        this.elseIfList = new ArrayList<>(elseIfList);
         this.elseNode = elseNode;
     }
 
@@ -40,7 +40,7 @@ public class IfStmtNode implements BodyStmtNode {
         ArrayList<ElseifNode> elseIfNodes = new ArrayList<>();
         token = tokens.get(0);
         // else if node list
-        ElseifNode elseifNode = null;
+        ElseifNode elseifNode;
         while (token.getTokenType() != TokenType.ID_KEYWORD && !token.getToken().equals("elseif")) {
             elseifNode = ElseifNode.parseElseifNode(tokens);
             elseIfNodes.add(elseifNode);
@@ -63,7 +63,7 @@ public class IfStmtNode implements BodyStmtNode {
         out.append("{");
         out.append(this.body.convertToJott());
         out.append("}");
-        if (this.elseIfList != null && !this.elseIfList.isEmpty()) {
+        if (!this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
                 String out2 = elseifNode.convertToJott();
                 out.append(out2);
