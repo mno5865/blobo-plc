@@ -14,7 +14,8 @@ public interface ExprNode extends JottTree {
 
         if (type == TokenType.ID_KEYWORD && tokenIsBoolean) {
             return BoolNode.parseBoolNode(tokens);
-        } if (type == TokenType.STRING) {
+        }
+        if (type == TokenType.STRING) {
             return StringNode.parseStringNode(tokens);
         }
 

@@ -11,7 +11,8 @@ public class AsmtNode implements JottTree {
     private Token type;
     private IDNode id;
     private ExprNode expr;
-    public AsmtNode(Token type, IDNode id, ExprNode expr){
+
+    public AsmtNode(Token type, IDNode id, ExprNode expr) {
         this.type = type;
         this.id = id;
         this.expr = expr;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ParamTailNode implements JottTree {
 
-    public ParamTailNode(){
+    public ParamTailNode() {
 
     }
 

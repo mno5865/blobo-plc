@@ -10,7 +10,8 @@ import java.util.ArrayList;
 public class VarDecNode implements JottTree {
     private Token type;
     private IDNode id;
-    public VarDecNode(Token type, IDNode id){
+
+    public VarDecNode(Token type, IDNode id) {
         this.type = type;
         this.id = id;
     }

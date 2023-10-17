@@ -1,14 +1,13 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
 
 public class NumberNode implements ExprNode {
-    private Token number;
+    private final Token number;
 
     public NumberNode(Token number) {
         this.number = number;

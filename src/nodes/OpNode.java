@@ -1,7 +1,6 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 public class OpNode implements ExprNode {
     private Token operator;
 
-    public OpNode(Token operator){
+    public OpNode(Token operator) {
         this.operator = operator;
     }
 

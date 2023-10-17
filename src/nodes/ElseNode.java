@@ -13,12 +13,12 @@ public class ElseNode implements JottTree {
 
     private BodyNode body;
 
-    public ElseNode(BodyNode body){
+    public ElseNode(BodyNode body) {
         this.body = body;
     }
 
     public static ElseNode parseElseNode(ArrayList<Token> tokens) throws SyntaxException {
-       Token token = tokens.get(0);
+        Token token = tokens.get(0);
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
         } else if (!token.getToken().equals("else")) {

@@ -1,14 +1,13 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
 
 public class IDNode implements ExprNode {
-    private Token id_name;
+    private final Token id_name;
 
     private IDNode(Token ID) {
         this.id_name = ID;
