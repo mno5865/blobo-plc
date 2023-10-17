@@ -19,7 +19,7 @@ public class TypeNode implements JottTree {
         Token token = tokens.get(0);
         String tokenString = token.getToken();
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
+            throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);
         return switch (tokenString) {
