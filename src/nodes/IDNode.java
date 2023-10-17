@@ -17,7 +17,7 @@ public class IDNode implements ExprNode {
     public static IDNode parseIDNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("", token.getFilename(), token.getLineNum()); //todo syntax exception
+            throw new SyntaxException("parseID expects ID", token.getFilename(), token.getLineNum());
         }
         return new IDNode(tokens.remove(0));
     }

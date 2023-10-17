@@ -56,11 +56,11 @@ public class FuncDefParamNode implements JottTree {
     public String convertToJava(String className) {
         String out = "";
         if (paramName != null) {
-            out += this.paramType.convertToJava(""); //todo className
+            out += this.paramType.convertToJava("");
             out += " ";
-            out += this.paramName.convertToJava(""); //todo className
+            out += this.paramName.convertToJava("");
             for (FuncDefParamTailNode param : paramTail) {
-                out += param.convertToJava(""); //todo className
+                out += param.convertToJava("");
             }
         }
         return out;
