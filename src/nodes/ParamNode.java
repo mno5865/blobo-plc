@@ -29,7 +29,6 @@ public class ParamNode implements JottTree {
             }
             return new ParamNode(expr, paramTail);
         }
-
         return new ParamNode(null, null);
     }
 

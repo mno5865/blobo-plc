@@ -7,6 +7,8 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
+import static nodes.BasicParsers.parseToken;
+
 public class ParamTailNode implements JottTree {
 
     private final ExprNode expr;
@@ -16,11 +18,7 @@ public class ParamTailNode implements JottTree {
     }
 
     public static ParamTailNode parseParamTailNode(ArrayList<Token> tokens) throws SyntaxException {
-        Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.COMMA) {
-            throw new SyntaxException("Missing comma between parameters",
-                    token.getFilename(), token.getLineNum());
-        }
+        parseToken(TokenType.COMMA, tokens);
         ExprNode exprNode = ExprNode.parseExprNode(tokens);
         return new ParamTailNode(exprNode);
     }
