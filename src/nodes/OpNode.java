@@ -15,7 +15,7 @@ public class OpNode implements ExprNode {
 
     public static OpNode parseOpNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.REL_OP || token.getTokenType() != TokenType.MATH_OP) {
+        if (!(token.getTokenType() == TokenType.REL_OP || token.getTokenType() == TokenType.MATH_OP)) {
             throw new SyntaxException("parseOP expects REL_OP or MATH_OP", token.getFilename(), token.getLineNum());
         }
         return new OpNode(tokens.remove(0));
