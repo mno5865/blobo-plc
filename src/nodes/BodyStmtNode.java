@@ -25,8 +25,7 @@ public interface BodyStmtNode extends JottTree {
             if (tokens.get(2).getTokenType() == TokenType.ASSIGN) {
                 return AsmtNode.parseAsmtNode(tokens);
             } else if (tokens.get(2).getTokenType() == TokenType.SEMICOLON) {
-                TypeNode.parseTypeNode(tokens);
-                IDNode.parseIDNode(tokens);
+
                 return VarDecNode.parseVarDecNode(tokens);
             } else {
                 throw new SyntaxException("Body statement must start with if, while, function header," +
