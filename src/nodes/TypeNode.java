@@ -27,7 +27,8 @@ public class TypeNode implements JottTree {
             case "Integer" -> new TypeNode("Integer");
             case "String" -> new TypeNode("String");
             case "Boolean" -> new TypeNode("Boolean");
-            default -> new TypeNode("");
+            default -> throw new SyntaxException("Type should be Double, Integer, String, or Boolean",
+                    token.getFilename(), token.getLineNum());
         };
     }
 
