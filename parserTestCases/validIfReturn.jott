@@ -5,17 +5,11 @@ def foo[x:Integer]:Integer{
     if[x > 10]{
 	    return 1;
 	}
-	elseif[x < 2]{
-	    return 1;
-	}
-	elseif[x < 5]{
-    	return 1;
-    }
 	else{
 	    return 0;
     }
 }
 
 def main[]:Void{
-    ::print[::foo[10]];
+    ::print[foo[10]];
 }
