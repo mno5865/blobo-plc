@@ -40,13 +40,13 @@ public class ElseifNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = "elseif";
+        String out = "\telseif";
         out += "[";
         out += this.expr.convertToJott();
         out += "]";
-        out += "{";
-        out += this.body.convertToJott();
-        out += "}";
+        out += "{\n\t";
+        out += "\t" + this.body.convertToJott();
+        out += "\t}";
         return out;
     }
 

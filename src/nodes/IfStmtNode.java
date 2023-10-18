@@ -61,9 +61,9 @@ public class IfStmtNode implements BodyStmtNode {
         out.append("[");
         out.append(this.expr.convertToJott());
         out.append("]");
-        out.append("{");
-        out.append(this.body.convertToJott());
-        out.append("}");
+        out.append("{\n\t");
+        out.append("\t" + this.body.convertToJott());
+        out.append("\t}\n");
         if (!this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
                 String out2 = elseifNode.convertToJott();
