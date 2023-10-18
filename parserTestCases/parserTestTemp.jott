@@ -1,4 +1,4 @@
-def main[]:Void{
-	::print[5];
-	::print["foo bar"];
+def foo[]:Void{
+	Integer while = 5;
+	::print[while];
 }
