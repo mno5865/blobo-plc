@@ -41,14 +41,15 @@ public class IfStmtNode implements BodyStmtNode {
         token = tokens.get(0);
         // else if node list
         ElseifNode elseifNode;
-        while (token.getTokenType() != TokenType.ID_KEYWORD && !token.getToken().equals("elseif")) {
+        while (token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("elseif")) {
             elseifNode = ElseifNode.parseElseifNode(tokens);
             elseIfNodes.add(elseifNode);
+            token = tokens.get(0);
         }
         //else node
         token = tokens.get(0);
         ElseNode elseNode = null;
-        if (token.getTokenType() != TokenType.ID_KEYWORD && !token.getToken().equals("else")) {
+        if (token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("else")) {
             elseNode = ElseNode.parseElseNode(tokens);
         }
         return new IfStmtNode(expr, body, elseIfNodes, elseNode);
