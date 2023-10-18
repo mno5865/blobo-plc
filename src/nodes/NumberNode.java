@@ -13,11 +13,7 @@ public class NumberNode implements ExprNode {
         this.number = number;
     }
 
-    public static NumberNode parseNumberNode(ArrayList<Token> tokens) throws SyntaxException {
-        Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.NUMBER) {
-            throw new SyntaxException("parseNumber expects a number", token.getFilename(), token.getLineNum());
-        }
+    public static NumberNode parseNumberNode(ArrayList<Token> tokens) {
         return new NumberNode(tokens.remove(0));
     }
 

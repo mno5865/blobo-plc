@@ -13,11 +13,7 @@ public class IDNode implements ExprNode {
         this.id_name = ID;
     }
 
-    public static IDNode parseIDNode(ArrayList<Token> tokens) throws SyntaxException {
-        Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("parseID expects ID", token.getFilename(), token.getLineNum());
-        }
+    public static IDNode parseIDNode(ArrayList<Token> tokens) {
         return new IDNode(tokens.remove(0));
     }
 
