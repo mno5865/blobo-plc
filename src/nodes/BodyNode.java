@@ -43,13 +43,12 @@ public class BodyNode implements JottTree {
     public String convertToJott() {
         StringBuilder out = new StringBuilder();
         for (BodyStmtNode stmt : this.bodyStmts) {
-            if (stmt instanceof FuncCallNode) {
-                out.append(";").append(stmt.convertToJott());
-            }
             out.append("\n\t").append(stmt.convertToJott());
+            if (stmt instanceof FuncCallNode) {
+                out.append(";");
+            }
         }
-        out.append("\n\t");
-        out = new StringBuilder((this.returnStmt != null) ? out + this.returnStmt.convertToJott() : out.toString());
+        out = new StringBuilder((this.returnStmt != null) ? out + "\n\t" + this.returnStmt.convertToJott() : out.toString());
         return out.toString().concat("\n");
     }
 

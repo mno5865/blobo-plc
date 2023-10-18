@@ -57,7 +57,7 @@ public class FuncDefNode implements JottTree {
         out += this.returnType.convertToJott();
         out += "{";
         out += this.body.convertToJott();
-        out += "}";
+        out += "}\n";
         return out;
     }
 
