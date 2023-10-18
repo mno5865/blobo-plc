@@ -5,9 +5,9 @@ import provided.Token;
 import provided.TokenType;
 
 public class BinaryOperationNode implements ExprNode {
-    ExprNode operator;
-    ExprNode leftExpr;
-    ExprNode rightExpr;
+    private final ExprNode operator;
+    private final ExprNode leftExpr;
+    private final ExprNode rightExpr;
 
     public BinaryOperationNode(ExprNode operator, ExprNode left, ExprNode right) {
         this.operator = operator;

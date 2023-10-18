@@ -8,7 +8,7 @@ import provided.TokenType;
 import java.util.ArrayList;
 
 public class BoolNode implements ExprNode {
-    private Token bool;
+    private final Token bool;
 
     public BoolNode(Token bool) {
         this.bool = bool;

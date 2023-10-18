@@ -8,8 +8,8 @@ import provided.TokenType;
 import java.util.ArrayList;
 
 public class ParamNode implements JottTree {
-    ExprNode expr;
-    ArrayList<ParamTailNode> paramTail;
+    private final ExprNode expr;
+    private final ArrayList<ParamTailNode> paramTail;
 
     public ParamNode(ExprNode expr, ArrayList<ParamTailNode> paramTail) {
         this.expr = expr;

@@ -11,8 +11,8 @@ import static nodes.BasicParsers.parseToken;
 
 public class ElseifNode implements JottTree {
 
-    private ExprNode expr;
-    private BodyNode body;
+    private final ExprNode expr;
+    private final BodyNode body;
 
     public ElseifNode(ExprNode expr, BodyNode body) {
         this.expr = expr;

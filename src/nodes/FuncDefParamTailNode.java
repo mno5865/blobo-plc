@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import static nodes.BasicParsers.parseToken;
 
 public class FuncDefParamTailNode implements JottTree {
-    private IDNode paramName;
-    private TypeNode paramType;
+    private final IDNode paramName;
+    private final TypeNode paramType;
 
     public FuncDefParamTailNode(IDNode paramName, TypeNode paramType) {
         this.paramName = paramName;

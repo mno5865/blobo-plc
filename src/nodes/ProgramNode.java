@@ -7,7 +7,7 @@ import provided.Token;
 import java.util.ArrayList;
 
 public class ProgramNode implements JottTree {
-    private ArrayList<FuncDefNode> funcDefs;
+    private final ArrayList<FuncDefNode> funcDefs;
 
     public ProgramNode(ArrayList<FuncDefNode> funcDefs) {
         this.funcDefs = funcDefs;

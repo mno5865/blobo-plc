@@ -11,7 +11,7 @@ import static nodes.BasicParsers.parseToken;
 
 public class ElseNode implements JottTree {
 
-    private BodyNode body;
+    private final BodyNode body;
 
     public ElseNode(BodyNode body) {
         this.body = body;

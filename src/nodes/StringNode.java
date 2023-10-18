@@ -7,7 +7,7 @@ import provided.TokenType;
 import java.util.ArrayList;
 
 public class StringNode implements ExprNode {
-    private Token stringLiteral;
+    private final Token stringLiteral;
 
     public StringNode(Token str) {
         this.stringLiteral = str;

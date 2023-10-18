@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import static nodes.BasicParsers.*;
 
 public class FuncDefNode implements JottTree {
-    private IDNode funcName;
-    private FuncDefParamNode params;
-    private FuncReturnNode returnType;
-    private BodyNode body;
+    private final IDNode funcName;
+    private final FuncDefParamNode params;
+    private final FuncReturnNode returnType;
+    private final BodyNode body;
 
     public FuncDefNode(IDNode funcName, FuncDefParamNode params, FuncReturnNode returnType, BodyNode body) {
         this.funcName = funcName;
