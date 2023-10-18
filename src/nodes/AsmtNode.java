@@ -31,6 +31,9 @@ public class AsmtNode implements BodyStmtNode {
         if (token2.getTokenType() == TokenType.ID_KEYWORD) {
             type = tokens.remove(0);
         }
+        if (tokens.size() < 4){ // id = (expr) ;
+            throw new SyntaxException("Expected token, got EOF", "", -1);
+        }
         IDNode id = IDNode.parseIDNode(tokens);
         BasicParsers.parseToken(TokenType.ASSIGN, tokens);
         ExprNode expr = ExprNode.parseExprNode(tokens);

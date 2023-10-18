@@ -22,10 +22,12 @@ public interface BodyStmtNode extends JottTree {
         } else if (token.getToken().equals("while")) {
             return WhileLoopNode.parseWhileLoopNode(tokens);
         } else if (token.getTokenType() == TokenType.ID_KEYWORD) {
+            if (tokens.size() < 3){ // needs triple look ahead
+                throw new SyntaxException("Expected token, got EOF", "", -1);
+            }
             if (tokens.get(1).getTokenType() == TokenType.ASSIGN || tokens.get(2).getTokenType() == TokenType.ASSIGN) {
                 return AsmtNode.parseAsmtNode(tokens);
             } else if (tokens.get(2).getTokenType() == TokenType.SEMICOLON) {
-
                 return VarDecNode.parseVarDecNode(tokens);
             } else {
                 throw new SyntaxException("Body statement must start with if, while, function header," +

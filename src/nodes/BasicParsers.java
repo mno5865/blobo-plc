@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 public class BasicParsers {
     public static void parseToken(TokenType type, ArrayList<Token> tokens) throws SyntaxException {
+        if (tokens.isEmpty()){
+            throw new SyntaxException("Expected token, got EOF", "", -1);
+        }
         Token token = tokens.get(0);
         if (token.getTokenType() != type) {
             String out = "Next token must be '";
