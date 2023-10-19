@@ -40,7 +40,7 @@ public class ElseifNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = "\telseif";
+        String out = "\n\telseif";
         out += "[";
         out += this.expr.convertToJott();
         out += "]";
