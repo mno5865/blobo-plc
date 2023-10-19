@@ -24,7 +24,7 @@ public class IfStmtNode implements BodyStmtNode {
 
     public static IfStmtNode parseIfStmtNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (!(token.getTokenType() == TokenType.ID_KEYWORD && !token.getToken().equals("if"))) {
+        if (!(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("if"))) {
             throw new SyntaxException("if statement must begin with KEYWORD if", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);
