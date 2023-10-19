@@ -6,6 +6,8 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
+import static nodes.BasicParsers.parseToken;
+
 public class VarDecNode implements BodyStmtNode {
 
     private final Token type;
@@ -26,12 +28,13 @@ public class VarDecNode implements BodyStmtNode {
             throw new SyntaxException("var_dec second element must be an id", token.getFilename(), token.getLineNum());
         }
         IDNode id = IDNode.parseIDNode(tokens);
+        parseToken(TokenType.SEMICOLON, tokens);
         return new VarDecNode(type, id);
     }
 
     @Override
     public String convertToJott() {
-        return this.type.getToken() + this.id.convertToJott();
+        return this.type.getToken() + " " + this.id.convertToJott() + ";";
     }
 
     @Override
