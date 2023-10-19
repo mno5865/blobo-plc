@@ -15,6 +15,8 @@ public class IfStmtNode implements BodyStmtNode {
     private final ArrayList<ElseifNode> elseIfList;
     private final ElseNode elseNode;
 
+    private static int indentationLevel = 0;
+
     public IfStmtNode(ExprNode expr, BodyNode body, ArrayList<ElseifNode> elseIfList, ElseNode elseNode) {
         this.expr = expr;
         this.body = body;
@@ -57,13 +59,17 @@ public class IfStmtNode implements BodyStmtNode {
 
     @Override
     public String convertToJott() {
+        indentationLevel++;
         StringBuilder out = new StringBuilder("if");
         out.append("[");
         out.append(this.expr.convertToJott());
         out.append("]");
         out.append("{\n\t");
-        out.append("\t" + this.body.convertToJott());
-        out.append("\t}\n");
+        out.append(this.body.convertToJott());
+        for (int j = 0; j < indentationLevel - 1; j++) {
+            out.append("\t");
+        }
+        out.append("\t}");
         if (!this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
                 String out2 = elseifNode.convertToJott();
@@ -74,6 +80,7 @@ public class IfStmtNode implements BodyStmtNode {
             String out3 = this.elseNode.convertToJott();
             out.append(out3);
         }
+        indentationLevel--;
         return out.toString();
     }
 

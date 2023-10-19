@@ -12,6 +12,8 @@ public class BodyNode implements JottTree {
     private final ArrayList<BodyStmtNode> bodyStmts;
     private final ReturnStmtNode returnStmt;
 
+    private static int indentationLevel = 0;
+
     public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt) {
         this.bodyStmts = bodyStmts;
         this.returnStmt = returnStmt;
@@ -45,8 +47,12 @@ public class BodyNode implements JottTree {
 
     @Override
     public String convertToJott() {
+        indentationLevel++;
         StringBuilder out = new StringBuilder();
         for (int i = 0; i < this.bodyStmts.size(); i++) {
+            for (int j = 0; j < indentationLevel - 1; j++) {
+                out.append("\t");
+            }
             out.append(this.bodyStmts.get(i).convertToJott());
             if (this.bodyStmts.get(i) instanceof FuncCallNode) {
                 out.append(";");
@@ -56,6 +62,10 @@ public class BodyNode implements JottTree {
             }
         }
         out = new StringBuilder((this.returnStmt != null) ? out + "\n\t" + this.returnStmt.convertToJott() : out.toString());
+        for (int j = 0; j < indentationLevel - 1; j++) {
+            out.append("\t");
+        }
+        indentationLevel--;
         return out.toString().concat("\n");
     }
 
