@@ -13,7 +13,7 @@ public interface BodyStmtNode extends JottTree {
     static BodyStmtNode parseBodyStmtNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
         if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.FC_HEADER)) {
-            throw new SyntaxException("Body statement must start with function header, id, or keyword",
+            throw new SyntaxException("Body statement must begin with FUNCTION_HEADER (::), ID, or KEYWORD",
                     token.getFilename(), token.getLineNum());
         }
 
@@ -27,16 +27,16 @@ public interface BodyStmtNode extends JottTree {
             } else if (tokens.get(2).getTokenType() == TokenType.SEMICOLON) {
                 return VarDecNode.parseVarDecNode(tokens);
             } else {
-                throw new SyntaxException("Body statement must start with if, while, function header," +
-                        " or be an assignment or variable declaration", token.getFilename(), token.getLineNum());
+                throw new SyntaxException("Body statement must begin with FUNCTION_HEADER (::), if statement, while statement, " +
+                        "be an assignment statement, or variable declaration", token.getFilename(), token.getLineNum());
             }
         } else if (token.getTokenType() == TokenType.FC_HEADER) {
             FuncCallNode funcCallNode = FuncCallNode.parseFunctionCallNode(tokens);
             parseToken(TokenType.SEMICOLON, tokens);
             return funcCallNode;
         } else {
-            throw new SyntaxException("Body statement must start with if, while, function header," +
-                    " or be an assignment or variable declaration", token.getFilename(), token.getLineNum());
+            throw new SyntaxException("Body statement must begin with FUNCTION_HEADER (::), if statement, while statement, " +
+                    "be an assignment statement, or variable declaration", token.getFilename(), token.getLineNum());
         }
     }
 }

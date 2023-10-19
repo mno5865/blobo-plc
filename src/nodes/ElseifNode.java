@@ -21,10 +21,8 @@ public class ElseifNode implements JottTree {
 
     public static ElseifNode parseElseifNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
-        } else if (!token.getToken().equals("elseif")) {
-            throw new SyntaxException("Next token must be an id_keyword of elseif", token.getFilename(), token.getLineNum());
+        if (token.getTokenType() != TokenType.ID_KEYWORD || !token.getToken().equals("elseif")) {
+            throw new SyntaxException("elseif statement must begin with KEYWORD elseif", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);
 

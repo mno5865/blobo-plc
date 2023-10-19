@@ -21,7 +21,7 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     public static FuncCallNode parseFunctionCallNode(ArrayList<Token> tokens) throws SyntaxException {
         parseToken(TokenType.FC_HEADER, tokens);
         if (tokens.get(0).getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("FuncCall second element must be id", tokens.get(0).getFilename(),
+            throw new SyntaxException("Function call must be followed by ID or KEYWORD", tokens.get(0).getFilename(),
                     tokens.get(0).getLineNum());
         }
         IDNode funcName = IDNode.parseIDNode(tokens);

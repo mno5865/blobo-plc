@@ -1,11 +1,10 @@
-package provided;
-
 /**
  * This class is responsible for paring Jott Tokens
  * into a Jott parse tree.
  *
  * @author
  */
+package provided;
 
 import errors.SyntaxException;
 import nodes.ProgramNode;
@@ -31,12 +30,12 @@ public class JottParser {
         try {
             tree = ProgramNode.parseProgramNode(tokens);
         } catch (SyntaxException e)  {
-            System.err.print(e);
+            System.err.print(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
             try {
-                throw new SyntaxException("End of file reached before expected.", lastFile, lastLine);
+                throw new SyntaxException("End of file reached before expected", lastFile, lastLine);
             } catch (SyntaxException s) {
-                System.err.print(s);
+                System.err.print(s.getMessage());
             }
         }
         return tree;

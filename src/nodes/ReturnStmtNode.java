@@ -19,13 +19,14 @@ public class ReturnStmtNode implements JottTree {
 
     public static ReturnStmtNode parseReturnStmtnode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.R_BRACE)) {
-            throw new SyntaxException("Next token must be 'id_keyword' or 'r_brace'", token.getFilename(),
+        if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.R_BRACE
+                || token.getToken().equals("return"))) {
+            throw new SyntaxException("Return statement must be KEYWORD return", token.getFilename(),
                     token.getLineNum());
-        } else if (token.getTokenType() == TokenType.ID_KEYWORD && !token.getToken().equals("return")) {
+        } /*else if (token.getTokenType() == TokenType.ID_KEYWORD && !token.getToken().equals("return")) {
             throw new SyntaxException("Next token must be an id_keyword of return", token.getFilename(),
                     token.getLineNum());
-        }
+        }*/
 
         if (token.getTokenType() == TokenType.R_BRACE) {
             return new ReturnStmtNode(null);

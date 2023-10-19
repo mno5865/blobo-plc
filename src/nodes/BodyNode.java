@@ -24,14 +24,13 @@ public class BodyNode implements JottTree {
         Token token = tokens.get(0);
         while (token.getTokenType() != TokenType.R_BRACE && !token.getToken().equals("return")) {
             if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.FC_HEADER)) {
-                throw new SyntaxException("Next token must be header, id or keyword", token.getFilename(), token.getLineNum());
+                throw new SyntaxException("Body must begin with FUNCTION_HEADER (::), ID or KEYWORD", token.getFilename(), token.getLineNum());
             } else {
                 bodyStmtNodes.add(BodyStmtNode.parseBodyStmtNode(tokens));
             }
-            if (tokens.isEmpty()) {
-                throw new SyntaxException("Missing closing brace }",
-                        token.getFilename(), token.getLineNum());
-            }
+            /*if (tokens.isEmpty()) {
+                throw new SyntaxException("Body expects closing brace }", token.getFilename(), token.getLineNum());
+            }*/
             token = tokens.get(0);
         }
         ReturnStmtNode returnStmtNode = null;

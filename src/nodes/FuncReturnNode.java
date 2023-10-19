@@ -18,7 +18,7 @@ public class FuncReturnNode implements JottTree {
     public static FuncReturnNode parseFuncReturnNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("Missing return type", token.getFilename(), token.getLineNum());
+            throw new SyntaxException("Function definition requires a return type", token.getFilename(), token.getLineNum());
         }
         if (token.getToken().equals("Void")) {
             tokens.remove(0);

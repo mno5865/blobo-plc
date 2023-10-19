@@ -24,15 +24,13 @@ public class FuncDefNode implements JottTree {
 
     public static FuncDefNode parseFuncDefNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
-        } else if (!token.getToken().equals("def")) {
-            throw new SyntaxException("Next token must be an id_keyword of def", token.getFilename(), token.getLineNum());
+        if (token.getTokenType() != TokenType.ID_KEYWORD || !token.getToken().equals("def")) {
+            throw new SyntaxException("Function definition must begin with KEYWORD def", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);
 
         if (tokens.get(0).getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
+            throw new SyntaxException("Function definition must be followed by ID or KEYWORD", token.getFilename(), token.getLineNum());
         }
         IDNode funcName = IDNode.parseIDNode(tokens);
         parseToken(TokenType.L_BRACKET, tokens);

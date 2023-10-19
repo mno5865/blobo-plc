@@ -30,7 +30,7 @@ public interface ExprNode extends JottTree {
         }
 
         if (left == null) {
-            throw new SyntaxException("Operator must be followed by ID, NUMBER, or FC_HEADER",
+            throw new SyntaxException("Operator must be followed by ID, NUMBER, or FUNCTION_HEADER",
                     tokens.get(0).getFilename(), tokens.get(0).getLineNum());
         }
 

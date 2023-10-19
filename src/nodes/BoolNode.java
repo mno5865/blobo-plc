@@ -18,7 +18,7 @@ public class BoolNode implements ExprNode {
         Token token = tokens.get(0);
         boolean tokenIsBoolean = tokens.get(0).getToken().equals("True") || tokens.get(0).getToken().equals("False");
         if (token.getTokenType() != TokenType.ID_KEYWORD || !tokenIsBoolean) {
-            throw new SyntaxException("parseBoolean expects ID_Keyword", token.getFilename(), token.getLineNum());
+            throw new SyntaxException("Boolean value expects a KEYWORD", token.getFilename(), token.getLineNum());
         }
         return new BoolNode(tokens.remove(0));
     }

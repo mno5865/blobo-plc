@@ -19,7 +19,7 @@ public class TypeNode implements JottTree {
         Token token = tokens.get(0);
         String tokenString = token.getToken();
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
+            throw new SyntaxException("Type must be KEYWORD Double, Integer, String, or Boolean", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);
         return switch (tokenString) {
@@ -27,7 +27,7 @@ public class TypeNode implements JottTree {
             case "Integer" -> new TypeNode("Integer");
             case "String" -> new TypeNode("String");
             case "Boolean" -> new TypeNode("Boolean");
-            default -> throw new SyntaxException("Type should be Double, Integer, String, or Boolean",
+            default -> throw new SyntaxException("Type must be KEYWORD Double, Integer, String, or Boolean",
                     token.getFilename(), token.getLineNum());
         };
     }
