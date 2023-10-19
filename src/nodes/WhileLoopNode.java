@@ -22,17 +22,10 @@ public class WhileLoopNode implements BodyStmtNode {
         Token token = tokens.get(0);
         if (!(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("while"))) {
             throw new SyntaxException("While statement must be KEYWORD while ", token.getFilename(), token.getLineNum());
-        } /*else if (!token.getToken().equals("while")) {
-            throw new SyntaxException("Next token must be an id_keyword of while", token.getFilename(), token.getLineNum());
-        }*/
+        }
         tokens.remove(0);
         parseToken(TokenType.L_BRACKET, tokens);
-        token = tokens.get(0);
         ExprNode expr = ExprNode.parseExprNode(tokens);
-        if (expr instanceof IDNode || expr instanceof NumberNode || expr instanceof StringNode) {
-            throw new SyntaxException("While condition must evaluate to a True or False result", token.getFilename(),
-                    token.getLineNum());
-        }
         parseToken(TokenType.R_BRACKET, tokens);
         parseToken(TokenType.L_BRACE, tokens);
         BodyNode body = BodyNode.parseBodyNode(tokens);

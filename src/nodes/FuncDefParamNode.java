@@ -24,7 +24,7 @@ public class FuncDefParamNode implements JottTree {
         Token token = tokens.get(0);
         if (token.getTokenType() != TokenType.R_BRACKET) {
             if (tokens.get(0).getTokenType() != TokenType.ID_KEYWORD) {
-                throw new SyntaxException("Function definition parameter requires ID before parameter definition", token.getFilename(),
+                throw new SyntaxException("Function definition parameter requires Type KEYWORD before parameter ID", token.getFilename(),
                         token.getLineNum());
             }
             IDNode paramName = IDNode.parseIDNode(tokens);

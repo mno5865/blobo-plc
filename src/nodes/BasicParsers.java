@@ -11,7 +11,6 @@ public class BasicParsers {
         Token token = tokens.get(0);
         if (token.getTokenType() != type) {
             String out = "Next token must be '";
-            //todo add more error descriptions
             switch (type) {
                 case COLON -> out += ":";
                 case COMMA -> out += ",";

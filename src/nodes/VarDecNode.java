@@ -25,7 +25,7 @@ public class VarDecNode implements BodyStmtNode {
         }
         Token type = tokens.remove(0);
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxException("Variable declaration must be followed ID", token.getFilename(), token.getLineNum());
+            throw new SyntaxException("Variable declaration Type KEYWORD expects to be followed by ID", token.getFilename(), token.getLineNum());
         }
         IDNode id = IDNode.parseIDNode(tokens);
         parseToken(TokenType.SEMICOLON, tokens);

@@ -24,7 +24,7 @@ public class AsmtNode implements BodyStmtNode {
             throw new SyntaxException("Assignment statement must begin with be ID or KEYWORD", token1.getFilename(), token1.getLineNum());
         }
         if (token2.getTokenType() != TokenType.ID_KEYWORD && token2.getTokenType() != TokenType.ASSIGN) {
-            throw new SyntaxException("Assignment statement must be followed by ID or ASSIGNMENT (=)", token2.getFilename(),
+            throw new SyntaxException("Assignment statement expects to be followed by ID or ASSIGNMENT (=)", token2.getFilename(),
                     token2.getLineNum());
         }
         Token type = null;
