@@ -21,11 +21,6 @@ public class WhileLoopNode implements BodyStmtNode {
 
     public static WhileLoopNode parseWhileLoopNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (tokens.size() < 7){ // while[cond]{body}     (7 tokens minimum)
-            throw new SyntaxException("while requires: while[<b_expr>]{<body>}", token.getFilename(),
-                    token.getLineNum());
-        }
-        token = tokens.get(0);
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
         } else if (!token.getToken().equals("while")) {
