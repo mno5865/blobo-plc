@@ -4,6 +4,7 @@ import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
 
+import javax.naming.ServiceUnavailableException;
 import java.util.ArrayList;
 
 import static nodes.BasicParsers.parseToken;
@@ -20,6 +21,11 @@ public class WhileLoopNode implements BodyStmtNode {
 
     public static WhileLoopNode parseWhileLoopNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
+        if (tokens.size() < 7){ // while[cond]{body}     (7 tokens minimum)
+            throw new SyntaxException("while requires: while[<b_expr>]{<body>}", token.getFilename(),
+                    token.getLineNum());
+        }
+        token = tokens.get(0);
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException("Next token must be 'id_keyword'", token.getFilename(), token.getLineNum());
         } else if (!token.getToken().equals("while")) {
@@ -27,7 +33,12 @@ public class WhileLoopNode implements BodyStmtNode {
         }
         tokens.remove(0);
         parseToken(TokenType.L_BRACKET, tokens);
+        token = tokens.get(0);
         ExprNode expr = ExprNode.parseExprNode(tokens);
+        if (expr instanceof IDNode || expr instanceof NumberNode || expr instanceof StringNode) {
+            throw new SyntaxException("While condition must evaluate to a True or False result.", token.getFilename(),
+                    token.getLineNum());
+        }
         parseToken(TokenType.R_BRACKET, tokens);
         parseToken(TokenType.L_BRACE, tokens);
         BodyNode body = BodyNode.parseBodyNode(tokens);
