@@ -30,12 +30,12 @@ public class JottParser {
         try {
             tree = ProgramNode.parseProgramNode(tokens);
         } catch (SyntaxException e)  {
-            System.err.print(e.getMessage());
+            System.err.print(e);
         } catch (IndexOutOfBoundsException e) {
             try {
                 throw new SyntaxException("End of file reached before expected", lastFile, lastLine);
             } catch (SyntaxException s) {
-                System.err.print(s.getMessage());
+                System.err.print(s);
             }
         }
         return tree;

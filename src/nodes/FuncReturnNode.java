@@ -6,7 +6,6 @@ import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class FuncReturnNode implements JottTree {
     private final TypeNode type;
@@ -38,20 +37,17 @@ public class FuncReturnNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override

@@ -44,57 +44,57 @@ public class FuncDefParamNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         if (paramName != null) {
-            out += this.paramName.convertToJott();
-            out += ":";
-            out += this.paramType.convertToJott();
+            out.append(this.paramName.convertToJott());
+            out.append(":");
+            out.append(this.paramType.convertToJott());
             for (FuncDefParamTailNode param : paramTail) {
-                out += param.convertToJott();
+                out.append(param.convertToJott());
             }
         }
-        return out;
+        return out.toString();
     }
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         if (paramName != null) {
-            out += this.paramType.convertToJava("");
-            out += " ";
-            out += this.paramName.convertToJava("");
+            out.append(this.paramType.convertToJava(""));
+            out.append(" ");
+            out.append(this.paramName.convertToJava(""));
             for (FuncDefParamTailNode param : paramTail) {
-                out += param.convertToJava("");
+                out.append(param.convertToJava(""));
             }
         }
-        return out;
+        return out.toString();
     }
 
     @Override
     public String convertToC() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         if (paramName != null) {
-            out += paramType.convertToC();
-            out += " ";
-            out += paramName.convertToC();
+            out.append(paramType.convertToC());
+            out.append(" ");
+            out.append(paramName.convertToC());
             for (FuncDefParamTailNode param : paramTail) {
-                out += param.convertToC();
+                out.append(param.convertToC());
             }
         }
 
-        return out;
+        return out.toString();
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         if (paramName != null) {
-            out += paramName.convertToPython();
+            out.append(paramName.convertToPython());
             for (FuncDefParamTailNode param : paramTail) {
-                out += param.convertToPython();
+                out.append(param.convertToPython());
             }
         }
-        return out;
+        return out.toString();
     }
 
     @Override

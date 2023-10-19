@@ -1,7 +1,6 @@
 package nodes;
 
 import errors.SyntaxException;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
@@ -36,14 +35,12 @@ public class BoolNode implements ExprNode {
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override

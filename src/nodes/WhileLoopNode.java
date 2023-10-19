@@ -4,7 +4,6 @@ import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
 
-import javax.naming.ServiceUnavailableException;
 import java.util.ArrayList;
 
 import static nodes.BasicParsers.parseToken;

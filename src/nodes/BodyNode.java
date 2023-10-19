@@ -12,8 +12,6 @@ public class BodyNode implements JottTree {
     private final ArrayList<BodyStmtNode> bodyStmts;
     private final ReturnStmtNode returnStmt;
 
-    private static int indentationLevel = 0;
-
     public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt) {
         this.bodyStmts = bodyStmts;
         this.returnStmt = returnStmt;
@@ -52,7 +50,7 @@ public class BodyNode implements JottTree {
                 out.append("\n\t");
             }
         }
-        String newlineAndTab = (bodyStmts.size() > 0) ? "\n\t" : ""; //if no return statement don't add newline
+        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
                 this.returnStmt.convertToJott() : out.toString());
         return out.toString().concat("\n");

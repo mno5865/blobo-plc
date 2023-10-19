@@ -50,20 +50,17 @@ public class ElseifNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        return "";
     }
 
     @Override
