@@ -24,17 +24,17 @@ public class IDNode implements ExprNode {
 
     @Override
     public String convertToJava(String className) {
-        return null;
+        return this.id_name.getToken();
     }
 
     @Override
     public String convertToC() {
-        return null;
+        return this.id_name.getToken();
     }
 
     @Override
     public String convertToPython() {
-        return null;
+        return this.id_name.getToken();
     }
 
     @Override

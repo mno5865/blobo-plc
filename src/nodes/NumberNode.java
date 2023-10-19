@@ -24,17 +24,17 @@ public class NumberNode implements ExprNode {
 
     @Override
     public String convertToJava(String className) {
-        return null;
+        return this.number.getToken();
     }
 
     @Override
     public String convertToC() {
-        return null;
+        return this.number.getToken();
     }
 
     @Override
     public String convertToPython() {
-        return null;
+        return this.number.getToken();
     }
 
     @Override
