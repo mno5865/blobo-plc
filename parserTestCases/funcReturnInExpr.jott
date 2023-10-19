@@ -8,8 +8,8 @@ def foo[x:Integer]:Integer{
 
 def main[]:Void{
     Integer x = 0;
-	while[foo[x]<10.0]{
-	    x = foo[x];
-		print[x];
+	while[::foo[x]<10.0]{
+	    x = ::foo[x];
+		::print[x];
 	}
 }

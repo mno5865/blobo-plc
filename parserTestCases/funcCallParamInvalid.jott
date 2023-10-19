@@ -1,11 +1,11 @@
 #this will pass phase 2 but fail phase 3 for foo param type not matching
 
 def foo[y:Double]:Integer{
-    print[y];
+    ::print[y];
 	return 3;
 }
 
 def main[]:Void{
-    Integer x = foo[5];
-	print[x];
+    Integer x = ::foo[5];
+	::print[x];
 }

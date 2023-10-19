@@ -4,5 +4,5 @@
 
 def foo[]:Integer{
     return 5;
-	print["foo"];
+	::print["foo"];
 }

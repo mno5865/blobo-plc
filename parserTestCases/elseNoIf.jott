@@ -6,11 +6,11 @@ def main[]:Integer{
     Integer x = 0;
 	while[x <10]{
 	    if[x==5]{
-		    print[True];
+		    ::print[True];
 		}
 	}
 	else{
-	    print[False];
+	    ::print[False];
 	}
 	return x;
 }

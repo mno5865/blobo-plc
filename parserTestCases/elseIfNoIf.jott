@@ -4,13 +4,13 @@
 
 def main[x:Integer]:Integer{
     if[x==5]{
-	    print[x];
+	    ::print[x];
 	}
 	else{
-	    print["foo"];
+	    ::print["foo"];
 	}
 	elseif[x==7]{
-	    print["bar"];
+	    ::print["bar"];
 	}
 	return 5;
 }
