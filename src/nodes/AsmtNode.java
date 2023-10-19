@@ -44,7 +44,8 @@ public class AsmtNode implements BodyStmtNode {
         if (this.type != null) {
             out += this.type.getToken();
         }
-        return out + " " + this.id.convertToJott() + " = " + this.expr.convertToJott() + ";";
+        return out + ((this.type != null) ? " " : "") + this.id.convertToJott() + " = " + this.expr.convertToJott() +
+                ";";
     }
 
     @Override

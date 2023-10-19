@@ -53,7 +53,9 @@ public class BodyNode implements JottTree {
                 out.append("\n\t");
             }
         }
-        out = new StringBuilder((this.returnStmt != null) ? out + "\n\t" + this.returnStmt.convertToJott() : out.toString());
+        String newlineAndTab = (bodyStmts.size() > 0) ? "\n\t" : ""; //if no return statement don't add newline
+        out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
+                this.returnStmt.convertToJott() : out.toString());
         return out.toString().concat("\n");
     }
 
