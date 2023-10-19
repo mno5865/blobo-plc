@@ -22,13 +22,19 @@ public class JottParser {
      */
     public static JottTree parse(ArrayList<Token> tokens) {
         JottTree tree = null;
+        int lastLine = 0;
+        String lastFile = "";
+        if (!tokens.isEmpty()) {
+            lastLine = tokens.get(tokens.size() - 1).getLineNum();
+            lastFile = tokens.get(tokens.size() - 1).getFilename();
+        }
         try {
             tree = ProgramNode.parseProgramNode(tokens);
         } catch (SyntaxException e)  {
             System.err.print(e);
         } catch (IndexOutOfBoundsException e) {
             try {
-                throw new SyntaxException("End of file reached before expected.", "", -1);
+                throw new SyntaxException("End of file reached before expected.", lastFile, lastLine);
             } catch (SyntaxException s) {
                 System.err.print(s);
             }
