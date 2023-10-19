@@ -20,10 +20,6 @@ public class BodyNode implements JottTree {
     }
 
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxException {
-        if (tokens.isEmpty()){
-            throw new SyntaxException("Expected token, got EOF", "", -1);
-        }
-
         ArrayList<BodyStmtNode> bodyStmtNodes = new ArrayList<>();
         Token token = tokens.get(0);
         while (token.getTokenType() != TokenType.R_BRACE && !token.getToken().equals("return")) {
