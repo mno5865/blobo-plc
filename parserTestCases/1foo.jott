@@ -4,6 +4,6 @@
 #Error: Expected <id> got <int>
 
 def 1foo[]:Integer{
-    print[5];
+    ::print[5];
 	return 5;
 }
