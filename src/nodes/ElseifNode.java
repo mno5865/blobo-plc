@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -64,7 +65,7 @@ public class ElseifNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() { //TODO VALIDATE TREE FOR ELSE IF NODE
+    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR ELSE IF NODE
         boolean valid = true;
         valid = valid && expr.validateTree();
         valid = valid && body.validateTree();

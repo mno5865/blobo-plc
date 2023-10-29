@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -82,7 +83,7 @@ public class BodyNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() { //TODO VALIDATE TREE FOR BODY NODE
+    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR BODY NODE
         boolean valid = true;
         for (BodyStmtNode bodyStmt : bodyStmts) {
             valid = valid && bodyStmt.validateTree();

@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
@@ -54,7 +55,7 @@ public class VarDecNode implements BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() { //TODO VALIDATE TREE FOR VARIABLE DECLARATION NODE
+    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR VARIABLE DECLARATION NODE
         boolean valid = true;
         //todo type -> typenode -> validateTree()
         valid = valid && id.validateTree();

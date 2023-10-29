@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -33,10 +34,22 @@ public class ParamNode implements JottTree {
         return new ParamNode(null, null);
     }
 
-    public List<String> getParamTypes() {
+    public void handleParamIsDefinedError(ExprNode expression) throws SemanticException {
+        if (expression instanceof IDNode) {
+            IDNode paramID = (IDNode) expression;
+            if (!SymbolTable.doesVarExistInScope(paramID.getName())) {
+                throw new SemanticException("The variable " +
+                        paramID.getName() + " does not exist in the current scope", paramID.getToken());
+            }
+        }
+    }
+
+    public List<String> getParamTypes() throws SemanticException {
         List<String> params = new ArrayList<>();
+        handleParamIsDefinedError(expr);
         params.add(expr.getType());
         for (ParamTailNode param : paramTail) {
+            handleParamIsDefinedError(param.getExpr());
             params.add(param.getExpr().getType());
         }
         return params;
@@ -73,12 +86,13 @@ public class ParamNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() { // TODO VALIDATE TREE FOR PARAM NODE NODE
+    public boolean validateTree() throws SemanticException { // TODO VALIDATE TREE FOR PARAM NODE NODE
+        // todo this validateTree should be checking if the variable name exists in the symbol table
         if (expr == null) return true;
         boolean valid = true;
-        expr.validateTree();
+        valid = expr.validateTree();
         for (ParamTailNode param : paramTail) {
-            param.validateTree();
+            valid = param.validateTree();
         }
         return valid;
     }

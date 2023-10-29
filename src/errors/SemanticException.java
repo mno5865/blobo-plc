@@ -1,12 +1,16 @@
 package errors;
 
-public class SemanticException {
+import provided.Token;
+
+public class SemanticException extends Exception {
     private String errorMessage;
     private String fileName;
     private int lineNum;
 
-    public SemanticException() {
-
+    public SemanticException(String errorMessage, Token token) {
+        this.errorMessage = errorMessage;
+        this.fileName = token.getFilename();
+        this.lineNum = token.getLineNum();
     }
 
     public SemanticException(String errorMessage, String fileName, int lineNum) {

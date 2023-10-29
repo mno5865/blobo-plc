@@ -6,6 +6,7 @@
  */
 package provided;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import nodes.ProgramNode;
 
@@ -39,8 +40,12 @@ public class JottParser {
             }
         }
         if (tree != null) {
-            System.out.print("\nValidateTree returned: ");
-            System.out.println(tree.validateTree() + "\n\n");
+            try {
+                boolean validTree = tree.validateTree();
+                System.out.println("\nValidateTree returned: " + validTree + "\n");
+            } catch (SemanticException e){
+                System.err.print(e);
+            }
         }
         return tree;
     }

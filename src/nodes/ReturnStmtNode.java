@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -60,7 +61,7 @@ public class ReturnStmtNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() { //TODO VALIDATE TREE FOR RETURN STMT NODE
+    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR RETURN STMT NODE
         return expr.validateTree();
     }
 }

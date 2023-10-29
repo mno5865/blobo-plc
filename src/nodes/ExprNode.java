@@ -46,7 +46,5 @@ public interface ExprNode extends JottTree {
         }
     }
 
-    boolean isInteger();
-
     String getType();
 }

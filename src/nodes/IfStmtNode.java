@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
@@ -91,7 +92,7 @@ public class IfStmtNode implements BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() { //TODO VALIDATE TREE FOR IF STATEMENT NODE
+    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR IF STATEMENT NODE
         boolean valid = true;
         valid = valid && expr.validateTree();
         valid = valid && body.validateTree();

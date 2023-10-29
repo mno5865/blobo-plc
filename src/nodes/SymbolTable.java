@@ -29,7 +29,16 @@ public class SymbolTable { //todo add built-ins to table on startup
     }
 
     public static boolean doesFunctionExist(List<String> funcDefinition) {
-        return funcDefinitions.containsKey(funcDefinition);
+        boolean printCheck = funcDefinition.get(0).equals("print") && TypeNode.validType(funcDefinition.get(1)) &&
+                !funcDefinition.get(0).equals("Void") && funcDefinition.size() == 2; //todo ask scott if print can only take in 1 param
+
+        boolean concatCheck = funcDefinition.get(0).equals("concat") && funcDefinition.get(1).equals("String")
+                && funcDefinition.get(2).equals("String") && funcDefinition.size() == 3;
+
+        boolean lengthCheck = funcDefinition.get(0).equals("length") && funcDefinition.get(1).equals("String") &&
+                funcDefinition.size() == 2;
+
+        return printCheck || concatCheck || lengthCheck || funcDefinitions.containsKey(funcDefinition);
     }
 
     public static String getFunctionReturnType() {
@@ -40,8 +49,9 @@ public class SymbolTable { //todo add built-ins to table on startup
         return funcDefinitions.get(scopeFunc).containsKey(varName);
     }
 
-    public static String getVariableReturnType(String varName) {
-        //todo do a semantic exception for if the variable doesn't exist
+    //todo add a semantic exception in the right class for the above/below functions when a variable that doesn't exist is called
+
+    public static String getVariableType(String varName) {
         return funcDefinitions.get(scopeFunc).get(varName);
     }
 }

@@ -50,12 +50,12 @@ public class OpNode implements ExprNode {
         return true;
     }
 
-    @Override
-    public boolean isInteger() {
-        return false;
-    }
-
     public String getOperator() {
         return operator.getToken();
+    }
+
+    public String getType() {
+        // should never be called, an operator cannot be a type
+        return "";
     }
 }

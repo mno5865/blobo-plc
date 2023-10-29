@@ -43,12 +43,16 @@ public class NumberNode implements ExprNode {
         return true;
     }
 
-    @Override
     public boolean isInteger() {
         return this.evaluate() % 1 == 0;
     }
 
     public double evaluate() {
         return Double.parseDouble(number.getToken());
+    }
+
+    public String getType() {
+        if (isInteger()) return "Integer";
+        return "Double";
     }
 }

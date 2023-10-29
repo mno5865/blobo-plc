@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
@@ -59,21 +60,22 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() { //just checks to make sure the function exists right now
+    public boolean validateTree() throws SemanticException { //just checks to make sure the function exists right now
         // todo it should be asmt that checks whether the assignment is valid
         List<String> funcDefinition = new ArrayList<>();
-        funcDefinition.add(funcName.getFuncName());
+        funcDefinition.add(funcName.getName());
         funcDefinition.addAll(params.getParamTypes());
-        boolean valid = SymbolTable.doesFunctionExist(funcDefinition); //TODO ERROR CASE FOR WHEN THIS FAILS
+        boolean valid = SymbolTable.doesFunctionExist(funcDefinition);
+        if (!valid) throw new SemanticException("The function " + funcName.getName() + "does not exist", funcName.getToken());
         valid = valid && funcName.validateTree();
         valid = valid && params.validateTree();
         return valid;
     }
 
-    @Override
-    public boolean isInteger() { //todo I'll need the return type of the function specified
-        return false;
-    }
+    // todo do I need an evaluate for a func call node? I suppose if it for BinaryOperation's evaluate
 
-    //todo do I need an evaluate for a func call node? maybe add a function like isNum to show you can't evaluate an expression like this
+    @Override
+    public String getType() {
+        return SymbolTable.getFunctionReturnType();
+    }
 }

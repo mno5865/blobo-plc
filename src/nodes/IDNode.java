@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import provided.Token;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class IDNode implements ExprNode {
         return new IDNode(tokens.remove(0));
     }
 
-    public String getFuncName() {
+    public String getName() {
         return idName.getToken();
     }
 
@@ -43,12 +44,14 @@ public class IDNode implements ExprNode {
     public boolean validateTree() {
         //todo someone should check to make sure this is always true
         // (i'm pretty sure base nodes don't have any errors)
-        // asmt and func def should handle their respective checks in their own classes and not in idnode
         return true;
     }
 
-    @Override
-    public boolean isInteger() { //todo this function
-        return false;
+    public String getType() { //todo this can result in a semantic exception so check for this a level up before you call it
+        return SymbolTable.getVariableType(idName.getToken());
+    }
+
+    public Token getToken() {
+        return idName;
     }
 }

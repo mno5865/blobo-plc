@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 import static nodes.BasicParsers.*;
 
-public class FuncDefNode implements JottTree {
+public class FuncDefNode implements JottTree { //todo this node is all kinds of wonky, how returnType is handled should prob be redone
     private final IDNode funcName;
     private final FuncDefParamNode params;
     private final FuncReturnNode returnType;
@@ -98,13 +99,14 @@ public class FuncDefNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() { // TODO VALIDATE TREE FOR FUNC DEF NODE
-        //this should be going into the symbol table and making sure the func has a unique
-        // name by passing in a function definition using func name and the params
+    public boolean validateTree() throws SemanticException { // TODO VALIDATE TREE FOR FUNC DEF NODE
+        //this should be making sure the func is unique, this is also where we initialize it in the symbol table
         boolean valid = true;
+        String returnValue = returnType == null || !returnType.returnTypeExists() ? "" : returnType.getReturnType();
+        SymbolTable.setFunction(funcName.getName(), params.getParamTypes(), params.getParamNames(), returnValue);
         valid = valid && funcName.validateTree();
         if (params.paramsExist()) valid = valid && params.validateTree();
-        if (returnType.returnTypeExists()) valid = valid && returnType.validateTree();
+        if (returnType != null) valid = valid && returnType.validateTree();
         valid = valid && body.validateTree();
         return valid;
     }

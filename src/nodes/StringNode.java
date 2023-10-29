@@ -47,8 +47,7 @@ public class StringNode implements ExprNode {
         return true;
     }
 
-    @Override
-    public boolean isInteger() {
-        return false;
+    public String getType() {
+        return "String";
     }
 }

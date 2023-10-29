@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -56,7 +57,7 @@ public class ElseNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() { //TODO VALIDATE TREE FOR ELSE NODE
+    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR ELSE NODE
         return body.validateTree();
     }
 }

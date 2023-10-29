@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -66,10 +67,18 @@ public class FuncDefParamTailNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() { //TODO VALIDATE TREE FOR FUNC DEF PARAM TAIL NODE
+    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR FUNC DEF PARAM TAIL NODE
         boolean valid = true;
         valid = valid && paramName.validateTree();
         valid = valid && paramType.validateTree();
         return valid;
+    }
+
+    public String getType() {
+        return paramType.getType();
+    }
+
+    public String getName() {
+        return paramName.getName();
     }
 }

@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
@@ -64,7 +65,7 @@ public class AsmtNode implements BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() {
+    public boolean validateTree() throws SemanticException {
         boolean valid = true;
         valid = valid && id.validateTree();
         valid = valid && expr.validateTree();
