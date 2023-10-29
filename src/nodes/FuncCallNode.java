@@ -5,6 +5,7 @@ import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static nodes.BasicParsers.parseToken;
 
@@ -58,7 +59,17 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() {
+    public boolean validateTree() { //just checks to make sure the function exists right now //todo it should be asmt that checks whether the assignment is valid
+        List<String> funcDefinition = new ArrayList<>();
+        funcDefinition.add(funcName.getFuncName());
+        funcDefinition.addAll(params.getParams());
+        return SymbolTable.doesFunctionExist(funcDefinition);
+    }
+
+    @Override
+    public boolean isInteger() { //todo I'll need the return type of the function specified
         return false;
     }
+
+    //todo do I need an evaluate for a func call node? maybe add a function like isNum to show you can't evaluate an expression like this
 }

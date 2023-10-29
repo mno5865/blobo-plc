@@ -6,6 +6,7 @@ import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParamNode implements JottTree {
     private final ExprNode expr;
@@ -30,6 +31,15 @@ public class ParamNode implements JottTree {
             return new ParamNode(expr, paramTail);
         }
         return new ParamNode(null, null);
+    }
+
+    public List<String> getParams() {
+        List<String> params = new ArrayList<>();
+        params.add(this.expr.convertToJott()); //todo maybe refactor this to not use convert to jott later... it works tho 🤭
+        for (ParamTailNode param : paramTail) {
+            params.add(param.convertToJott());
+        }
+        return params;
     }
 
     @Override

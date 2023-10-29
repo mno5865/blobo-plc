@@ -46,6 +46,15 @@ public class OpNode implements ExprNode {
 
     @Override
     public boolean validateTree() {
+        return true;
+    }
+
+    @Override
+    public boolean isInteger() {
         return false;
+    }
+
+    public String getOperator() {
+        return operator.getToken();
     }
 }

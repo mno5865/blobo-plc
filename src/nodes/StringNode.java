@@ -43,6 +43,11 @@ public class StringNode implements ExprNode {
 
     @Override
     public boolean validateTree() {
+        return true;
+    }
+
+    @Override
+    public boolean isInteger() {
         return false;
     }
 }

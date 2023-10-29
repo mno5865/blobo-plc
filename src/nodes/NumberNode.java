@@ -39,6 +39,15 @@ public class NumberNode implements ExprNode {
 
     @Override
     public boolean validateTree() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean isInteger() {
+        return this.evaluate() % 1 == 0;
+    }
+
+    public double evaluate() {
+        return Double.parseDouble(number.getToken());
     }
 }

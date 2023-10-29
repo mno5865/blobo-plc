@@ -29,6 +29,7 @@ public class JottParser {
         }
         try {
             tree = ProgramNode.parseProgramNode(tokens);
+            tree.validateTree();
         } catch (SyntaxException e)  {
             System.err.print(e);
         } catch (IndexOutOfBoundsException e) {
