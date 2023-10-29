@@ -7,7 +7,7 @@ import provided.TokenType;
 import java.util.ArrayList;
 
 public class AsmtNode implements BodyStmtNode {
-    private final Token type;
+    private final Token type; //todo see notes in varDecNode on type as a node class
     private final IDNode id;
     private final ExprNode expr;
 
@@ -65,6 +65,9 @@ public class AsmtNode implements BodyStmtNode {
 
     @Override
     public boolean validateTree() {
-        return false;
+        boolean valid = false;
+        id.validateTree();
+        expr.validateTree();
+        return valid;
     }
 }

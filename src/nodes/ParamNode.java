@@ -73,7 +73,13 @@ public class ParamNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public boolean validateTree() { //TODO VALIDATE TREE FOR PARAM NODE NODE
+        if (expr == null) return true;
+        boolean valid = true;
+        expr.validateTree();
+        for (ParamTailNode param : paramTail) {
+            param.validateTree();
+        }
+        return valid;
     }
 }

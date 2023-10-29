@@ -60,7 +60,9 @@ public class ReturnStmtNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public boolean validateTree() { //TODO VALIDATE TREE FOR RETURN STMT NODE
+        boolean valid = true;
+        expression.validateTree();
+        return valid;
     }
 }

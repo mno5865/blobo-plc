@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import provided.Token;
 import provided.JottTokenizer;
 import provided.JottParser;
@@ -186,7 +187,7 @@ public class JottParserTester {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("NOTE: System.err may print at the end. This is fine.");
         JottParserTester tester = new JottParserTester();
 
@@ -194,13 +195,14 @@ public class JottParserTester {
         int passedTests = 0;
         tester.createTestCases();
         for(JottParserTester.TestCase test: tester.testCases){
+            TimeUnit.MILLISECONDS.sleep(100L); //sleep 100 milliseconds between each test so printing works
             numTests++;
             if(tester.runTest(test)){
                 passedTests++;
-                System.out.println("\tPassed\n");
+                System.out.println("\tPassed\n\n\n");
             }
             else{
-                System.out.println("\tFailed\n");
+                System.out.println("\tFailed\n\n\n");
             }
         }
 

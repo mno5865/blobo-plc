@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import static nodes.BasicParsers.parseToken;
 
 public class VarDecNode implements BodyStmtNode {
+    //todo refactor, we started using type node to represent type so type should probably be a type node and use its validateTree
 
     private final Token type;
     private final IDNode id;
@@ -53,7 +54,10 @@ public class VarDecNode implements BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public boolean validateTree() { //TODO VALIDATE TREE FOR VARIABLE DECLARATION NODE
+        boolean valid = true;
+        //todo type -> typenode -> validateTree()
+        id.validateTree();
+        return valid;
     }
 }

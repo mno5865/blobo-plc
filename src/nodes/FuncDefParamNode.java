@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static nodes.BasicParsers.parseToken;
 
-public class FuncDefParamNode implements JottTree {
+public class FuncDefParamNode implements JottTree { //todo should be noted if there are no functions params all of these values are null, caused me some issues figuring it out
     private final IDNode paramName;
     private final TypeNode paramType;
     private final ArrayList<FuncDefParamTailNode> paramTail;
@@ -98,7 +98,17 @@ public class FuncDefParamNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public boolean validateTree() { ////TODO VALIDATE TREE FOR FUNC DEF PARAM NODE
+        boolean valid = false;
+        paramName.validateTree();
+        paramType.validateTree();
+        for (FuncDefParamTailNode param : paramTail) {
+            param.validateTree();
+        }
+        return valid;
+    }
+
+    public boolean paramsExist() {
+        return paramName != null;
     }
 }
