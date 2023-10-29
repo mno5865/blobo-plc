@@ -28,6 +28,11 @@ public class SymbolTable { //todo add built-ins to table on startup
         funcDefinitions.put(functionDefinition, variables);
     }
 
+    public static void addVariable(String varType, String varName) {
+        HashMap<String, String> existingVariables = funcDefinitions.get(scopeFunc);
+        existingVariables.put(varName, varType);
+    }
+
     public static boolean doesFunctionExist(List<String> funcDefinition) {
         boolean printCheck = funcDefinition.get(0).equals("print") && TypeNode.validType(funcDefinition.get(1)) &&
                 !funcDefinition.get(0).equals("Void") && funcDefinition.size() == 2; //todo ask scott if print can only take in 1 param
