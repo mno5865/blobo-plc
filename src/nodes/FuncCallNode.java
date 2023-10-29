@@ -66,7 +66,7 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
         funcDefinition.add(funcName.getName());
         funcDefinition.addAll(params.getParamTypes());
         boolean valid = SymbolTable.doesFunctionExist(funcDefinition);
-        if (!valid) throw new SemanticException("The function " + funcName.getName() + "does not exist", funcName.getToken());
+        if (!valid) throw new SemanticException("The function " + funcName.getName() + " does not exist", funcName.getToken());
         valid = valid && funcName.validateTree();
         valid = valid && params.validateTree();
         return valid;

@@ -41,9 +41,8 @@ public class BinaryOperationNode implements ExprNode {
         boolean valid = true;
         valid = valid && leftExpr.validateTree();
         valid = valid && rightExpr.validateTree();
-        valid = valid && (leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer"));
+        //valid = valid && (leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer"));
         //valid = valid && (leftExpr.getType().equals("Double") && rightExpr.getType().equals("Double"));
-
         /**if (!possibleOps.contains(op)) {
          return false;
          }*/
