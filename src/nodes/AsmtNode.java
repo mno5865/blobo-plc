@@ -65,9 +65,9 @@ public class AsmtNode implements BodyStmtNode {
 
     @Override
     public boolean validateTree() {
-        boolean valid = false;
-        id.validateTree();
-        expr.validateTree();
+        boolean valid = true;
+        valid = valid && id.validateTree();
+        valid = valid && expr.validateTree();
         return valid;
     }
 }

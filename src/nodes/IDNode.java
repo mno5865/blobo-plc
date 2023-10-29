@@ -40,7 +40,10 @@ public class IDNode implements ExprNode {
     }
 
     @Override
-    public boolean validateTree() { //todo default id should also just return true, asmt and func def should handle respective checks
+    public boolean validateTree() {
+        //todo someone should check to make sure this is always true
+        // (i'm pretty sure base nodes don't have any errors)
+        // asmt and func def should handle their respective checks in their own classes and not in idnode
         return true;
     }
 

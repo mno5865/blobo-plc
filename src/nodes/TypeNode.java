@@ -54,7 +54,9 @@ public class TypeNode implements JottTree {
 
     @Override
     public boolean validateTree() { //TODO VALIDATE TREE FOR TYPE NODE
-        boolean valid = true;
-        return valid;
+        //todo someone should check to make sure this is correct (i'm pretty sure base nodes can't have any errors)
+        // this is a kind of base node so it'd only be instantiated if it's true? i'm guessing this is always true but check this to be sure
+        return true;
+
     }
 }

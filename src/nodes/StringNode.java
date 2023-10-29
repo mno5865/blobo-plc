@@ -43,6 +43,7 @@ public class StringNode implements ExprNode {
 
     @Override
     public boolean validateTree() {
+        //todo someone should check to make sure this is correct (i'm pretty sure base nodes can't have any errors)
         return true;
     }
 

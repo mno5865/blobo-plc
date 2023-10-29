@@ -99,11 +99,11 @@ public class FuncDefParamNode implements JottTree { //todo should be noted if th
 
     @Override
     public boolean validateTree() { ////TODO VALIDATE TREE FOR FUNC DEF PARAM NODE
-        boolean valid = false;
-        paramName.validateTree();
-        paramType.validateTree();
+        boolean valid = true;
+        valid = valid && paramName.validateTree();
+        valid = valid && paramType.validateTree();
         for (FuncDefParamTailNode param : paramTail) {
-            param.validateTree();
+            valid = valid && param.validateTree();
         }
         return valid;
     }

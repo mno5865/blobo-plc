@@ -57,7 +57,7 @@ public class VarDecNode implements BodyStmtNode {
     public boolean validateTree() { //TODO VALIDATE TREE FOR VARIABLE DECLARATION NODE
         boolean valid = true;
         //todo type -> typenode -> validateTree()
-        id.validateTree();
+        valid = valid && id.validateTree();
         return valid;
     }
 }

@@ -57,8 +57,6 @@ public class ElseNode implements JottTree {
 
     @Override
     public boolean validateTree() { //TODO VALIDATE TREE FOR ELSE NODE
-        boolean valid = false;
-        body.validateTree();
-        return valid;
+        return body.validateTree();
     }
 }

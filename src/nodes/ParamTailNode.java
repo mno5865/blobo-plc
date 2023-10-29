@@ -44,7 +44,11 @@ public class ParamTailNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() { //TODO VALIDATE TREE FOR A PARAM TAIL NODE
+    public boolean validateTree() { // TODO VALIDATE TREE FOR A PARAM TAIL NODE
         return expr.validateTree();
+    }
+
+    public ExprNode getExpr() {
+        return expr;
     }
 }

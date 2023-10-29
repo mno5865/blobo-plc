@@ -11,10 +11,10 @@ import static nodes.BasicParsers.parseToken;
 
 public class ReturnStmtNode implements JottTree {
 
-    private final ExprNode expression;
+    private final ExprNode expr;
 
-    public ReturnStmtNode(ExprNode expression) {
-        this.expression = expression;
+    public ReturnStmtNode(ExprNode expr) {
+        this.expr = expr;
     }
 
     public static ReturnStmtNode parseReturnStmtnode(ArrayList<Token> tokens) throws SyntaxException {
@@ -39,8 +39,8 @@ public class ReturnStmtNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        if (this.expression != null)
-            return "return " + expression.convertToJott() + ";";
+        if (this.expr != null)
+            return "return " + expr.convertToJott() + ";";
         else return "";
     }
 
@@ -61,8 +61,6 @@ public class ReturnStmtNode implements JottTree {
 
     @Override
     public boolean validateTree() { //TODO VALIDATE TREE FOR RETURN STMT NODE
-        boolean valid = true;
-        expression.validateTree();
-        return valid;
+        return expr.validateTree();
     }
 }

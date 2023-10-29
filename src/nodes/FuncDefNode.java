@@ -98,7 +98,7 @@ public class FuncDefNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() { //TODO VALIDATE TREE FOR FUNC DEF NODE
+    public boolean validateTree() { // TODO VALIDATE TREE FOR FUNC DEF NODE
         //this should be going into the symbol table and making sure the func has a unique
         // name by passing in a function definition using func name and the params
         boolean valid = true;

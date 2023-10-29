@@ -92,16 +92,16 @@ public class IfStmtNode implements BodyStmtNode {
 
     @Override
     public boolean validateTree() { //TODO VALIDATE TREE FOR IF STATEMENT NODE
-        boolean valid = false;
-        expr.validateTree();
-        body.validateTree();
+        boolean valid = true;
+        valid = valid && expr.validateTree();
+        valid = valid && body.validateTree();
         if (!this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
-                elseifNode.validateTree();
+                valid = valid && elseifNode.validateTree();
             }
         }
         if (this.elseNode != null) {
-            elseNode.validateTree();
+            valid = valid && elseNode.validateTree();
         }
         return valid;
     }

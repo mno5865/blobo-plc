@@ -39,8 +39,8 @@ public class JottParser {
             }
         }
         if (tree != null) {
-            System.out.print("\nValidateTree returned: \n\n");
-            System.out.println(tree.validateTree());
+            System.out.print("\nValidateTree returned: ");
+            System.out.println(tree.validateTree() + "\n\n");
         }
         return tree;
     }

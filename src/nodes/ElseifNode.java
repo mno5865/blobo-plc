@@ -65,9 +65,9 @@ public class ElseifNode implements JottTree {
 
     @Override
     public boolean validateTree() { //TODO VALIDATE TREE FOR ELSE IF NODE
-        boolean valid = false;
-        expr.validateTree();
-        body.validateTree();
+        boolean valid = true;
+        valid = valid && expr.validateTree();
+        valid = valid && body.validateTree();
         return valid;
     }
 }

@@ -59,11 +59,15 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() { //just checks to make sure the function exists right now //todo it should be asmt that checks whether the assignment is valid
+    public boolean validateTree() { //just checks to make sure the function exists right now
+        // todo it should be asmt that checks whether the assignment is valid
         List<String> funcDefinition = new ArrayList<>();
         funcDefinition.add(funcName.getFuncName());
-        funcDefinition.addAll(params.getParams());
-        return SymbolTable.doesFunctionExist(funcDefinition);
+        funcDefinition.addAll(params.getParamTypes());
+        boolean valid = SymbolTable.doesFunctionExist(funcDefinition); //TODO ERROR CASE FOR WHEN THIS FAILS
+        valid = valid && funcName.validateTree();
+        valid = valid && params.validateTree();
+        return valid;
     }
 
     @Override

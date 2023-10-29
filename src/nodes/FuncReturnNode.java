@@ -52,9 +52,7 @@ public class FuncReturnNode implements JottTree {
 
     @Override
     public boolean validateTree() { //TODO VALIDATE TREE FOR FUNC RETURN TYPE NODE
-        boolean valid = false;
-        type.validateTree();
-        return valid;
+        return type.validateTree();
     }
 
     public boolean returnTypeExists() {

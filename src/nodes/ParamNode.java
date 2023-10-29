@@ -33,11 +33,11 @@ public class ParamNode implements JottTree {
         return new ParamNode(null, null);
     }
 
-    public List<String> getParams() {
+    public List<String> getParamTypes() {
         List<String> params = new ArrayList<>();
-        params.add(this.expr.convertToJott()); //todo maybe refactor this to not use convert to jott later... it works tho 🤭
+        params.add(expr.getType());
         for (ParamTailNode param : paramTail) {
-            params.add(param.convertToJott());
+            params.add(param.getExpr().getType());
         }
         return params;
     }
@@ -73,7 +73,7 @@ public class ParamNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() { //TODO VALIDATE TREE FOR PARAM NODE NODE
+    public boolean validateTree() { // TODO VALIDATE TREE FOR PARAM NODE NODE
         if (expr == null) return true;
         boolean valid = true;
         expr.validateTree();

@@ -36,18 +36,17 @@ public class BinaryOperationNode implements ExprNode {
     }
 
     @Override
-    public boolean validateTree() {
-        if (!leftExpr.validateTree()) {
-            return false;
-        } if (!rightExpr.validateTree()) {
-            return false;
-        } if (leftExpr.isInteger() != rightExpr.isInteger()) {
-            return false;
-        } /**if (!possibleOps.contains(op)) {
+    public boolean validateTree() { //TODO ERROR CASE FOR WHEN THIS FAILS
+        boolean valid = true;
+        valid = valid && leftExpr.validateTree();
+        valid = valid && rightExpr.validateTree();
+        valid = valid && (leftExpr.isInteger() == rightExpr.isInteger());
+
+        /**if (!possibleOps.contains(op)) {
          return false;
          }*/
 
-        return true;
+        return valid;
     }
 
     @Override
