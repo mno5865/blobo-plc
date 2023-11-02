@@ -67,11 +67,10 @@ public class FuncDefParamTailNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR FUNC DEF PARAM TAIL NODE
-        boolean valid = true;
-        valid = valid && paramName.validateTree();
-        valid = valid && paramType.validateTree();
-        return valid;
+    public boolean validateTree() throws SemanticException {
+        paramName.validateTree();
+        paramType.validateTree();
+        return true;
     }
 
     public String getType() {

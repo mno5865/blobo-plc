@@ -42,8 +42,6 @@ public class IDNode implements ExprNode {
 
     @Override
     public boolean validateTree() {
-        //todo someone should check to make sure this is always true
-        // (i'm pretty sure base nodes don't have any errors)
         return true;
     }
 
