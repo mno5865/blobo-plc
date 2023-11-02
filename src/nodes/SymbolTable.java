@@ -1,5 +1,7 @@
 package nodes;
 
+import errors.SemanticException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +30,10 @@ public class SymbolTable { //todo add built-ins to table on startup
         funcDefinitions.put(functionDefinition, variables);
     }
 
-    public static void addVariable(String varType, String varName) {
+    public static void addVariable(String varType, String varName) throws SemanticException {
+        if (doesVarExistInScope(varName)){
+            throw new SemanticException("", "", -1); //todo yeah
+        }
         HashMap<String, String> existingVariables = funcDefinitions.get(scopeFunc);
         existingVariables.put(varName, varType);
     }
