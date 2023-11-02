@@ -53,8 +53,7 @@ public class TypeNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        return true;
+    public void validateTree() {
     }
 
     public static boolean validType(String type) {

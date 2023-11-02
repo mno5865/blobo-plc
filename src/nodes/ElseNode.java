@@ -57,7 +57,7 @@ public class ElseNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR ELSE NODE
-        return body.validateTree();
+    public void validateTree() throws SemanticException { //TODO VALIDATE TREE FOR ELSE NODE
+        body.validateTree();
     }
 }

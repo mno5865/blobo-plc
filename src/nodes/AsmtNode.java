@@ -65,7 +65,7 @@ public class AsmtNode implements BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() throws SemanticException {
+    public void validateTree() throws SemanticException {
         // todo this should make sure the assigned value is of the right type if the variable is already assigned
         // should also prob make sure the variable exists and shi and some other stuff idk good
         // luck figuring it out i have other code i gotta write 🙏🏾
@@ -76,9 +76,7 @@ public class AsmtNode implements BodyStmtNode {
         }
         // you can remove these comments (comments are ugly so once u read pls do) but don't remove the code this is to just explain what it does
 
-        boolean valid = true;
-        valid = valid && id.validateTree();
-        valid = valid && expr.validateTree();
-        return valid;
+        id.validateTree();
+        expr.validateTree();
     }
 }

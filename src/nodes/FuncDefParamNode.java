@@ -100,14 +100,13 @@ public class FuncDefParamNode implements JottTree { //todo should be noted if th
     }
 
     @Override
-    public boolean validateTree() throws SemanticException {
-        if (this.paramName == null) return true;
+    public void validateTree() throws SemanticException {
+        if (this.paramName == null) return;
         paramName.validateTree();
         paramType.validateTree();
         for (FuncDefParamTailNode param : paramTail) {
             param.validateTree();
         }
-        return true;
     }
 
     public boolean paramsExist() {

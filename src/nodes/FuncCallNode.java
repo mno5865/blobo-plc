@@ -60,16 +60,15 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() throws SemanticException { //just checks to make sure the function exists right now
+    public void validateTree() throws SemanticException { //just checks to make sure the function exists right now
         // todo it should be asmt that checks whether the assignment is valid
         List<String> funcDefinition = new ArrayList<>();
         funcDefinition.add(funcName.getName());
         funcDefinition.addAll(params.getParamTypes());
         boolean valid = SymbolTable.doesFunctionExist(funcDefinition);
         if (!valid) throw new SemanticException("The function " + funcName.getName() + " does not exist", funcName.getToken());
-        valid = valid && funcName.validateTree();
-        valid = valid && params.validateTree();
-        return valid;
+        funcName.validateTree();
+        params.validateTree();
     }
 
     // todo do I need an evaluate for a func call node? I suppose if it for BinaryOperation's evaluate

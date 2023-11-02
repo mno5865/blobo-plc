@@ -1,8 +1,6 @@
 package nodes;
 
-import errors.SyntaxException;
 import provided.Token;
-import provided.TokenType;
 
 import java.util.ArrayList;
 
@@ -38,9 +36,7 @@ public class NumberNode implements ExprNode {
     }
 
     @Override
-    public boolean validateTree() {
-        //todo this is a base node so it'd only be instantiated if it's true? i'm guessing this is always true but check this to be sure
-        return true;
+    public void validateTree() {
     }
 
     public boolean isInteger() {

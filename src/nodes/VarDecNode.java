@@ -55,10 +55,8 @@ public class VarDecNode implements BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR VARIABLE DECLARATION NODE
-        boolean valid = true;
+    public void validateTree() throws SemanticException { //TODO VALIDATE TREE FOR VARIABLE DECLARATION NODE
         //todo type -> typenode -> validateTree()
-        valid = valid && id.validateTree();
-        return valid;
+        id.validateTree();
     }
 }

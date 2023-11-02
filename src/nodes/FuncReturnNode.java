@@ -52,9 +52,9 @@ public class FuncReturnNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() throws SemanticException {
-        if (!returnTypeExists()) return true;
-        return type.validateTree();
+    public void validateTree() throws SemanticException {
+        if (!returnTypeExists()) return;
+        type.validateTree();
     }
 
     public boolean returnTypeExists() {

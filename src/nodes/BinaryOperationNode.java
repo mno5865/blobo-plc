@@ -1,9 +1,6 @@
 package nodes;
 
 import errors.SemanticException;
-import errors.SyntaxException;
-import provided.Token;
-import provided.TokenType;
 
 public class BinaryOperationNode implements ExprNode {
     private final OpNode operator;
@@ -37,17 +34,14 @@ public class BinaryOperationNode implements ExprNode {
     }
 
     @Override
-    public boolean validateTree() throws SemanticException { //TODO ERROR CASE FOR WHEN THIS FAILS
-        boolean valid = true;
-        valid = valid && leftExpr.validateTree();
-        valid = valid && rightExpr.validateTree();
+    public void validateTree() throws SemanticException { //TODO ERROR CASE FOR WHEN THIS FAILS
+        leftExpr.validateTree();
+        rightExpr.validateTree();
         //valid = valid && (leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer"));
         //valid = valid && (leftExpr.getType().equals("Double") && rightExpr.getType().equals("Double"));
         /**if (!possibleOps.contains(op)) {
          return false;
          }*/
-
-        return valid;
     }
 
 

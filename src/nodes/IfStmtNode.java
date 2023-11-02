@@ -92,18 +92,16 @@ public class IfStmtNode implements BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() throws SemanticException { //TODO VALIDATE TREE FOR IF STATEMENT NODE
-        boolean valid = true;
-        valid = valid && expr.validateTree();
-        valid = valid && body.validateTree();
+    public void validateTree() throws SemanticException { //TODO VALIDATE TREE FOR IF STATEMENT NODE
+        expr.validateTree();
+        body.validateTree();
         if (!this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
-                valid = valid && elseifNode.validateTree();
+                elseifNode.validateTree();
             }
         }
         if (this.elseNode != null) {
-            valid = valid && elseNode.validateTree();
+            elseNode.validateTree();
         }
-        return valid;
     }
 }

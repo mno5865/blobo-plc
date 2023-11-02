@@ -1,6 +1,5 @@
 package nodes;
 
-import errors.SemanticException;
 import provided.Token;
 
 import java.util.ArrayList;
@@ -41,8 +40,7 @@ public class IDNode implements ExprNode {
     }
 
     @Override
-    public boolean validateTree() {
-        return true;
+    public void validateTree() {
     }
 
     public String getType() { //todo this can result in a semantic exception so check for this a level up before you call it
