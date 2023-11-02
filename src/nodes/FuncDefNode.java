@@ -99,15 +99,15 @@ public class FuncDefNode implements JottTree { //todo this node is all kinds of 
     }
 
     @Override
-    public boolean validateTree() throws SemanticException { // TODO VALIDATE TREE FOR FUNC DEF NODE
+    public boolean validateTree() throws SemanticException {
         //this should be making sure the func is unique, this is also where we initialize it in the symbol table
-        boolean valid = true;
-        String returnValue = returnType == null || !returnType.returnTypeExists() ? "" : returnType.getReturnType();
+        String returnValue = !returnType.returnTypeExists() ? "" : returnType.getReturnType();
         SymbolTable.setFunction(funcName.getName(), params.getParamTypes(), params.getParamNames(), returnValue);
-        valid = valid && funcName.validateTree();
-        if (params.paramsExist()) valid = valid && params.validateTree();
-        if (returnType != null) valid = valid && returnType.validateTree();
-        valid = valid && body.validateTree();
-        return valid;
+        funcName.validateTree();
+        if (params.paramsExist()) params.validateTree();
+        returnType.validateTree();
+        body.validateTree();
+        //todo check if the return type from body is the same as the declaration
+        return true;
     }
 }
