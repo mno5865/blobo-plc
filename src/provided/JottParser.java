@@ -41,7 +41,8 @@ public class JottParser {
         }
         if (tree != null) {
             try {
-                boolean validTree = tree.validateTree();
+                tree.validateTree();
+                boolean validTree = true;
                 System.out.println("\nValidateTree returned: " + validTree + "\n");
             } catch (SemanticException e){
                 System.err.print(e);
