@@ -6,6 +6,7 @@ import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AsmtNode implements BodyStmtNode {
     private final TypeNode type;
@@ -66,20 +67,24 @@ public class AsmtNode implements BodyStmtNode {
 
     @Override
     public void validateTree() throws SemanticException {
-        // todo this should make sure the assigned value is of the right type if the variable is already assigned
-        // should also prob make sure the variable exists and shi and some other stuff idk good
-        // luck figuring it out i have other code i gotta write 🙏🏾
-
-        // < type > < id >= < expr >;   - just check that type is same type as expr
-
-        // <id >= < expr >;  -
-
-        // here is the symbol table code that adds a newly initialized variable to the symbol table
-        if (this.type != null) {
-            SymbolTable.addVariable(this.type.getType(), this.id.getName()); //todo once you rework type replace this.type with whatever the actual function to get the type is
-        }
-
         id.validateTree();
         expr.validateTree();
+        // < type > < id >= < expr >;   - just check that type is same type as expr
+        if (this.type != null) {
+            if (!Objects.equals(this.expr.getType(), this.type.getType())) {
+                throw new SemanticException("", "", -1);  // todo finish SemanticEx
+            } else {
+                SymbolTable.addVariable(this.type.getType(), this.id.getName());
+            }
+        } else {
+            // check if the variable exists
+            if (!SymbolTable.doesVarExistInScope(this.id.getName())) {
+                throw new SemanticException("", "", -1);  // todo finish SemanticEx
+            } else {
+                if (!SymbolTable.getVariableType(this.id.getName()).equals(this.expr.getType())) {
+                    throw new SemanticException("", "", -1);  // todo finish SemanticEx
+                }
+            }
+        }
     }
 }
