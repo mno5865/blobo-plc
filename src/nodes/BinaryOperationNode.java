@@ -55,9 +55,8 @@ public class BinaryOperationNode implements ExprNode {
         if (operator.isMathOp()) {
             if (leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer")) return "Integer";
             if (leftExpr.getType().equals("Double") && rightExpr.getType().equals("Double")) return "Double";
-        } else {
-            return "Boolean";
         }
+        return "Boolean";
     }
 
     @Override

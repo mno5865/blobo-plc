@@ -93,6 +93,10 @@ public class IfStmtNode implements BodyStmtNode {
 
     @Override
     public void validateTree() throws SemanticException { //TODO VALIDATE TREE FOR IF STATEMENT NODE
+        if(!expr.getType().equals("Boolean"))
+        {
+            throw new SemanticException("Expression is not a binary expression",expr.getToken());
+        }
         expr.validateTree();
         body.validateTree();
         if (!this.elseIfList.isEmpty()) {
