@@ -36,11 +36,18 @@ public class BinaryOperationNode implements ExprNode {
 
     @Override
     public void validateTree() throws SemanticException { //TODO ERROR CASE FOR WHEN THIS FAILS
-        if (!leftExpr.getType().equals("Integer") && !leftExpr.getType().equals("Double"))
+        if (!(leftExpr.getType().equals("Integer") || leftExpr.getType().equals("Double")))
             throw new SemanticException("You can only perform operations on numbers", leftExpr.getToken());
+        if (!(rightExpr.getType().equals("Integer") || rightExpr.getType().equals("Double")))
+            throw new SemanticException("You can only perform operations on numbers", rightExpr.getToken());
 
         boolean matchingInt = leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer");
         boolean matchingDouble = leftExpr.getType().equals("Double") && rightExpr.getType().equals("Double");
+
+        if (!(matchingInt || matchingDouble))
+            throw new SemanticException("You can only perform operations on a pair of integers," +
+                    " or a pair of doubles", operator.getToken());
+
         leftExpr.validateTree();
         rightExpr.validateTree();
     }
@@ -55,9 +62,8 @@ public class BinaryOperationNode implements ExprNode {
         if (operator.isMathOp()) {
             if (leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer")) return "Integer";
             if (leftExpr.getType().equals("Double") && rightExpr.getType().equals("Double")) return "Double";
-        } else {
-            return "Boolean";
         }
+        return "Boolean";
     }
 
     @Override
