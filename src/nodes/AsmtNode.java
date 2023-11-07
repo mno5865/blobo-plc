@@ -8,11 +8,11 @@ import provided.TokenType;
 import java.util.ArrayList;
 
 public class AsmtNode implements BodyStmtNode {
-    private final Token type; //todo see notes in varDecNode on type as a node class
+    private final TypeNode type;
     private final IDNode id;
     private final ExprNode expr;
 
-    public AsmtNode(Token type, IDNode id, ExprNode expr) {
+    public AsmtNode(TypeNode type, IDNode id, ExprNode expr) {
         this.type = type;
         this.id = id;
         this.expr = expr;
@@ -28,9 +28,9 @@ public class AsmtNode implements BodyStmtNode {
             throw new SyntaxException("Assignment statement expects to be followed by ID or ASSIGNMENT (=)", token2.getFilename(),
                     token2.getLineNum());
         }
-        Token type = null;
+        TypeNode type = null;
         if (token2.getTokenType() == TokenType.ID_KEYWORD) {
-            type = tokens.remove(0);
+            type = TypeNode.parseTypeNode(tokens);
         }
         IDNode id = IDNode.parseIDNode(tokens);
         BasicParsers.parseToken(TokenType.ASSIGN, tokens);
@@ -43,7 +43,7 @@ public class AsmtNode implements BodyStmtNode {
     public String convertToJott() {
         String out = "";
         if (this.type != null) {
-            out += this.type.getToken();
+            out += this.type.getType();
         }
         return out + ((this.type != null) ? " " : "") + this.id.convertToJott() + " = " + this.expr.convertToJott() +
                 ";";
@@ -70,11 +70,14 @@ public class AsmtNode implements BodyStmtNode {
         // should also prob make sure the variable exists and shi and some other stuff idk good
         // luck figuring it out i have other code i gotta write 🙏🏾
 
+        // < type > < id >= < expr >;   - just check that type is same type as expr
+
+        // <id >= < expr >;  -
+
         // here is the symbol table code that adds a newly initialized variable to the symbol table
         if (this.type != null) {
-            SymbolTable.addVariable(this.type.getToken(), this.id.getName()); //todo once you rework type replace this.type with whatever the actual function to get the type is
+            SymbolTable.addVariable(this.type.getType(), this.id.getName()); //todo once you rework type replace this.type with whatever the actual function to get the type is
         }
-        // you can remove these comments (comments are ugly so once u read pls do) but don't remove the code this is to just explain what it does
 
         id.validateTree();
         expr.validateTree();
