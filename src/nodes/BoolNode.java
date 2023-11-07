@@ -50,4 +50,9 @@ public class BoolNode implements ExprNode {
     public String getType() {
         return "Boolean";
     }
+
+    @Override
+    public Token getToken() {
+        return bool;
+    }
 }

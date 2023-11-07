@@ -47,4 +47,6 @@ public interface ExprNode extends JottTree {
     }
 
     String getType();
+
+    Token getToken();
 }

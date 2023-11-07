@@ -77,4 +77,9 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     public String getType() {
         return SymbolTable.getFunctionReturnType();
     }
+
+    @Override
+    public Token getToken() {
+        return funcName.getToken();
+    }
 }

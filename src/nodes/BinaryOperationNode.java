@@ -1,6 +1,7 @@
 package nodes;
 
 import errors.SemanticException;
+import provided.Token;
 
 public class BinaryOperationNode implements ExprNode {
     private final OpNode operator;
@@ -35,27 +36,34 @@ public class BinaryOperationNode implements ExprNode {
 
     @Override
     public void validateTree() throws SemanticException { //TODO ERROR CASE FOR WHEN THIS FAILS
+        if (!leftExpr.getType().equals("Integer") && !leftExpr.getType().equals("Double"))
+            throw new SemanticException("You can only perform operations on numbers", leftExpr.getToken());
+
+        boolean matchingInt = leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer");
+        boolean matchingDouble = leftExpr.getType().equals("Double") && rightExpr.getType().equals("Double");
         leftExpr.validateTree();
         rightExpr.validateTree();
-        //valid = valid && (leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer"));
-        //valid = valid && (leftExpr.getType().equals("Double") && rightExpr.getType().equals("Double"));
-        /**if (!possibleOps.contains(op)) {
-         return false;
-         }*/
     }
 
 
-    public double evaluate() { //todo understand this function, i might have to implement symbol table first?
+    public double evaluate() { //todo this
         return 0;
     }
 
     @Override
-    public String getType() { // function todo
-        /**
-        if (this.operator.getOperator().equals("/")) { // todo ask about the case of an integer / integer like 4 / 2
-            return false;
-        }*/
-        if (leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer")) return "Integer";
-        return "";
+    public String getType() {
+        if (operator.isMathOp()) {
+            if (leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer")) return "Integer";
+            if (leftExpr.getType().equals("Double") && rightExpr.getType().equals("Double")) return "Double";
+        } else {
+            return "Boolean";
+        }
     }
+
+    @Override
+    public Token getToken() {
+        return leftExpr.getToken();
+    }
+
+
 }

@@ -47,8 +47,14 @@ public class NumberNode implements ExprNode {
         return Double.parseDouble(number.getToken());
     }
 
+    @Override
     public String getType() {
         if (isInteger()) return "Integer";
         return "Double";
+    }
+
+    @Override
+    public Token getToken() {
+        return number;
     }
 }

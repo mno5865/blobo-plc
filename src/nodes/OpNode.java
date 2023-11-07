@@ -21,6 +21,10 @@ public class OpNode implements ExprNode {
         return new OpNode(tokens.remove(0));
     }
 
+    public boolean isMathOp() {
+        return operator.getTokenType() == TokenType.MATH_OP;
+    }
+
     @Override
     public String convertToJott() {
         return this.operator.getToken();
@@ -49,8 +53,9 @@ public class OpNode implements ExprNode {
         //todo this is a base node so it'd only be instantiated if it's true? i'm guessing this is always true but check this to be sure
     }
 
-    public String getOperator() {
-        return operator.getToken();
+    @Override
+    public Token getToken() {
+        return operator;
     }
 
     public String getType() {
