@@ -1,5 +1,10 @@
+import provided.JottParser;
 import provided.JottTokenizer;
+import provided.JottTree;
 import provided.Token;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -27,6 +32,21 @@ public class Jott {
                     return;
                 }
                 ArrayList<Token> tokenList = JottTokenizer.tokenize(inputFilename);
+                if (tokenList == null) {
+                    System.err.println("\t\tExpected a list of tokens, but got null");
+                }
+                JottTree root = JottParser.parse(tokenList);
+                String jottCode = root.convertToJott();
+                try {
+                    FileWriter writer = new FileWriter(outputFilename);
+                    if (jottCode == null) {
+                        System.err.println("Expected a program string; got null");
+                    }
+                    writer.write(jottCode);
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             case "Java":
             case "Python":
             case "C":

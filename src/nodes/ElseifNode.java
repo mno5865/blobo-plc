@@ -65,7 +65,7 @@ public class ElseifNode implements JottTree {
     }
 
     @Override
-    public void validateTree() throws SemanticException { //TODO VALIDATE TREE FOR ELSE IF NODE
+    public void validateTree() throws SemanticException {
         if(!expr.getType().equals("Boolean"))
         {
             throw new SemanticException("Expression is not a binary expression",expr.getToken());
