@@ -55,6 +55,9 @@ public class SymbolTable { //todo add built-ins to table on startup
         List<String> functionDefinition = new ArrayList<>();
         functionDefinition.add(funcName.getName());
         functionDefinition.addAll(params.getParamTypes());
+        if (funcReturnTypes.get(functionDefinition) == null)
+            throw new SemanticException("The function " + funcName.getName() +
+                    " does not exist with the given parameters", funcName.getToken());
         return funcReturnTypes.get(functionDefinition);
     }
 
