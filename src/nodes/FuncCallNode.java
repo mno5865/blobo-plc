@@ -74,8 +74,8 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     // todo do I need an evaluate for a func call node? I suppose if it for BinaryOperation's evaluate
 
     @Override
-    public String getType() {
-        return SymbolTable.getFunctionReturnType();
+    public String getType() throws SemanticException {
+        return SymbolTable.getFunctionReturnType(funcName, params);
     }
 
     @Override

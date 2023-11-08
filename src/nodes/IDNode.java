@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import provided.Token;
 
 import java.util.ArrayList;
@@ -43,11 +44,20 @@ public class IDNode implements ExprNode {
     public void validateTree() {
     }
 
-    public String getType() { //todo this can result in a semantic exception so check for this a level up before you call it
+    public String getType() throws SemanticException { //todo this can result in a semantic exception so check for this a level up before you call it
+        if (!SymbolTable.doesVarExistInScope(idName.getToken()))
+            throw new SemanticException("The variable was never defined", idName);
         return SymbolTable.getVariableType(idName.getToken());
     }
 
     public Token getToken() {
         return idName;
+    }
+
+    @Override
+    public double evaluate() throws SemanticException {
+        ExprNode value = SymbolTable.getVariableValue(idName.getToken());
+        if (value == null) throw new SemanticException("The variable was never defined", idName);
+        return value.evaluate();
     }
 }

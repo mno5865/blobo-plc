@@ -74,7 +74,7 @@ public class AsmtNode implements BodyStmtNode {
             if (!Objects.equals(this.expr.getType(), this.type.getType())) {
                 throw new SemanticException("", "", -1);  // todo finish SemanticEx
             } else {
-                SymbolTable.addVariable(this.type.getType(), this.id.getName());
+                SymbolTable.addVariable(this.type.getType(), this.id.getName(), this.expr);
             }
         } else {
             // check if the variable exists
@@ -83,6 +83,8 @@ public class AsmtNode implements BodyStmtNode {
             } else {
                 if (!SymbolTable.getVariableType(this.id.getName()).equals(this.expr.getType())) {
                     throw new SemanticException("", "", -1);  // todo finish SemanticEx
+                } else {
+                    SymbolTable.setVariable(this.id.getName(), this.expr);
                 }
             }
         }

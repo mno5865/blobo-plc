@@ -40,12 +40,9 @@ public class NumberNode implements ExprNode {
     }
 
     public boolean isInteger() {
-        return this.evaluate() % 1 == 0;
+        return !this.number.getToken().contains("."); //todo that weird error when I remove !
     }
 
-    public double evaluate() {
-        return Double.parseDouble(number.getToken());
-    }
 
     @Override
     public String getType() {
@@ -56,5 +53,10 @@ public class NumberNode implements ExprNode {
     @Override
     public Token getToken() {
         return number;
+    }
+
+    @Override
+    public double evaluate() {
+        return Double.parseDouble(number.getToken());
     }
 }

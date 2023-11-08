@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -46,7 +47,11 @@ public interface ExprNode extends JottTree {
         }
     }
 
-    String getType();
+    String getType() throws SemanticException;
 
     Token getToken();
+
+    default double evaluate() throws SemanticException {
+        return 0;
+    };
 }
