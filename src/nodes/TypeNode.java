@@ -57,6 +57,7 @@ public class TypeNode implements JottTree {
     }
 
     public static boolean validType(String type) {
+        if (type == null) return false;
         return switch (type) {
             case "Double", "Integer", "String", "Boolean", "Void" -> true; // NOTE sometimes void is an invalid value, be careful
             default -> false;
