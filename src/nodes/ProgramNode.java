@@ -31,46 +31,46 @@ public class ProgramNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         if (funcDefs != null) {
             for (FuncDefNode funcDef : funcDefs) {
-                out += funcDef.convertToJott();
+                out.append(funcDef.convertToJott());
             }
         }
-        return out;
+        return out.toString();
     }
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         if (funcDefs != null) {
             for (FuncDefNode funcDef : funcDefs) {
-                out += funcDef.convertToJava("");
+                out.append(funcDef.convertToJava(""));
             }
         }
-        return out;
+        return out.toString();
     }
 
     @Override
     public String convertToC() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         if (funcDefs != null) {
             for (FuncDefNode funcDef : funcDefs) {
-                out += funcDef.convertToC();
+                out.append(funcDef.convertToC());
             }
         }
-        return out;
+        return out.toString();
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         if (funcDefs != null) {
             for (FuncDefNode funcDef : funcDefs) {
-                out += funcDef.convertToPython();
+                out.append(funcDef.convertToPython());
             }
         }
-        return out;
+        return out.toString();
     }
 
     @Override
