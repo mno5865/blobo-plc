@@ -35,7 +35,7 @@ public class BinaryOperationNode implements ExprNode {
     }
 
     @Override
-    public void validateTree() throws SemanticException { //TODO ERROR CASE FOR WHEN THIS FAILS
+    public void validateTree() throws SemanticException {
         if (!(leftExpr.getType().equals("Integer") || leftExpr.getType().equals("Double")))
             throw new SemanticException("You can only perform operations on numbers", leftExpr.getToken());
         if (!(rightExpr.getType().equals("Integer") || rightExpr.getType().equals("Double")))
@@ -44,7 +44,7 @@ public class BinaryOperationNode implements ExprNode {
         boolean matchingInt = leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer");
         boolean matchingDouble = leftExpr.getType().equals("Double") && rightExpr.getType().equals("Double");
 
-        if (!(matchingInt || matchingDouble)) //todo ask scott if x / 10 should fail vs x / 10.0 when x is a double
+        if (!(matchingInt || matchingDouble))
             throw new SemanticException("You can only perform operations on a pair of integers," +
                     " or a pair of doubles", operator.getToken());
 
