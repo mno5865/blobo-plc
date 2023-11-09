@@ -40,7 +40,7 @@ public class SymbolTable { //todo add built-ins to table on startup
 
     public static boolean doesFunctionExist(List<String> funcDefinition) {
         boolean printCheck = funcDefinition.get(0).equals("print") && TypeNode.validType(funcDefinition.get(1)) &&
-                !funcDefinition.get(0).equals("Void") && funcDefinition.size() == 2; //todo ask scott if print can only take in 1 param
+                !funcDefinition.get(0).equals("Void") && funcDefinition.size() == 2;
 
         boolean concatCheck = funcDefinition.get(0).equals("concat") && funcDefinition.get(1).equals("String")
                 && funcDefinition.get(2).equals("String") && funcDefinition.size() == 3;

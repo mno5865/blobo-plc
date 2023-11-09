@@ -44,7 +44,7 @@ public class IDNode implements ExprNode {
     public void validateTree() {
     }
 
-    public String getType() throws SemanticException { //todo this can result in a semantic exception so check for this a level up before you call it
+    public String getType() throws SemanticException {
         if (!SymbolTable.doesVarExistInScope(idName.getToken()))
             throw new SemanticException("The variable was never defined", idName);
         return SymbolTable.getVariableType(idName.getToken());

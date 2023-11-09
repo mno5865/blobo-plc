@@ -50,7 +50,7 @@ public class OpNode implements ExprNode {
 
     @Override
     public void validateTree() {
-        //todo this is a base node so it'd only be instantiated if it's true? i'm guessing this is always true but check this to be sure
+
     }
 
     @Override
