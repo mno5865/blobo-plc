@@ -86,8 +86,7 @@ public class ParamNode implements JottTree {
     }
 
     @Override
-    public void validateTree() throws SemanticException { // TODO VALIDATE TREE FOR PARAM NODE NODE
-        // todo this validateTree should be checking if the variable name exists in the symbol table
+    public void validateTree() throws SemanticException {
         if (expr == null) return;
         expr.validateTree();
         for (ParamTailNode param : paramTail) {

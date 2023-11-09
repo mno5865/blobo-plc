@@ -11,7 +11,7 @@ import java.util.List;
 
 import static nodes.BasicParsers.parseToken;
 
-public class FuncDefParamNode implements JottTree { //todo should be noted if there are no functions params all of these values are null, caused me some issues figuring it out
+public class FuncDefParamNode implements JottTree {
     private final IDNode paramName;
     private final TypeNode paramType;
     private final ArrayList<FuncDefParamTailNode> paramTail;

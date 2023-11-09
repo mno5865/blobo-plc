@@ -61,7 +61,7 @@ public class ReturnStmtNode implements JottTree {
     }
 
     @Override
-    public void validateTree() throws SemanticException { //TODO VALIDATE TREE FOR RETURN STMT NODE
+    public void validateTree() throws SemanticException {
         expr.validateTree();
     }
 
