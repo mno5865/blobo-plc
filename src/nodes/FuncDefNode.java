@@ -121,7 +121,7 @@ public class FuncDefNode implements JottTree { //todo this node is all kinds of 
 
         //this should be making sure the func is unique, this is also where we initialize it in the symbol table
         String returnValue = !returnType.returnTypeExists() ? "" : returnType.getReturnType();
-        SymbolTable.setFunction(funcName.getName(), params.getParamTypes(), params.getParamNames(), returnValue);
+        SymbolTable.setFunction(funcName, params.getParamTypes(), params.getParamNames(), returnValue);
         funcName.validateTree();
         if (params.paramsExist()) params.validateTree();
         returnType.validateTree();
