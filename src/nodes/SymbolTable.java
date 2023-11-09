@@ -14,10 +14,14 @@ public class SymbolTable { //todo add built-ins to table on startup
 
     private static List<String> scopeFunc; //this should be set to the current function definition we're in
 
-    public static void setFunction(String funcName, List<String> funcParamTypes, List<String> funcParamNames, String returnType) {
+    public static void setFunction(String funcName, List<String> funcParamTypes, List<String> funcParamNames,
+                                   String returnType) throws SemanticException {
         HashMap<String, VariableInfo> variables = new HashMap<>();
 
         for (int i = 0; i < funcParamNames.size(); i++) {
+             if (variables.containsKey(funcParamNames.get(i))) {
+                 throw new SemanticException("Duplicate param names", "", -1); // todo gregoryyyy
+             }
             variables.put(funcParamNames.get(i), new VariableInfo(funcParamTypes.get(i)));
         }
 
@@ -32,7 +36,8 @@ public class SymbolTable { //todo add built-ins to table on startup
 
     public static void addVariable(String varType, String varName, ExprNode expr) throws SemanticException {
         if (doesVarExistInScope(varName)){
-            throw new SemanticException("The variable does not exist in the current scope", expr.getToken());
+            throw new SemanticException("variable is already defined", expr.getToken().getFilename(),
+                    expr.getToken().getLineNum());
         }
         HashMap<String, VariableInfo> existingVariables = funcDefinitions.get(scopeFunc);
         existingVariables.put(varName, new VariableInfo(varType, expr));
@@ -40,7 +45,7 @@ public class SymbolTable { //todo add built-ins to table on startup
 
     public static boolean doesFunctionExist(List<String> funcDefinition) {
         boolean printCheck = funcDefinition.get(0).equals("print") && TypeNode.validType(funcDefinition.get(1)) &&
-                !funcDefinition.get(0).equals("Void") && funcDefinition.size() == 2;
+                !funcDefinition.get(0).equals("Void") && funcDefinition.size() == 2; //todo ask scott if print can only take in 1 param
 
         boolean concatCheck = funcDefinition.get(0).equals("concat") && funcDefinition.get(1).equals("String")
                 && funcDefinition.get(2).equals("String") && funcDefinition.size() == 3;
