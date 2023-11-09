@@ -45,7 +45,7 @@ public class ParamTailNode implements JottTree {
     }
 
     @Override
-    public void validateTree() throws SemanticException { // TODO VALIDATE TREE FOR A PARAM TAIL NODE
+    public void validateTree() throws SemanticException {
         expr.validateTree();
     }
 
