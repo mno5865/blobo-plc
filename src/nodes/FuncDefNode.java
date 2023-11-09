@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static nodes.BasicParsers.*;
 
-public class FuncDefNode implements JottTree { //todo this node is all kinds of wonky, how returnType is handled should prob be redone
+public class FuncDefNode implements JottTree {
     private final IDNode funcName;
     private final FuncDefParamNode params;
     private final FuncReturnNode returnType;
@@ -127,11 +127,10 @@ public class FuncDefNode implements JottTree { //todo this node is all kinds of 
                     funcName.getToken().getFilename(), funcName.getToken().getLineNum());
         }
 
-        SymbolTable.setFunction(funcName.getName(), params.getParamTypes(), params.getParamNames(), returnValue);
+        SymbolTable.setFunction(funcName, params.getParamTypes(), params.getParamNames(), returnValue);
         funcName.validateTree();
         if (params.paramsExist()) params.validateTree();
         returnType.validateTree();
         body.validateTree();
-        //todo check if the return type from body is the same as the declaration
     }
 }
