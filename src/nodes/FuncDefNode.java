@@ -133,7 +133,7 @@ public class FuncDefNode implements JottTree {
                     funcName.getToken().getLineNum());
         }
 
-        SymbolTable.setFunction(funcName.getName(), params.getParamTypes(), params.getParamNames(), returnValue);
+        SymbolTable.setFunction(funcName, params.getParamTypes(), params.getParamNames(), returnValue);
         funcName.validateTree();
         if (params.paramsExist()) params.validateTree();
         returnType.validateTree();
