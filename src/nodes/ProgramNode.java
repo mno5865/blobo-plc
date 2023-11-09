@@ -2,10 +2,12 @@ package nodes;
 
 import errors.SemanticException;
 import errors.SyntaxException;
+import provided.JottParser;
 import provided.JottTree;
 import provided.Token;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProgramNode implements JottTree {
     private final ArrayList<FuncDefNode> funcDefs;
@@ -76,5 +78,9 @@ public class ProgramNode implements JottTree {
         for (FuncDefNode funcDef : funcDefs) {
             funcDef.validateTree();
         }
+        List<String> main = new ArrayList<>();
+        main.add("main");
+        if (!SymbolTable.doesFunctionExist(main)) throw new SemanticException("Main must be defined",
+                JottParser.lastFile, JottParser.lastLine);
     }
 }
