@@ -6,6 +6,7 @@ import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
+import java.net.IDN;
 import java.util.ArrayList;
 
 import static nodes.BasicParsers.*;
@@ -100,6 +101,24 @@ public class FuncDefNode implements JottTree { //todo this node is all kinds of 
 
     @Override
     public void validateTree() throws SemanticException {
+        // if the function is main, check that it returns void
+        if (funcName.getName().equals("main")) {
+            if (returnType.returnTypeExists()) {
+                throw new SemanticException("main cannot return anything", funcName.getToken().getFilename(),
+                        funcName.getToken().getLineNum());
+            }
+            if (params.paramsExist()) {
+                throw new SemanticException("main cannot have parameters", funcName.getToken().getFilename(),
+                        funcName.getToken().getLineNum());
+            }
+        }
+
+        // check if they are overriding a function name
+        if (funcName.getName().equals("concat") || funcName.getName().equals("length") || funcName.getName().equals("print")) {
+            throw new SemanticException("cannot override functions concat, length, or print",
+                    funcName.getToken().getFilename(), funcName.getToken().getLineNum());
+        }
+
         //this should be making sure the func is unique, this is also where we initialize it in the symbol table
         String returnValue = !returnType.returnTypeExists() ? "" : returnType.getReturnType();
         SymbolTable.setFunction(funcName.getName(), params.getParamTypes(), params.getParamNames(), returnValue);
