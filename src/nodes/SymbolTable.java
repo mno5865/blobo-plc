@@ -32,7 +32,8 @@ public class SymbolTable { //todo add built-ins to table on startup
 
     public static void addVariable(String varType, String varName, ExprNode expr) throws SemanticException {
         if (doesVarExistInScope(varName)){
-            throw new SemanticException("", "", -1); //todo yeah
+            throw new SemanticException("variable is already defined", expr.getToken().getFilename(),
+                    expr.getToken().getLineNum());
         }
         HashMap<String, VariableInfo> existingVariables = funcDefinitions.get(scopeFunc);
         existingVariables.put(varName, new VariableInfo(varType, expr));
