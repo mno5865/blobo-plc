@@ -83,7 +83,7 @@ public class BodyNode implements JottTree {
     }
 
     @Override
-    public void validateTree() throws SemanticException { //TODO VALIDATE TREE FOR BODY NODE
+    public void validateTree() throws SemanticException {
         for (BodyStmtNode bodyStmt : bodyStmts) {
             bodyStmt.validateTree();
         }
