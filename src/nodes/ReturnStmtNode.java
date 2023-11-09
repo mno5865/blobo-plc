@@ -64,4 +64,8 @@ public class ReturnStmtNode implements JottTree {
     public void validateTree() throws SemanticException { //TODO VALIDATE TREE FOR RETURN STMT NODE
         expr.validateTree();
     }
+
+    public String getExprType() throws SemanticException {
+        return expr.getType();
+    }
 }
