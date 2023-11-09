@@ -14,10 +14,14 @@ public class SymbolTable { //todo add built-ins to table on startup
 
     private static List<String> scopeFunc; //this should be set to the current function definition we're in
 
-    public static void setFunction(String funcName, List<String> funcParamTypes, List<String> funcParamNames, String returnType) {
+    public static void setFunction(String funcName, List<String> funcParamTypes, List<String> funcParamNames,
+                                   String returnType) throws SemanticException {
         HashMap<String, VariableInfo> variables = new HashMap<>();
 
         for (int i = 0; i < funcParamNames.size(); i++) {
+             if (variables.containsKey(funcParamNames.get(i))) {
+                 throw new SemanticException("Duplicate param names", "", -1); // todo gregoryyyy
+             }
             variables.put(funcParamNames.get(i), new VariableInfo(funcParamTypes.get(i)));
         }
 
