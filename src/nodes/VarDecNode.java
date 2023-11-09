@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import static nodes.BasicParsers.parseToken;
 
 public class VarDecNode implements BodyStmtNode {
-    //todo refactor, we started using type node to represent type so type should probably be a type node and use its validateTree
-
     private final TypeNode type;
     private final IDNode id;
 
