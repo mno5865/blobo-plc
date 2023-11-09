@@ -125,9 +125,15 @@ public class FuncDefNode implements JottTree {
         if (!body.getReturnType().equals(returnType.getReturnType())) {
             throw new SemanticException("body return type is not the same as the function return type",
                     funcName.getToken().getFilename(), funcName.getToken().getLineNum());
+        } else if (body.getReturnType() == null && returnType.returnTypeExists()) {
+            throw new SemanticException("void function is returning something", funcName.getToken().getFilename(),
+                    funcName.getToken().getLineNum());
+        } else if (body.getReturnType() != null && !returnType.returnTypeExists()) {
+            throw new SemanticException("missing return statement", funcName.getToken().getFilename(),
+                    funcName.getToken().getLineNum());
         }
 
-        SymbolTable.setFunction(funcName, params.getParamTypes(), params.getParamNames(), returnValue);
+        SymbolTable.setFunction(funcName.getName(), params.getParamTypes(), params.getParamNames(), returnValue);
         funcName.validateTree();
         if (params.paramsExist()) params.validateTree();
         returnType.validateTree();

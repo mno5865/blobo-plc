@@ -91,6 +91,9 @@ public class BodyNode implements JottTree {
     }
 
     public String getReturnType() throws SemanticException {
+        if (returnStmt == null) {
+            return null;
+        }
         return returnStmt.getExprType();
     }
 }
