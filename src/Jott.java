@@ -36,6 +36,7 @@ public class Jott {
                     System.err.println("\t\tExpected a list of tokens, but got null");
                 }
                 JottTree root = JottParser.parse(tokenList);
+                if (root == null) return;
                 String jottCode = root.convertToJott();
                 try {
                     FileWriter writer = new FileWriter(outputFilename);
