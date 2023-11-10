@@ -17,6 +17,10 @@ public class SymbolTable {
 
     public static void setFunction(IDNode funcName, List<String> funcParamTypes, List<String> funcParamNames,
                                    String returnType) throws SemanticException {
+        if (Character.isUpperCase(funcName.getName().toCharArray()[0]))
+            throw new SemanticException("Function header must start with a lowercase letter",
+                    funcName.getToken());
+
         HashMap<String, VariableInfo> variables = new HashMap<>();
 
         for (int i = 0; i < funcParamNames.size(); i++) {
