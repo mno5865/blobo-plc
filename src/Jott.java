@@ -16,7 +16,7 @@ public class Jott {
      * Takes in an input file, output file, and a target language to call the corresponding tokenizer
      * @param args The command line arguments (inputFileName, outputFileName, and languageSpec)
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         if (args.length != 3) {
             System.err.println("Incorrect number of args. Expected form: inputFile outputFile language");
             return;
@@ -24,6 +24,8 @@ public class Jott {
         String inputFilename = args[0]; // the name of the user's input file
         String outputFilename = args[1]; // the name of the user's output file
         String languageSpec = args[2]; // the language that we will translate into
+
+        if (inputFilename.split("\\.").length != 2) throw new Exception("Input file was entered in incorrectly");
 
         switch (languageSpec) {
             case "Jott":

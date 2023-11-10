@@ -110,6 +110,8 @@ public class IfStmtNode implements BodyStmtNode {
     }
 
     public String getReturnType(String neededReturn, boolean mustHaveReturn) throws SemanticException {
+        if (elseNode == null) return "Void";
+
         String returnType = body.getReturnType();
         boolean allReturn = false;
 
