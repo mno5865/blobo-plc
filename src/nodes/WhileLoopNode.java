@@ -63,11 +63,12 @@ public class WhileLoopNode implements BodyStmtNode {
 
     @Override
     public void validateTree() throws SemanticException {
-        if(!expr.getType().equals("Boolean"))
-        {
-            throw new SemanticException("Expression is not a binary expression",expr.getToken());
+        if (!expr.getType().equals("Boolean")) {
+            throw new SemanticException("Expression is not a binary expression", expr.getToken());
         }
         expr.validateTree();
         body.validateTree();
+        if (body.doesHaveAReturnStatement())
+            throw new SemanticException("While loops should not have a return", expr.getToken());
     }
 }
