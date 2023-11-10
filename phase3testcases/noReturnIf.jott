@@ -11,5 +11,5 @@ def foo[]:Integer{
 }
 
 def main[]:Void{
-    Integer y = foo[];
+    Integer y = ::foo[];
 }
