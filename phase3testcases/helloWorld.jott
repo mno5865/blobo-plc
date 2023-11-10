@@ -1,5 +1,5 @@
 #this is hello world in Jott
 
 def main[]:Void{
-    print["Hello World"];
+    ::print["Hello World"];
 }
