@@ -12,5 +12,5 @@ def foo[]:Integer{
 }
 
 def main[]:Void{
-    foo[];
+    ::foo[];
 }

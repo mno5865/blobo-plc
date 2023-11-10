@@ -1,18 +1,18 @@
 #this will pass phase 3
 
 def foo[x:Integer]:Void{
-    print[x];
+    ::print[x];
 }
 
 def baz[]:Void{
-    print["Hello World"];
+    ::print["Hello World"];
 }
 
 def bar[x:Double]:String{
     if[x > 5.1]{
         return "bar";
     }
-    baz[];
+    ::baz[];
     return "foo";
 }
 
@@ -21,10 +21,10 @@ def main[]:Void{
     Integer x = 5;
 
     while[x>0]{
-        foo[x];
-        print[bar[y]];
+        ::foo[x];
+        ::print[::bar[y]];
         x=x-1;
         y=y+1.1;
     }
-    baz[];
+    ::baz[];
 }
