@@ -70,6 +70,8 @@ public class BinaryOperationNode implements ExprNode {
 
     @Override
     public double evaluate() throws SemanticException {
+        if (rightExpr instanceof BinaryOperationNode && ((BinaryOperationNode) rightExpr).hasParamValue()) return 0;
+        if (rightExpr instanceof IDNode && ((IDNode) rightExpr).hasParamVariable()) return 0;
         double value = 0;
         try {
             if (operator.getToken().getToken().equals("+")) value = leftExpr.evaluate() + rightExpr.evaluate();
@@ -81,5 +83,19 @@ public class BinaryOperationNode implements ExprNode {
         }
         if (Double.isInfinite(value)) throw new SemanticException("Division by zero is attempted", rightExpr.getToken());
         return this.getType().equals("Integer") ? (int)value : value;
+    }
+
+    public boolean hasParamValue() {
+        boolean paramValue = false;
+        if (leftExpr instanceof BinaryOperationNode) {
+            paramValue = ((BinaryOperationNode) leftExpr).hasParamValue();
+        } if (rightExpr instanceof BinaryOperationNode) {
+            paramValue = paramValue || ((BinaryOperationNode) rightExpr).hasParamValue();
+        } if (leftExpr instanceof IDNode) {
+            paramValue = paramValue || ((IDNode) leftExpr).hasParamVariable();
+        } if (rightExpr instanceof IDNode) {
+            paramValue = paramValue || ((IDNode) rightExpr).hasParamVariable();
+        }
+        return paramValue;
     }
 }

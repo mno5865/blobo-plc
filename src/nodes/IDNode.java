@@ -57,7 +57,14 @@ public class IDNode implements ExprNode {
     @Override
     public double evaluate() throws SemanticException {
         ExprNode value = SymbolTable.getVariableValue(idName.getToken());
-        if (value == null) throw new SemanticException("The variable was never defined", idName);
+        if (value == null) {
+            if (SymbolTable.varIsParamVariable(idName.getToken())) return 0;
+            else throw new SemanticException("The variable was never defined", idName);
+        }
         return value.evaluate();
+    }
+
+    public boolean hasParamVariable() {
+        return SymbolTable.varIsParamVariable(idName.getToken());
     }
 }

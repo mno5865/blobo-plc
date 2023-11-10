@@ -9,6 +9,7 @@ import java.util.List;
 public class SymbolTable {
     //takes in funcName and (param types and return) and returns the variables for the function
     private static HashMap<List<String>, HashMap<String, VariableInfo>> funcDefinitions = new HashMap<>();
+    private static HashMap<List<String>, HashMap<String, VariableInfo>> funcParamVariables = new HashMap<>();
 
     private static HashMap<List<String>, String> funcReturnTypes = new HashMap<>();
 
@@ -29,6 +30,7 @@ public class SymbolTable {
         scopeFunc = functionDefinition;
         funcReturnTypes.put(functionDefinition, returnType);
         funcDefinitions.put(functionDefinition, variables);
+        funcParamVariables.put(functionDefinition, variables);
     }
 
     public static void addVariable(String varType, String varName, ExprNode expr) throws SemanticException {
@@ -65,6 +67,10 @@ public class SymbolTable {
 
     public static boolean doesVarExistInScope(String varName) {
         return funcDefinitions.get(scopeFunc).containsKey(varName);
+    }
+
+    public static boolean varIsParamVariable(String varName) {
+        return funcParamVariables.get(scopeFunc).containsKey(varName);
     }
 
     public static String getVariableType(String varName) {
