@@ -69,6 +69,11 @@ public class AsmtNode implements BodyStmtNode {
     public void validateTree() throws SemanticException {
         id.validateTree();
         expr.validateTree();
+        // check against variables named after keywords
+        if (this.id.getName().equals("while") || this.id.getName().equals("if") || this.id.getName().equals("else")) {
+            throw new SemanticException("Variable cannot be named after a keyword", expr.getToken().getFilename(),
+                    expr.getToken().getLineNum());
+        }
         // < type > < id >= < expr >;   - just check that type is same type as expr
         if (this.type != null) {
             if (!Objects.equals(this.expr.getType(), this.type.getType())) {
