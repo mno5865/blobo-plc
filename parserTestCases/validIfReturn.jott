@@ -1,8 +1,15 @@
 # this will pass phase 2 and phase 3
 # if stmt that has an else must return in both, and any elifs for the if stmt to be returnable
 
-def foo[x:Integer]:Integer{
+def true[]:Integer{
+    return 2;
+}
+
+def foo[x:Boolean]:Integer{
     if[True]{
+	    return 1;
+	}
+	elseif[x]{
 	    return 1;
 	}
 	else{
@@ -10,10 +17,8 @@ def foo[x:Integer]:Integer{
     }
 }
 
-def true[]:Boolean{
-    return True;
-}
+
 
 def main[]:Void{
-    ::print[::foo[10]];
+    ::print[::foo[False]];
 }
