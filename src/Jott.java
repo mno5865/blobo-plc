@@ -34,6 +34,7 @@ public class Jott {
                 ArrayList<Token> tokenList = JottTokenizer.tokenize(inputFilename);
                 if (tokenList == null) {
                     System.err.println("\t\tExpected a list of tokens, but got null");
+                    return;
                 }
                 JottTree root = JottParser.parse(tokenList);
                 if (root == null) return;
