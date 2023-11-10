@@ -114,4 +114,8 @@ public class BodyNode implements JottTree {
         if (ifTypeFound != null) return ifTypeFound;
         else return type;
     }
+
+    public boolean doesHaveAReturnStatement() {
+        return returnStmt != null;
+    }
 }
