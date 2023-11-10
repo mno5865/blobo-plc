@@ -102,6 +102,14 @@ public class FuncDefNode implements JottTree {
     @Override
     public void validateTree() throws SemanticException {
         // if the function is main, check that it returns void
+        //this should be making sure the func is unique, this is also where we initialize it in the symbol table
+        String returnValue = !returnType.returnTypeExists() ? "Void" : returnType.getReturnType();
+        SymbolTable.setFunction(funcName, params.getParamTypes(), params.getParamNames(), returnValue);
+        funcName.validateTree();
+        if (params.paramsExist()) params.validateTree();
+        returnType.validateTree();
+        body.validateTree();
+
         if (funcName.getName().equals("main")) {
             if (returnType.returnTypeExists()) {
                 throw new SemanticException("main cannot return anything", funcName.getToken().getFilename(),
@@ -119,9 +127,6 @@ public class FuncDefNode implements JottTree {
                     funcName.getToken().getFilename(), funcName.getToken().getLineNum());
         }
 
-        //this should be making sure the func is unique, this is also where we initialize it in the symbol table
-        String returnValue = !returnType.returnTypeExists() ? "Void" : returnType.getReturnType();
-
         String bodyReturnType = body.returnPath(returnValue);
         if (!bodyReturnType.equals(returnType.getReturnType())) {
             throw new SemanticException("body return type is not the same as the function return type",
@@ -133,11 +138,5 @@ public class FuncDefNode implements JottTree {
             throw new SemanticException("missing return statement", funcName.getToken().getFilename(),
                     funcName.getToken().getLineNum());
         }
-
-        SymbolTable.setFunction(funcName, params.getParamTypes(), params.getParamNames(), returnValue);
-        funcName.validateTree();
-        if (params.paramsExist()) params.validateTree();
-        returnType.validateTree();
-        body.validateTree();
     }
 }
