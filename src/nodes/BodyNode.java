@@ -103,8 +103,7 @@ public class BodyNode implements JottTree {
         if (returnStmt == null) type = "Void";
         else type = returnStmt.getExprType();
         for (BodyStmtNode bodyStmt : bodyStmts) {
-            if (bodyStmt instanceof IfStmtNode) {
-                IfStmtNode statement = (IfStmtNode)bodyStmt;
+            if (bodyStmt instanceof IfStmtNode statement) {
                 String ifReturn = statement.getReturnType(returnValue, !returnValue.equals("Void")
                         && !type.equals(returnValue));
                 if (!ifReturn.equals("Void")) ifTypeFound = ifReturn;

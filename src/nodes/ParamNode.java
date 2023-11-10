@@ -47,6 +47,7 @@ public class ParamNode implements JottTree {
     public List<String> getParamTypes() throws SemanticException {
         List<String> params = new ArrayList<>();
         handleParamIsDefinedError(expr);
+        if (expr == null) return params;
         params.add(expr.getType());
         for (ParamTailNode param : paramTail) {
             handleParamIsDefinedError(param.getExpr());
