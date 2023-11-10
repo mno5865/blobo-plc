@@ -16,10 +16,13 @@ public class SymbolTable {
     private static List<String> scopeFunc; //this should be set to the current function definition we're in
 
     public static void setFunction(IDNode funcName, List<String> funcParamTypes, List<String> funcParamNames,
-                                   String returnType) {
+                                   String returnType) throws SemanticException {
         HashMap<String, VariableInfo> variables = new HashMap<>();
 
         for (int i = 0; i < funcParamNames.size(); i++) {
+            if (Character.isUpperCase(funcParamNames.get(i).toCharArray()[0]))
+                throw new SemanticException("All variables in function header must start with a lowercase letter",
+                        funcName.getToken());
             variables.put(funcParamNames.get(i), new VariableInfo(funcParamTypes.get(i)));
         }
 
@@ -38,6 +41,9 @@ public class SymbolTable {
             throw new SemanticException("variable is already defined", expr.getToken().getFilename(),
                     expr.getToken().getLineNum());
         }
+        if (Character.isUpperCase(varName.toCharArray()[0]))
+            throw new SemanticException("All variables defined must start with a lowercase letter",
+                    expr.getToken());
         HashMap<String, VariableInfo> existingVariables = funcDefinitions.get(scopeFunc);
         existingVariables.put(varName, new VariableInfo(varType, expr));
     }
