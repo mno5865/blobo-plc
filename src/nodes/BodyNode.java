@@ -96,4 +96,23 @@ public class BodyNode implements JottTree {
         }
         return returnStmt.getExprType();
     }
+
+    public String returnPath(String returnValue) throws SemanticException {
+        String type;
+        String ifTypeFound = null;
+        if (returnStmt == null) type = "Void";
+        else type = returnStmt.getExprType();
+        for (BodyStmtNode bodyStmt : bodyStmts) {
+            if (bodyStmt instanceof IfStmtNode) {
+                IfStmtNode statement = (IfStmtNode)bodyStmt;
+                String ifReturn = statement.getReturnType(returnValue, !returnValue.equals("Void")
+                        && !type.equals(returnValue));
+                if (!ifReturn.equals("Void")) ifTypeFound = ifReturn;
+                if (!(type.equals(returnValue) || ifReturn.equals(returnValue)))
+                    throw new SemanticException("A return statement is required for function", statement.getToken());
+            }
+        }
+        if (ifTypeFound != null) return ifTypeFound;
+        else return type;
+    }
 }

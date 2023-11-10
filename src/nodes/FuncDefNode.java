@@ -120,15 +120,16 @@ public class FuncDefNode implements JottTree {
         }
 
         //this should be making sure the func is unique, this is also where we initialize it in the symbol table
-        String returnValue = !returnType.returnTypeExists() ? "" : returnType.getReturnType();
+        String returnValue = !returnType.returnTypeExists() ? "Void" : returnType.getReturnType();
 
-        if (!body.getReturnType().equals(returnType.getReturnType())) {
+        String bodyReturnType = body.returnPath(returnValue);
+        if (!bodyReturnType.equals(returnType.getReturnType())) {
             throw new SemanticException("body return type is not the same as the function return type",
                     funcName.getToken().getFilename(), funcName.getToken().getLineNum());
-        } else if (body.getReturnType().equals("Void") && returnType.returnTypeExists()) {
+        } else if (bodyReturnType.equals("Void") && returnType.returnTypeExists()) {
             throw new SemanticException("Void function is returning something", funcName.getToken().getFilename(),
                     funcName.getToken().getLineNum());
-        } else if (!body.getReturnType().equals("Void") && !returnType.returnTypeExists()) {
+        } else if (!bodyReturnType.equals("Void") && !returnType.returnTypeExists()) {
             throw new SemanticException("missing return statement", funcName.getToken().getFilename(),
                     funcName.getToken().getLineNum());
         }

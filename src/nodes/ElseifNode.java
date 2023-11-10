@@ -73,4 +73,12 @@ public class ElseifNode implements JottTree {
         expr.validateTree();
         body.validateTree();
     }
+
+    public String getReturnType() throws SemanticException {
+        return body.getReturnType();
+    }
+
+    public Token getToken() {
+        return expr.getToken();
+    }
 }

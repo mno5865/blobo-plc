@@ -108,4 +108,32 @@ public class IfStmtNode implements BodyStmtNode {
             elseNode.validateTree();
         }
     }
+
+    public String getReturnType(String neededReturn, boolean mustHaveReturn) throws SemanticException {
+        String returnType = body.getReturnType();
+        boolean allReturn = false;
+
+        for (ElseifNode elseIf : elseIfList) {
+            String elseIfReturn = elseIf.getReturnType();
+            if (!elseIfReturn.equals(returnType)) throw new SemanticException("Return statements inside of if's must match",
+                    elseIf.getToken());
+        }
+
+        String elseReturn = elseNode.getReturnType();
+        if (elseReturn.equals(returnType)) allReturn = true;
+        else if (!elseReturn.equals("Void"))
+            throw new SemanticException("Else return must match if return", expr.getToken());
+
+        if (!allReturn && mustHaveReturn)
+            throw new SemanticException("Else must also have return, or body needs a return", expr.getToken());
+
+        if (mustHaveReturn && !neededReturn.equals(returnType))
+            throw new SemanticException("Return type inside of if statement is incorrect", expr.getToken());
+
+        return returnType;
+    }
+
+    public Token getToken() {
+        return expr.getToken();
+    }
 }

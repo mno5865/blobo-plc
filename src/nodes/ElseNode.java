@@ -60,4 +60,8 @@ public class ElseNode implements JottTree {
     public void validateTree() throws SemanticException {
         body.validateTree();
     }
+
+    public String getReturnType() throws SemanticException {
+        return body.getReturnType();
+    }
 }
