@@ -3,3 +3,5 @@
 out
 gen
 /parserTestCases/parserTestTemp.jott
+output.jott
+.gitignore
