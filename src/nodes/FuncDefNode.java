@@ -49,54 +49,49 @@ public class FuncDefNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = "def ";
-        out += this.funcName.convertToJott();
-        out += "[";
-        out += this.params.convertToJott();
-        out += "]:";
-        out += this.returnType.convertToJott();
-        out += "{\n\t";
-        out += this.body.convertToJott();
-        out += "}\n";
-        return out;
+        return "def " +
+                this.funcName.convertToJott() +
+                "[" +
+                this.params.convertToJott() +
+                "]:" +
+                this.returnType.convertToJott() +
+                "{\n\t" +
+                this.body.convertToJott() +
+                "}\n";
     }
 
     @Override
     public String convertToJava(String className) {
-        String out = "public ";
-        out += this.returnType.convertToJava("");
-        out += " ";
-        out += this.funcName.convertToJava("");
-        out += "(";
-        out += this.params.convertToJava("");
-        out += "){";
-        out += this.body.convertToJava("");
-        out += "}";
-        return out;
+        return "public " +
+                this.returnType.convertToJava("") +
+                " " +
+                this.funcName.convertToJava("") +
+                "(" +
+                this.params.convertToJava("") +
+                "){" +
+                this.body.convertToJava("") +
+                "}";
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        out += returnType.convertToC();
-        out += funcName.convertToC();
-        out += "(";
-        out += params.convertToC();
-        out += "){";
-        out += body.convertToC();
-        out += "}";
-        return out;
+        return returnType.convertToC() +
+                funcName.convertToC() +
+                "(" +
+                params.convertToC() +
+                "){" +
+                body.convertToC() +
+                "}";
     }
 
     @Override
     public String convertToPython() {
-        String out = "def ";
-        out += funcName.convertToPython();
-        out += "(";
-        out += params.convertToPython();
-        out += "):\n";
-        out += body.convertToPython();
-        return out;
+        return "def " +
+                funcName.convertToPython() +
+                "(" +
+                params.convertToPython() +
+                "):\n" +
+                body.convertToPython();
     }
 
     @Override
