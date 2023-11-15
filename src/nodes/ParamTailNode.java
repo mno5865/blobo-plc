@@ -31,7 +31,7 @@ public class ParamTailNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        return ", " + expr.convertToJava();
+        return ", " + expr.convertToJava(className);
     }
 
     @Override
