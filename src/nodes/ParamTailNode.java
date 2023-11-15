@@ -31,17 +31,17 @@ public class ParamTailNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        return "";
+        return ", " + expr.convertToJava();
     }
 
     @Override
     public String convertToC() {
-        return "";
+        return ", " + expr.convertToC();
     }
 
     @Override
     public String convertToPython() {
-        return "";
+        return ", " + expr.convertToPython();
     }
 
     @Override

@@ -58,32 +58,50 @@ public class ParamNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         if (expr != null) {
-            out += this.expr.convertToJott();
+            out.append(this.expr.convertToJott());
             for (ParamTailNode param : paramTail) {
-                out += param.convertToJott();
+                out.append(param.convertToJott());
             }
         }
-        return out;
+        return out.toString();
     }
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        StringBuilder out = new StringBuilder();
+        if (expr != null) {
+            out.append(this.expr.convertToJava(className));
+            for (ParamTailNode param : paramTail) {
+                out.append(param.convertToJava(className));
+            }
+        }
+        return out.toString();
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        StringBuilder out = new StringBuilder();
+        if (expr != null) {
+            out.append(this.expr.convertToC());
+            for (ParamTailNode param : paramTail) {
+                out.append(param.convertToC());
+            }
+        }
+        return out.toString();
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        StringBuilder out = new StringBuilder();
+        if (expr != null) {
+            out.append(this.expr.convertToPython());
+            for (ParamTailNode param : paramTail) {
+                out.append(param.convertToPython());
+            }
+        }
+        return out.toString();
     }
 
     @Override
