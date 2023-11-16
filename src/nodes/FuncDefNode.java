@@ -75,6 +75,15 @@ public class FuncDefNode implements JottTree {
 
     @Override
     public String convertToC() {
+        if (funcName.getName().equals("main")){
+            return "int" +
+                    funcName.convertToC() +
+                    "(" +
+                    params.convertToC() +
+                    "){" +
+                    body.convertToC() +
+                    "}";
+        }
         return returnType.convertToC() +
                 funcName.convertToC() +
                 "(" +
