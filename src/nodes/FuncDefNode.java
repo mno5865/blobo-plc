@@ -55,7 +55,7 @@ public class FuncDefNode implements JottTree {
                 this.params.convertToJott() +
                 "]:" +
                 this.returnType.convertToJott() +
-                "{\n\t" +
+                "{\n" +
                 this.body.convertToJott() +
                 "}\n";
     }
