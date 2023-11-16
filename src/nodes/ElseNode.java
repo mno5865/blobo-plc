@@ -35,7 +35,7 @@ public class ElseNode implements JottTree {
     @Override
     public String convertToJott() {
         String out = "\telse";
-        out += "{\n\t";
+        out += "{\n";
         out += "\t" + this.body.convertToJott();
         out += "\t}";
         return out;

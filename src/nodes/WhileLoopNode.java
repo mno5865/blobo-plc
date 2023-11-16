@@ -40,7 +40,7 @@ public class WhileLoopNode implements BodyStmtNode {
         out += "[";
         out += this.expr.convertToJott();
         out += "]";
-        out += "{\n\t";
+        out += "{\n";
         out += this.body.convertToJott();
         out += "\t}";
         return out;

@@ -43,7 +43,7 @@ public class ElseifNode implements JottTree {
         out += "[";
         out += this.expr.convertToJott();
         out += "]";
-        out += "{\n\t";
+        out += "{\n";
         out += "\t" + this.body.convertToJott();
         out += "\t}";
         return out;
