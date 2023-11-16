@@ -77,14 +77,24 @@ public class BodyNode implements JottTree {
 
     @Override
     public String convertToC() {
+        indentationLevel++;
         StringBuilder out = new StringBuilder();
-        for (BodyStmtNode bodyStmt : bodyStmts) {
-            out.append("\t").append(bodyStmt.convertToC());
+        out.append(getTabs());
+        for (int i = 0; i < this.bodyStmts.size(); i++) {
+            out.append(this.bodyStmts.get(i).convertToC());
+            if (this.bodyStmts.get(i) instanceof FuncCallNode) {
+                out.append(";");
+            }
+            if (i < this.bodyStmts.size() - 1) {
+                out.append("\n");
+                out.append(getTabs());
+            }
         }
         String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
                 this.returnStmt.convertToJott() : out.toString());
-        return out.toString();
+        indentationLevel--;
+        return out.toString().concat("\n");
     }
 
     @Override
