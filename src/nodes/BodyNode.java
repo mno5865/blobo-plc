@@ -9,9 +9,10 @@ import provided.TokenType;
 import java.util.ArrayList;
 
 public class BodyNode implements JottTree {
-
     private final ArrayList<BodyStmtNode> bodyStmts;
     private final ReturnStmtNode returnStmt;
+
+    private static int indentationLevel = 0;
 
     public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt) {
         this.bodyStmts = bodyStmts;
@@ -41,20 +42,32 @@ public class BodyNode implements JottTree {
 
     @Override
     public String convertToJott() {
+        indentationLevel++;
         StringBuilder out = new StringBuilder();
+        out.append(getTabs());
         for (int i = 0; i < this.bodyStmts.size(); i++) {
             out.append(this.bodyStmts.get(i).convertToJott());
             if (this.bodyStmts.get(i) instanceof FuncCallNode) {
                 out.append(";");
             }
             if (i < this.bodyStmts.size() - 1) {
-                out.append("\n\t");
+                out.append("\n");
+                out.append(getTabs());
             }
         }
         String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
                 this.returnStmt.convertToJott() : out.toString());
+        indentationLevel--;
         return out.toString().concat("\n");
+    }
+
+    public String getTabs() {
+        StringBuilder out = new StringBuilder();
+        for (int j = 0; j < indentationLevel; j++) {
+            out.append("\t");
+        }
+        return out.toString();
     }
 
     @Override
