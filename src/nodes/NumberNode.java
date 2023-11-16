@@ -1,8 +1,6 @@
 package nodes;
 
-import errors.SyntaxException;
 import provided.Token;
-import provided.TokenType;
 
 import java.util.ArrayList;
 
@@ -38,7 +36,27 @@ public class NumberNode implements ExprNode {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() {
+    }
+
+    public boolean isInteger() {
+        return !this.number.getToken().contains("."); //todo that weird error when I remove !
+    }
+
+
+    @Override
+    public String getType() {
+        if (isInteger()) return "Integer";
+        return "Double";
+    }
+
+    @Override
+    public Token getToken() {
+        return number;
+    }
+
+    @Override
+    public double evaluate() {
+        return Double.parseDouble(number.getToken());
     }
 }

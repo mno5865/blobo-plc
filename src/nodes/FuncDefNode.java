@@ -1,10 +1,12 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
+import java.net.IDN;
 import java.util.ArrayList;
 
 import static nodes.BasicParsers.*;
@@ -98,7 +100,43 @@ public class FuncDefNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() throws SemanticException {
+        // if the function is main, check that it returns void
+        //this should be making sure the func is unique, this is also where we initialize it in the symbol table
+        String returnValue = !returnType.returnTypeExists() ? "Void" : returnType.getReturnType();
+        SymbolTable.setFunction(funcName, params.getParamTypes(), params.getParamNames(), returnValue);
+        funcName.validateTree();
+        if (params.paramsExist()) params.validateTree();
+        returnType.validateTree();
+        body.validateTree();
+
+        if (funcName.getName().equals("main")) {
+            if (returnType.returnTypeExists()) {
+                throw new SemanticException("main cannot return anything", funcName.getToken().getFilename(),
+                        funcName.getToken().getLineNum());
+            }
+            if (params.paramsExist()) {
+                throw new SemanticException("main cannot have parameters", funcName.getToken().getFilename(),
+                        funcName.getToken().getLineNum());
+            }
+        }
+
+        // check if they are overriding a function name
+        if (funcName.getName().equals("concat") || funcName.getName().equals("length") || funcName.getName().equals("print")) {
+            throw new SemanticException("cannot override functions concat, length, or print",
+                    funcName.getToken().getFilename(), funcName.getToken().getLineNum());
+        }
+
+        String bodyReturnType = body.returnPath(returnValue);
+        if (!bodyReturnType.equals("Void") && !returnType.returnTypeExists()) {
+            throw new SemanticException("Void function is returning something", funcName.getToken().getFilename(),
+                    funcName.getToken().getLineNum());
+        } else if (bodyReturnType.equals("Void") && returnType.returnTypeExists()) {
+            throw new SemanticException("missing return statement", funcName.getToken().getFilename(),
+                    funcName.getToken().getLineNum());
+        } else if (!bodyReturnType.equals(returnType.getReturnType())) {
+            throw new SemanticException("Body return type is incorrect, or missing",
+                    funcName.getToken().getFilename(), funcName.getToken().getLineNum());
+        }
     }
 }

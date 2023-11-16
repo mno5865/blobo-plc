@@ -7,8 +7,8 @@ def foo[x:Integer]:Void{
 def main[]:Void{
     Integer x = 0;
 	while[x<10]{
-	    foo[x];
-		print[x];
+	    ::foo[x];
+		::print[x];
 		x = x + 1;
 	}
 }

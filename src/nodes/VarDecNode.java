@@ -1,19 +1,20 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import static nodes.BasicParsers.parseToken;
 
 public class VarDecNode implements BodyStmtNode {
-
-    private final Token type;
+    private final TypeNode type;
     private final IDNode id;
 
-    public VarDecNode(Token type, IDNode id) {
+    public VarDecNode(TypeNode type, IDNode id) {
         this.type = type;
         this.id = id;
     }
@@ -23,7 +24,7 @@ public class VarDecNode implements BodyStmtNode {
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException("Variable declaration must begin Type KEYWORD", token.getFilename(), token.getLineNum());
         }
-        Token type = tokens.remove(0);
+        TypeNode type = TypeNode.parseTypeNode(tokens);
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException("Variable declaration Type KEYWORD expects to be followed by ID", token.getFilename(), token.getLineNum());
         }
@@ -34,7 +35,7 @@ public class VarDecNode implements BodyStmtNode {
 
     @Override
     public String convertToJott() {
-        return this.type.getToken() + " " + this.id.convertToJott() + ";";
+        return this.type.getType() + " " + this.id.convertToJott() + ";";
     }
 
     @Override
@@ -53,7 +54,8 @@ public class VarDecNode implements BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() throws SemanticException {
+        type.validateTree();
+        id.validateTree();
     }
 }

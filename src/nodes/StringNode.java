@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
@@ -42,7 +43,24 @@ public class StringNode implements ExprNode {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() throws SemanticException {
+        // todo someone should check to make sure this is correct (i'm pretty sure base nodes can't have any errors)
+        char[] characters = getToken().getToken().toCharArray();
+        for (int i = 1; i < characters.length - 1; i++) {
+            if (!(Character.isLetterOrDigit(characters[i]) || characters[i] == ' '))
+                throw new SemanticException("Strings can only contain alphanumeric characters or spaces",
+                        stringLiteral);
+
+        }
+    }
+
+    @Override
+    public String getType() {
+        return "String";
+    }
+
+    @Override
+    public Token getToken() {
+        return stringLiteral;
     }
 }

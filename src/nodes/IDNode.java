@@ -1,44 +1,70 @@
 package nodes;
 
-import errors.SyntaxException;
+import errors.SemanticException;
 import provided.Token;
-import provided.TokenType;
 
 import java.util.ArrayList;
 
 public class IDNode implements ExprNode {
-    private final Token id_name;
+    private final Token idName;
 
     private IDNode(Token ID) {
-        this.id_name = ID;
+        this.idName = ID;
     }
 
     public static IDNode parseIDNode(ArrayList<Token> tokens) {
         return new IDNode(tokens.remove(0));
     }
 
+    public String getName() {
+        return idName.getToken();
+    }
+
     @Override
     public String convertToJott() {
-        return this.id_name.getToken();
+        return this.idName.getToken();
     }
 
     @Override
     public String convertToJava(String className) {
-        return this.id_name.getToken();
+        return this.idName.getToken();
     }
 
     @Override
     public String convertToC() {
-        return this.id_name.getToken();
+        return this.idName.getToken();
     }
 
     @Override
     public String convertToPython() {
-        return this.id_name.getToken();
+        return this.idName.getToken();
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() {
+    }
+
+    public String getType() throws SemanticException {
+        if (!SymbolTable.doesVarExistInScope(idName.getToken()))
+            throw new SemanticException("The variable was never defined", idName);
+        return SymbolTable.getVariableType(idName.getToken());
+    }
+
+    public Token getToken() {
+        return idName;
+    }
+
+    @Override
+    public double evaluate() throws SemanticException {
+        ExprNode value = SymbolTable.getVariableValue(idName.getToken());
+        if (value == null) {
+            if (SymbolTable.varIsParamVariable(idName.getToken())) return 0;
+            else throw new SemanticException("The variable was never defined", idName);
+        }
+        return value.evaluate();
+    }
+
+    public boolean hasParamVariable() {
+        return SymbolTable.varIsParamVariable(idName.getToken());
     }
 }

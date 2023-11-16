@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -44,7 +45,11 @@ public class ParamTailNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() throws SemanticException {
+        expr.validateTree();
+    }
+
+    public ExprNode getExpr() {
+        return expr;
     }
 }

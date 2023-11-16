@@ -6,12 +6,15 @@
  */
 package provided;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import nodes.ProgramNode;
 
 import java.util.ArrayList;
 
 public class JottParser {
+    public static int lastLine = 0;
+    public static String lastFile = "";
 
     /**
      * Parses an ArrayList of Jotton tokens into a Jott Parse Tree.
@@ -21,8 +24,6 @@ public class JottParser {
      */
     public static JottTree parse(ArrayList<Token> tokens) {
         JottTree tree = null;
-        int lastLine = 0;
-        String lastFile = "";
         if (!tokens.isEmpty()) {
             lastLine = tokens.get(tokens.size() - 1).getLineNum();
             lastFile = tokens.get(tokens.size() - 1).getFilename();
@@ -36,6 +37,15 @@ public class JottParser {
                 throw new SyntaxException("End of file reached before expected", lastFile, lastLine);
             } catch (SyntaxException s) {
                 System.err.print(s);
+            }
+        }
+        if (tree != null) {
+            try {
+                tree.validateTree();
+                boolean validTree = true;
+                System.out.println("\nValidateTree returned: " + validTree + "\n");
+            } catch (SemanticException e){
+                System.err.print(e);
             }
         }
         return tree;

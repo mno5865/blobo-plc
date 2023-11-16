@@ -21,6 +21,10 @@ public class OpNode implements ExprNode {
         return new OpNode(tokens.remove(0));
     }
 
+    public boolean isMathOp() {
+        return operator.getTokenType() == TokenType.MATH_OP;
+    }
+
     @Override
     public String convertToJott() {
         return this.operator.getToken();
@@ -45,7 +49,17 @@ public class OpNode implements ExprNode {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() {
+
+    }
+
+    @Override
+    public Token getToken() {
+        return operator;
+    }
+
+    public String getType() {
+        // should never be called, an operator cannot be a type
+        return "";
     }
 }

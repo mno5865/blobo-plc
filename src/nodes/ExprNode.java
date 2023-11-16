@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -34,7 +35,7 @@ public interface ExprNode extends JottTree {
                     tokens.get(0).getFilename(), tokens.get(0).getLineNum());
         }
 
-        ExprNode operator;
+        OpNode operator;
         type = tokens.get(0).getTokenType();
 
         if (type == TokenType.MATH_OP || type == TokenType.REL_OP) {
@@ -45,4 +46,12 @@ public interface ExprNode extends JottTree {
             return left;
         }
     }
+
+    String getType() throws SemanticException;
+
+    Token getToken();
+
+    default double evaluate() throws SemanticException {
+        return 0;
+    };
 }

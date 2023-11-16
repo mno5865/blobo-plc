@@ -4,12 +4,12 @@
 def foo[]:Integer{
     Integer x = 0;
 	while[x<10]{
-		print[x];
+		::print[x];
 		return x;
 	}
 }
 
 def main[]:Void{
-    Integer y = foo[];
+    Integer y = ::foo[];
 }
 

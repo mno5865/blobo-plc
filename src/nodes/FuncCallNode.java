@@ -1,10 +1,12 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static nodes.BasicParsers.parseToken;
 
@@ -58,7 +60,23 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() throws SemanticException { //just checks to make sure the function exists right now
+        List<String> funcDefinition = new ArrayList<>();
+        funcDefinition.add(funcName.getName());
+        funcDefinition.addAll(params.getParamTypes());
+        boolean valid = SymbolTable.doesFunctionExist(funcDefinition);
+        if (!valid) throw new SemanticException("The function " + funcName.getName() + " does not exist with given params", funcName.getToken());
+        funcName.validateTree();
+        params.validateTree();
+    }
+
+    @Override
+    public String getType() throws SemanticException {
+        return SymbolTable.getFunctionReturnType(funcName, params);
+    }
+
+    @Override
+    public Token getToken() {
+        return funcName.getToken();
     }
 }

@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -51,7 +52,17 @@ public class FuncReturnNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() throws SemanticException {
+        if (!returnTypeExists()) return;
+        type.validateTree();
+    }
+
+    public boolean returnTypeExists() {
+        return this.type != null;
+    }
+
+    public String getReturnType() {
+        if (type == null) return "Void";
+        return type.getType();
     }
 }

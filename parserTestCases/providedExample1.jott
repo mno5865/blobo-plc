@@ -1,6 +1,11 @@
+def foo[]:Integer{
+    ::print[5];
+    return 5;
+}
+
 #this is an example
 def main[]:Void{
     ::print[5];
     #this is a comment
-    ::print[ "foo bar"];
+    ::foo[];
 }

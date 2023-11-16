@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -21,7 +22,7 @@ public class ElseifNode implements JottTree {
 
     public static ElseifNode parseElseifNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (!(token.getTokenType() == TokenType.ID_KEYWORD && !token.getToken().equals("elseif"))) {
+        if (!(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("elseif"))) {
             throw new SyntaxException("elseif statement must begin with KEYWORD elseif", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);
@@ -64,7 +65,20 @@ public class ElseifNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() throws SemanticException {
+        if(!expr.getType().equals("Boolean"))
+        {
+            throw new SemanticException("Expression is not a binary expression",expr.getToken());
+        }
+        expr.validateTree();
+        body.validateTree();
+    }
+
+    public String getReturnType() throws SemanticException {
+        return body.getReturnType();
+    }
+
+    public Token getToken() {
+        return expr.getToken();
     }
 }

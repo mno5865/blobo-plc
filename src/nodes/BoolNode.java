@@ -44,7 +44,15 @@ public class BoolNode implements ExprNode {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() {
+    }
+
+    public String getType() {
+        return "Boolean";
+    }
+
+    @Override
+    public Token getToken() {
+        return bool;
     }
 }

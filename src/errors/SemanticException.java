@@ -1,17 +1,21 @@
 package errors;
 
+import provided.Token;
+
 import java.util.concurrent.TimeUnit;
 
-public class SyntaxException extends Exception {
+public class SemanticException extends Exception {
     private String errorMessage;
     private String fileName;
     private int lineNum;
 
-    public SyntaxException() {
-
+    public SemanticException(String errorMessage, Token token) {
+        this.errorMessage = errorMessage;
+        this.fileName = token.getFilename();
+        this.lineNum = token.getLineNum();
     }
 
-    public SyntaxException(String errorMessage, String fileName, int lineNum) {
+    public SemanticException(String errorMessage, String fileName, int lineNum) {
         this.errorMessage = errorMessage;
         this.fileName = fileName;
         this.lineNum = lineNum;
@@ -24,6 +28,6 @@ public class SyntaxException extends Exception {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return "Syntax Error:\n" + errorMessage + "\n" + fileName + ":" + lineNum + "\n";
+        return "Semantic Error:\n" + errorMessage + "\n" + fileName + ":" + lineNum + "\n";
     }
 }

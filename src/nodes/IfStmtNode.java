@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
@@ -91,7 +92,50 @@ public class IfStmtNode implements BodyStmtNode {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() throws SemanticException {
+        if(!expr.getType().equals("Boolean"))
+        {
+            throw new SemanticException("Expression is not a binary expression",expr.getToken());
+        }
+        expr.validateTree();
+        body.validateTree();
+        if (!this.elseIfList.isEmpty()) {
+            for (ElseifNode elseifNode : this.elseIfList) {
+                elseifNode.validateTree();
+            }
+        }
+        if (this.elseNode != null) {
+            elseNode.validateTree();
+        }
+    }
+
+    public String getReturnType(String neededReturn, boolean mustHaveReturn) throws SemanticException {
+        if (elseNode == null) return "Void";
+
+        String returnType = body.getReturnType();
+        boolean allReturn = false;
+
+        for (ElseifNode elseIf : elseIfList) {
+            String elseIfReturn = elseIf.getReturnType();
+            if (!elseIfReturn.equals(returnType)) throw new SemanticException("Return statements inside of if's must match",
+                    elseIf.getToken());
+        }
+
+        String elseReturn = elseNode.getReturnType();
+        if (elseReturn.equals(returnType)) allReturn = true;
+        else if (!elseReturn.equals("Void"))
+            throw new SemanticException("Else return must match if return", expr.getToken());
+
+        if (!allReturn && mustHaveReturn)
+            throw new SemanticException("Else must also have return, or body needs a return", expr.getToken());
+
+        if (mustHaveReturn && !neededReturn.equals(returnType))
+            throw new SemanticException("Return type inside of if statement is incorrect", expr.getToken());
+
+        return returnType;
+    }
+
+    public Token getToken() {
+        return expr.getToken();
     }
 }

@@ -1,5 +1,6 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
@@ -82,7 +83,39 @@ public class BodyNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() throws SemanticException {
+        for (BodyStmtNode bodyStmt : bodyStmts) {
+            bodyStmt.validateTree();
+        }
+        if (returnStmt != null) returnStmt.validateTree();
+    }
+
+    public String getReturnType() throws SemanticException {
+        if (returnStmt == null) {
+            return "Void";
+        }
+        return returnStmt.getExprType();
+    }
+
+    public String returnPath(String returnValue) throws SemanticException {
+        String type;
+        String ifTypeFound = null;
+        if (returnStmt == null) type = "Void";
+        else type = returnStmt.getExprType();
+        for (BodyStmtNode bodyStmt : bodyStmts) {
+            if (bodyStmt instanceof IfStmtNode statement) {
+                String ifReturn = statement.getReturnType(returnValue, !returnValue.equals("Void")
+                        && !type.equals(returnValue));
+                if (!ifReturn.equals("Void")) ifTypeFound = ifReturn;
+                if (!(type.equals(returnValue) || ifReturn.equals(returnValue)))
+                    throw new SemanticException("A return statement is required for function", statement.getToken());
+            }
+        }
+        if (ifTypeFound != null) return ifTypeFound;
+        else return type;
+    }
+
+    public boolean doesHaveAReturnStatement() {
+        return returnStmt != null;
     }
 }

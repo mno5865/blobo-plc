@@ -1,11 +1,13 @@
 package nodes;
 
+import errors.SemanticException;
 import errors.SyntaxException;
 import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static nodes.BasicParsers.parseToken;
 
@@ -98,7 +100,36 @@ public class FuncDefParamNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        return false;
+    public void validateTree() throws SemanticException {
+        if (this.paramName == null) return;
+        paramName.validateTree();
+        paramType.validateTree();
+        for (FuncDefParamTailNode param : paramTail) {
+            param.validateTree();
+        }
+    }
+
+    public boolean paramsExist() {
+        return paramName != null;
+    }
+
+    public List<String> getParamTypes() {
+        List<String> params = new ArrayList<>();
+        if (this.paramName == null) return params;
+        params.add(paramType.getType());
+        for (FuncDefParamTailNode param : paramTail) {
+            params.add(param.getType());
+        }
+        return params;
+    }
+
+    public List<String> getParamNames() {
+        List<String> params = new ArrayList<>();
+        if (this.paramName == null) return params;
+        params.add(paramName.getName());
+        for (FuncDefParamTailNode param : paramTail) {
+            params.add(param.getName());
+        }
+        return params;
     }
 }
