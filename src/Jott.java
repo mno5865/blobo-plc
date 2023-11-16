@@ -24,36 +24,45 @@ public class Jott {
         String inputFilename = args[0]; // the name of the user's input file
         String outputFilename = args[1]; // the name of the user's output file
         String languageSpec = args[2]; // the language that we will translate into
+        String[] input = inputFilename.split("\\.");
 
-        if (inputFilename.split("\\.").length != 2) throw new Exception("Input file was entered in incorrectly");
+        if (input.length != 2) throw new Exception("Input file was entered in incorrectly");
+        if (!Objects.equals(input[1], "jott")) {
+            System.err.println("Incorrect File Extension");
+            return;
+        }
 
+        ArrayList<Token> tokenList = JottTokenizer.tokenize(inputFilename);
+        if (tokenList == null) {
+            System.err.println("Expected a list of tokens, but got null");
+            return;
+        }
+        JottTree root = JottParser.parse(tokenList);
+        assert root != null;
+        String code = "";
         switch (languageSpec) {
-            case "Jott":
-                if (!Objects.equals(inputFilename.split("\\.")[1], "jott")) {
-                    System.err.println("Incorrect File Extension");
-                    return;
-                }
-                ArrayList<Token> tokenList = JottTokenizer.tokenize(inputFilename);
-                if (tokenList == null) {
-                    System.err.println("Expected a list of tokens, but got null");
-                    return;
-                }
-                JottTree root = JottParser.parse(tokenList);
-                if (root == null) return;
-                String jottCode = root.convertToJott();
-                try {
-                    FileWriter writer = new FileWriter(outputFilename);
-                    if (jottCode == null) {
-                        System.err.println("Expected a program string; got null");
-                    }
-                    writer.write(jottCode);
-                    writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            case "Java":
-            case "Python":
-            case "C":
+            case "Jott" -> code = root.convertToJott();
+            case "Java" -> {
+                code = "public class " + input[0] + " {\n\t";
+
+                code += root.convertToJava(input[0]);
+                code += "\n}";
+            }
+            case "Python" -> code = root.convertToPython();
+            case "C" -> code = root.convertToC();
+        };
+
+        System.out.println(code);
+        try {
+            FileWriter writer = new FileWriter(outputFilename);
+            if (code == null) {
+                System.err.println("Expected a program string; got null");
+            } else {
+                writer.write(code);
+                writer.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
