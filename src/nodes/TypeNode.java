@@ -39,17 +39,29 @@ public class TypeNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        return null;
+        return switch (this.type) {
+            case "Double" -> "double";
+            case "Integer" -> "int";
+            case "String" -> "String";
+            case "Boolean" -> "boolean";
+            case "Void" -> "void";
+        };
     }
 
     @Override
     public String convertToC() {
-        return null;
+        return switch (this.type) {
+            case "Double" -> "float";
+            case "Integer" -> "int";
+            case "String" -> "char*";
+            case "Boolean" -> "bool"; // Todo add to imports: #import <stdbool.h>
+            case "Void" -> "void";
+        };
     }
 
     @Override
     public String convertToPython() {
-        return null;
+        return "";
     }
 
     @Override
