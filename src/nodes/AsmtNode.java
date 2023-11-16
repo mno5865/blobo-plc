@@ -44,7 +44,7 @@ public class AsmtNode implements BodyStmtNode {
     public String convertToJott() {
         String out = "";
         if (this.type != null) {
-            out += this.type.getType() + " ";
+            out += this.type.convertToJott() + " ";
         }
         return out + this.id.convertToJott() + " = " + this.expr.convertToJott() + ";";
     }
@@ -53,7 +53,7 @@ public class AsmtNode implements BodyStmtNode {
     public String convertToJava(String className) {
         String out = "";
         if (this.type != null) {
-            out += this.type.getType() + " ";
+            out += this.type.convertToJava(className) + " ";
         }
         return out + this.id.convertToJava(className) + " = " + this.expr.convertToJava(className) + ";";
     }
@@ -62,7 +62,7 @@ public class AsmtNode implements BodyStmtNode {
     public String convertToC() {
         String out = "";
         if (this.type != null) {
-            out += this.type.getType() + " ";
+            out += this.type.convertToC() + " ";
         }
         return out + this.id.convertToC() + " = " + this.expr.convertToC() + ";";
     }
