@@ -45,6 +45,7 @@ public class TypeNode implements JottTree {
             case "String" -> "String";
             case "Boolean" -> "boolean";
             case "Void" -> "void";
+            default -> "";
         };
     }
 
@@ -56,6 +57,7 @@ public class TypeNode implements JottTree {
             case "String" -> "char*";
             case "Boolean" -> "bool"; // Todo add to imports: #import <stdbool.h>
             case "Void" -> "void";
+            default -> "";
         };
     }
 
