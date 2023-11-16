@@ -49,7 +49,13 @@ public class Jott {
                 code += "\n}";
             }
             case "Python" -> code = root.convertToPython();
-            case "C" -> code = root.convertToC();
+            case "C" -> {
+                code = "#include <stdlib.h>\n" +
+                        "#include <stdio.h>\n" +
+                        "#include <string.h>\n" +
+                        "#include <stdbool.h>";
+                code += root.convertToC();
+            }
         };
 
         System.out.println(code);
