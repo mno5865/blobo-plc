@@ -35,17 +35,17 @@ public class VarDecNode implements BodyStmtNode {
 
     @Override
     public String convertToJott() {
-        return this.type.getType() + " " + this.id.convertToJott() + ";";
+        return this.type.convertToJott() + " " + this.id.convertToJott() + ";";
     }
 
     @Override
     public String convertToJava(String className) {
-        return "";
+        return this.type.convertToJava(className) + " " + this.id.convertToJava(className) + ";";
     }
 
     @Override
     public String convertToC() {
-        return "";
+        return this.type.convertToC() + " " + this.id.convertToC() + ";";
     }
 
     @Override
