@@ -46,6 +46,7 @@ public class JottParser {
                 System.out.println("\nValidateTree returned: " + validTree + "\n");
             } catch (SemanticException e){
                 System.err.print(e);
+                return null;
             }
         }
         return tree;
