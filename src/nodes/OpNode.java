@@ -32,20 +32,17 @@ public class OpNode implements ExprNode {
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return this.operator.getToken();
     }
 
     @Override
     public String convertToC() {
-        String out = "";
-        return out;
+        return this.operator.getToken();
     }
 
     @Override
     public String convertToPython() {
-        String out = "";
-        return out;
+        return this.operator.getToken();
     }
 
     @Override

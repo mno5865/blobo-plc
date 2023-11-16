@@ -46,7 +46,10 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
 
     @Override
     public String convertToJava(String className) {
-        return "";
+        if (this.funcName.equals("print")) {
+            System.out.println();
+        }
+        return this.funcName.convertToJava(className) + "(" + this.params.convertToJava(className) + ")";
     }
 
     @Override

@@ -29,18 +29,17 @@ public class BoolNode implements ExprNode {
 
     @Override
     public String convertToJava(String className) {
-        String out = "";
-        return out;
+        return this.bool.getToken().toLowerCase();
     }
 
     @Override
     public String convertToC() {
-        return "";
+        return this.bool.getToken().toLowerCase();
     }
 
     @Override
     public String convertToPython() {
-        return "";
+        return this.bool.getToken();
     }
 
     @Override

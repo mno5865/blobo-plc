@@ -21,17 +21,17 @@ public class BinaryOperationNode implements ExprNode {
 
     @Override
     public String convertToJava(String className) {
-        return null;
+        return leftExpr.convertToJava(className) + operator.convertToJava(className) + rightExpr.convertToJava(className);
     }
 
     @Override
     public String convertToC() {
-        return null;
+        return leftExpr.convertToC() + operator.convertToC() + rightExpr.convertToC();
     }
 
     @Override
     public String convertToPython() {
-        return null;
+        return leftExpr.convertToPython() + operator.convertToPython() + rightExpr.convertToPython();
     }
 
     @Override

@@ -81,7 +81,9 @@ public class BodyNode implements JottTree {
         for (BodyStmtNode bodyStmt : bodyStmts) {
             out.append("\t").append(bodyStmt.convertToC());
         }
-        out.append("\t").append(returnStmt.convertToC());
+        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
+        out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
+                this.returnStmt.convertToJott() : out.toString());
         return out.toString();
     }
 
@@ -91,7 +93,9 @@ public class BodyNode implements JottTree {
         for (BodyStmtNode bodyStmt : bodyStmts) {
             out.append("\t").append(bodyStmt.convertToPython());
         }
-        out.append("\t").append(returnStmt.convertToPython());
+        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
+        out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
+                this.returnStmt.convertToJott() : out.toString());
         return out.toString();
     }
 

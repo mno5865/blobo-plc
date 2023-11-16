@@ -29,17 +29,17 @@ public class StringNode implements ExprNode {
 
     @Override
     public String convertToJava(String className) {
-        return null;
+        return this.stringLiteral.getToken();
     }
 
     @Override
     public String convertToC() {
-        return null;
+        return this.stringLiteral.getToken();
     }
 
     @Override
     public String convertToPython() {
-        return null;
+        return this.stringLiteral.getToken();
     }
 
     @Override
