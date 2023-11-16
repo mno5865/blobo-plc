@@ -44,25 +44,32 @@ public class AsmtNode implements BodyStmtNode {
     public String convertToJott() {
         String out = "";
         if (this.type != null) {
-            out += this.type.getType();
+            out += this.type.getType() + " ";
         }
-        return out + ((this.type != null) ? " " : "") + this.id.convertToJott() + " = " + this.expr.convertToJott() +
-                ";";
+        return out + this.id.convertToJott() + " = " + this.expr.convertToJott() + ";";
     }
 
     @Override
     public String convertToJava(String className) {
-        return "";
+        String out = "";
+        if (this.type != null) {
+            out += this.type.getType() + " ";
+        }
+        return out + this.id.convertToJava(className) + " = " + this.expr.convertToJava(className) + ";";
     }
 
     @Override
     public String convertToC() {
-        return "";
+        String out = "";
+        if (this.type != null) {
+            out += this.type.getType() + " ";
+        }
+        return out + this.id.convertToC() + " = " + this.expr.convertToC() + ";";
     }
 
     @Override
     public String convertToPython() {
-        return "";
+        return this.id.convertToPython() + " = " + this.expr.convertToPython();
     }
 
     @Override
