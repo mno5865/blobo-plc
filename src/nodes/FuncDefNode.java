@@ -57,13 +57,13 @@ public class FuncDefNode implements JottTree {
                 this.returnType.convertToJott() +
                 "{\n" +
                 this.body.convertToJott() +
-                "}\n";
+                "}\n\n";
     }
 
     @Override
     public String convertToJava(String className) {
         SymbolTable.setScope(funcName, params.getParamTypes());
-        return "public " +
+        return "\tpublic " +
                 this.returnType.convertToJava(className) +
                 " " +
                 this.funcName.convertToJava(className) +
@@ -71,7 +71,7 @@ public class FuncDefNode implements JottTree {
                 this.params.convertToJava(className) +
                 ") {\n" +
                 this.body.convertToJava(className) +
-                "}\n";
+                "\t}\n\n";
     }
 
     @Override
@@ -84,7 +84,7 @@ public class FuncDefNode implements JottTree {
                     params.convertToC() +
                     ") {\n" +
                     body.convertToC() +
-                    "}\n";
+                    "}\n\n";
         }
         return returnType.convertToC() + " " +
                 funcName.convertToC() +
@@ -92,7 +92,7 @@ public class FuncDefNode implements JottTree {
                 params.convertToC() +
                 ") {\n" +
                 body.convertToC() +
-                "}\n";
+                "}\n\n";
     }
 
     @Override
