@@ -37,7 +37,7 @@ public class JottTokenizerTester {
 
     private boolean tokensEqual(Token t1, Token t2){
         return t1.getTokenType() == t2.getTokenType() &&
-                t1.getToken().equals(t2.getToken()) &&
+                t1.getTokenString().equals(t2.getTokenString()) &&
                 t1.getFilename().equals(t2.getFilename()) &&
                 t1.getLineNum() == t2.getLineNum();
     }
@@ -143,7 +143,7 @@ public class JottTokenizerTester {
     }
 
     private String tokenToString(Token t){
-        return String.format("Token %s %s %s:%d", t.getToken(), t.getTokenType().toString(),
+        return String.format("Token %s %s %s:%d", t.getTokenString(), t.getTokenType().toString(),
                                                   t.getFilename(), t.getLineNum());
     }
 

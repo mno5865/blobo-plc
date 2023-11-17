@@ -17,9 +17,9 @@ public interface BodyStmtNode extends JottTree {
                     token.getFilename(), token.getLineNum());
         }
 
-        if (token.getToken().equals("if")) {
+        if (token.getTokenString().equals("if")) {
             return IfStmtNode.parseIfStmtNode(tokens);
-        } else if (token.getToken().equals("while")) {
+        } else if (token.getTokenString().equals("while")) {
             return WhileLoopNode.parseWhileLoopNode(tokens);
         } else if (token.getTokenType() == TokenType.ID_KEYWORD) {
             if (tokens.get(1).getTokenType() == TokenType.ASSIGN || tokens.get(2).getTokenType() == TokenType.ASSIGN) {

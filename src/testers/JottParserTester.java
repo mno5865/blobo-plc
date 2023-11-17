@@ -35,7 +35,7 @@ public class JottParserTester {
 
     private boolean tokensEqualNoFileData(Token t1, Token t2){
         return t1.getTokenType() == t2.getTokenType() &&
-                t1.getToken().equals(t2.getToken());
+                t1.getTokenString().equals(t2.getTokenString());
     }
 
     private void createTestCases(){
@@ -165,7 +165,7 @@ public class JottParserTester {
     private String tokenListString(ArrayList<Token> tokens){
         StringBuilder sb = new StringBuilder();
         for (Token t: tokens) {
-            sb.append(t.getToken());
+            sb.append(t.getTokenString());
             sb.append(":");
             sb.append(t.getTokenType().toString());
             sb.append(" ");

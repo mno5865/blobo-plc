@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public interface ExprNode extends JottTree {
     static ExprNode parseExprNode(ArrayList<Token> tokens) throws SyntaxException {
         TokenType type = tokens.get(0).getTokenType();
-        boolean tokenIsBoolean = tokens.get(0).getToken().equals("True") || tokens.get(0).getToken().equals("False");
+        boolean tokenIsBoolean = tokens.get(0).getTokenString().equals("True") || tokens.get(0).getTokenString().equals("False");
 
         if (type == TokenType.ID_KEYWORD && tokenIsBoolean) {
             return BoolNode.parseBoolNode(tokens);

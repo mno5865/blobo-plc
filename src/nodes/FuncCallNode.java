@@ -46,11 +46,11 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
 
     @Override
     public String convertToJava(String className) { //todo ask scott about all the default functions
-        if (this.funcName.equals("print")) {
+        if (this.funcName.getToken().getTokenString().equals("print")) {
             return "System.out.print" + "(" + this.params.convertToJava(className) + ")";
-        } else if (this.funcName.equals("length")) {
+        } else if (this.funcName.getToken().getTokenString().equals("length")) {
             return this.params.convertToJava(className) + ".length";
-        } else if (this.funcName.equals("concat")) {
+        } else if (this.funcName.getToken().getTokenString().equals("concat")) {
             return this.params.convertToJavaConcat(className);
         }
         return this.funcName.convertToJava(className) + "(" + this.params.convertToJava(className) + ")";
@@ -59,11 +59,11 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     // todo removes the semanticException error
     @Override
     public String convertToC() throws SemanticException { // todo check if we're making sure you can only call length on a string
-        if (this.funcName.equals("print")) {
+        if (this.funcName.getToken().getTokenString().equals("print")) {
             return "printf(" + params.getFormatSpecifierAndQuotes() + ", " + this.params.convertToC() + ")";
-        } else if (this.funcName.equals("length")) {
+        } else if (this.funcName.getToken().getTokenString().equals("length")) {
             return "strlen(" + this.params.convertToC() + ")";
-        } else if (this.funcName.equals("concat")) {
+        } else if (this.funcName.getToken().getTokenString().equals("concat")) {
             return this.params.convertToCConcat();
         }
         return this.funcName.convertToC() + "(" + this.params.convertToC() + ")";
@@ -71,11 +71,11 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
 
     @Override
     public String convertToPython() {
-        if (this.funcName.equals("print")) {
+        if (this.funcName.getToken().getTokenString().equals("print")) {
             return "print" + "(" + this.params.convertToPython() + ")";
-        } else if (this.funcName.equals("length")) {
+        } else if (this.funcName.getToken().getTokenString().equals("length")) {
             return "len" + "(" + this.params.convertToPython() + ")";
-        } else if (this.funcName.equals("concat")) {
+        } else if (this.funcName.getToken().getTokenString().equals("concat")) {
             return this.params.convertToPythonConcat();
         }
         return this.funcName.convertToPython() + "(" + this.params.convertToPython() + ")";

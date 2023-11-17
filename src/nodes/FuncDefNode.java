@@ -6,7 +6,6 @@ import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
-import java.net.IDN;
 import java.util.ArrayList;
 
 import static nodes.BasicParsers.*;
@@ -26,7 +25,7 @@ public class FuncDefNode implements JottTree {
 
     public static FuncDefNode parseFuncDefNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (token.getTokenType() != TokenType.ID_KEYWORD || !token.getToken().equals("def")) {
+        if (token.getTokenType() != TokenType.ID_KEYWORD || !token.getTokenString().equals("def")) {
             throw new SyntaxException("Function definition must begin with KEYWORD def", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);

@@ -74,10 +74,10 @@ public class BinaryOperationNode implements ExprNode {
         if (rightExpr instanceof IDNode && ((IDNode) rightExpr).hasParamVariable()) return 0;
         double value = 0;
         try {
-            if (operator.getToken().getToken().equals("+")) value = leftExpr.evaluate() + rightExpr.evaluate();
-            else if (operator.getToken().getToken().equals("-")) value = leftExpr.evaluate() - rightExpr.evaluate();
-            else if (operator.getToken().getToken().equals("*")) value = leftExpr.evaluate() * rightExpr.evaluate();
-            else if (operator.getToken().getToken().equals("/")) value = leftExpr.evaluate() / rightExpr.evaluate();
+            if (operator.getToken().getTokenString().equals("+")) value = leftExpr.evaluate() + rightExpr.evaluate();
+            else if (operator.getToken().getTokenString().equals("-")) value = leftExpr.evaluate() - rightExpr.evaluate();
+            else if (operator.getToken().getTokenString().equals("*")) value = leftExpr.evaluate() * rightExpr.evaluate();
+            else if (operator.getToken().getTokenString().equals("/")) value = leftExpr.evaluate() / rightExpr.evaluate();
         } catch (ArithmeticException e) {
             throw new SemanticException("Division by zero is attempted", rightExpr.getToken());
         }

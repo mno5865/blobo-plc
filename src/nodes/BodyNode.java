@@ -22,7 +22,7 @@ public class BodyNode implements JottTree {
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxException {
         ArrayList<BodyStmtNode> bodyStmtNodes = new ArrayList<>();
         Token token = tokens.get(0);
-        while (token.getTokenType() != TokenType.R_BRACE && !token.getToken().equals("return")) {
+        while (token.getTokenType() != TokenType.R_BRACE && !token.getTokenString().equals("return")) {
             if (!(token.getTokenType() == TokenType.ID_KEYWORD || token.getTokenType() == TokenType.FC_HEADER)) {
                 throw new SyntaxException("Body must begin with FUNCTION_HEADER (::), ID or KEYWORD", token.getFilename(), token.getLineNum());
             } else {

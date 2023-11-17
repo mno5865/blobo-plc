@@ -17,22 +17,22 @@ public class NumberNode implements ExprNode {
 
     @Override
     public String convertToJott() {
-        return this.number.getToken();
+        return this.number.getTokenString();
     }
 
     @Override
     public String convertToJava(String className) {
-        return this.number.getToken();
+        return this.number.getTokenString();
     }
 
     @Override
     public String convertToC() {
-        return this.number.getToken();
+        return this.number.getTokenString();
     }
 
     @Override
     public String convertToPython() {
-        return this.number.getToken();
+        return this.number.getTokenString();
     }
 
     @Override
@@ -40,7 +40,7 @@ public class NumberNode implements ExprNode {
     }
 
     public boolean isInteger() {
-        return !this.number.getToken().contains("."); //todo that weird error when I remove !
+        return !this.number.getTokenString().contains("."); //todo that weird error when I remove !
     }
 
 
@@ -57,6 +57,6 @@ public class NumberNode implements ExprNode {
 
     @Override
     public double evaluate() {
-        return Double.parseDouble(number.getToken());
+        return Double.parseDouble(number.getTokenString());
     }
 }

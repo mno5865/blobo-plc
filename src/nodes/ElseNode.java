@@ -20,7 +20,7 @@ public class ElseNode implements JottTree {
 
     public static ElseNode parseElseNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (!(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("else"))) {
+        if (!(token.getTokenType() == TokenType.ID_KEYWORD && token.getTokenString().equals("else"))) {
             throw new SyntaxException("else statement must begin with KEYWORD else", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);

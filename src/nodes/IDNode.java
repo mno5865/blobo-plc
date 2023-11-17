@@ -17,27 +17,27 @@ public class IDNode implements ExprNode {
     }
 
     public String getName() {
-        return idName.getToken();
+        return idName.getTokenString();
     }
 
     @Override
     public String convertToJott() {
-        return this.idName.getToken();
+        return this.idName.getTokenString();
     }
 
     @Override
     public String convertToJava(String className) {
-        return this.idName.getToken();
+        return this.idName.getTokenString();
     }
 
     @Override
     public String convertToC() {
-        return this.idName.getToken();
+        return this.idName.getTokenString();
     }
 
     @Override
     public String convertToPython() {
-        return this.idName.getToken();
+        return this.idName.getTokenString();
     }
 
     @Override
@@ -45,9 +45,9 @@ public class IDNode implements ExprNode {
     }
 
     public String getType() throws SemanticException {
-        if (!SymbolTable.doesVarExistInScope(idName.getToken()))
+        if (!SymbolTable.doesVarExistInScope(idName.getTokenString()))
             throw new SemanticException("The variable was never defined", idName);
-        return SymbolTable.getVariableType(idName.getToken());
+        return SymbolTable.getVariableType(idName.getTokenString());
     }
 
     public Token getToken() {
@@ -56,9 +56,9 @@ public class IDNode implements ExprNode {
 
     @Override
     public double evaluate() throws SemanticException { //todo properly fix instanceof error
-        ExprNode value = SymbolTable.getVariableValue(idName.getToken());
+        ExprNode value = SymbolTable.getVariableValue(idName.getTokenString());
         if (value == null) {
-            if (SymbolTable.varIsParamVariable(idName.getToken())) return 0;
+            if (SymbolTable.varIsParamVariable(idName.getTokenString())) return 0;
             else throw new SemanticException("The variable was never defined", idName);
         }
         if (value instanceof BinaryOperationNode) {
@@ -68,6 +68,6 @@ public class IDNode implements ExprNode {
     }
 
     public boolean hasParamVariable() {
-        return SymbolTable.varIsParamVariable(idName.getToken());
+        return SymbolTable.varIsParamVariable(idName.getTokenString());
     }
 }

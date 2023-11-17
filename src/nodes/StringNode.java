@@ -24,28 +24,28 @@ public class StringNode implements ExprNode {
 
     @Override
     public String convertToJott() {
-        return this.stringLiteral.getToken();
+        return this.stringLiteral.getTokenString();
     }
 
     @Override
     public String convertToJava(String className) {
-        return this.stringLiteral.getToken();
+        return this.stringLiteral.getTokenString();
     }
 
     @Override
     public String convertToC() {
-        return this.stringLiteral.getToken();
+        return this.stringLiteral.getTokenString();
     }
 
     @Override
     public String convertToPython() {
-        return this.stringLiteral.getToken();
+        return this.stringLiteral.getTokenString();
     }
 
     @Override
     public void validateTree() throws SemanticException {
         // todo someone should check to make sure this is correct (i'm pretty sure base nodes can't have any errors)
-        char[] characters = getToken().getToken().toCharArray();
+        char[] characters = getToken().getTokenString().toCharArray();
         for (int i = 1; i < characters.length - 1; i++) {
             if (!(Character.isLetterOrDigit(characters[i]) || characters[i] == ' '))
                 throw new SemanticException("Strings can only contain alphanumeric characters or spaces",

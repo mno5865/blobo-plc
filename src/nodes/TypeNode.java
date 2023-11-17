@@ -17,7 +17,7 @@ public class TypeNode implements JottTree {
 
     public static TypeNode parseTypeNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        String tokenString = token.getToken();
+        String tokenString = token.getTokenString();
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException("Type must be KEYWORD Double, Integer, String, or Boolean", token.getFilename(), token.getLineNum());
         }

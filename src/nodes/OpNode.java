@@ -27,22 +27,22 @@ public class OpNode implements ExprNode {
 
     @Override
     public String convertToJott() {
-        return this.operator.getToken();
+        return this.operator.getTokenString();
     }
 
     @Override
     public String convertToJava(String className) {
-        return this.operator.getToken();
+        return this.operator.getTokenString();
     }
 
     @Override
     public String convertToC() {
-        return this.operator.getToken();
+        return this.operator.getTokenString();
     }
 
     @Override
     public String convertToPython() {
-        return this.operator.getToken();
+        return this.operator.getTokenString();
     }
 
     @Override

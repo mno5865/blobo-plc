@@ -15,7 +15,7 @@ public class BoolNode implements ExprNode {
 
     public static BoolNode parseBoolNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        boolean tokenIsBoolean = tokens.get(0).getToken().equals("True") || tokens.get(0).getToken().equals("False");
+        boolean tokenIsBoolean = tokens.get(0).getTokenString().equals("True") || tokens.get(0).getTokenString().equals("False");
         if (token.getTokenType() != TokenType.ID_KEYWORD || !tokenIsBoolean) {
             throw new SyntaxException("Boolean value expects a KEYWORD", token.getFilename(), token.getLineNum());
         }
@@ -24,22 +24,22 @@ public class BoolNode implements ExprNode {
 
     @Override
     public String convertToJott() {
-        return this.bool.getToken();
+        return this.bool.getTokenString();
     }
 
     @Override
     public String convertToJava(String className) {
-        return this.bool.getToken().toLowerCase();
+        return this.bool.getTokenString().toLowerCase();
     }
 
     @Override
     public String convertToC() {
-        return this.bool.getToken().toLowerCase();
+        return this.bool.getTokenString().toLowerCase();
     }
 
     @Override
     public String convertToPython() {
-        return this.bool.getToken();
+        return this.bool.getTokenString();
     }
 
     @Override

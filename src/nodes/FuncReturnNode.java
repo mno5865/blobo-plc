@@ -20,7 +20,7 @@ public class FuncReturnNode implements JottTree {
         if (token.getTokenType() != TokenType.ID_KEYWORD) {
             throw new SyntaxException("Function definition requires a return type", token.getFilename(), token.getLineNum());
         }
-        if (token.getToken().equals("Void")) {
+        if (token.getTokenString().equals("Void")) {
             tokens.remove(0);
             return new FuncReturnNode(null);
         }

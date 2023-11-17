@@ -21,7 +21,7 @@ public class WhileLoopNode implements BodyStmtNode {
 
     public static WhileLoopNode parseWhileLoopNode(ArrayList<Token> tokens) throws SyntaxException {
         Token token = tokens.get(0);
-        if (!(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("while"))) {
+        if (!(token.getTokenType() == TokenType.ID_KEYWORD && token.getTokenString().equals("while"))) {
             throw new SyntaxException("While statement must be KEYWORD while ", token.getFilename(), token.getLineNum());
         }
         tokens.remove(0);
