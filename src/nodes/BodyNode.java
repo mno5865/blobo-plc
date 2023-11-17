@@ -98,21 +98,24 @@ public class BodyNode implements JottTree {
         }
         String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
-                this.returnStmt.convertToC() : out.toString());
+                this.returnStmt.convertToC() + "\n" : out.toString());
         indentationLevel--;
         return out.toString().concat("\n");
     }
 
     @Override
     public String convertToPython() {
+        indentationLevel++;
         StringBuilder out = new StringBuilder();
+        out.append(getTabs());
         for (BodyStmtNode bodyStmt : bodyStmts) {
             out.append("\t").append(bodyStmt.convertToPython());
         }
         String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
-                this.returnStmt.convertToJott() : out.toString());
-        return out.toString();
+                this.returnStmt.convertToPython() : out.toString());
+        indentationLevel--;
+        return out.toString().concat("\n");
     }
 
     @Override
@@ -121,6 +124,12 @@ public class BodyNode implements JottTree {
             bodyStmt.validateTree();
         }
         if (returnStmt != null) returnStmt.validateTree();
+    }
+
+    /*HELPER FUNCTIONS*/
+
+    public boolean doesHaveAReturnStatement() {
+        return returnStmt != null;
     }
 
     public String returnPath(String returnValue) throws SemanticException {
@@ -139,12 +148,6 @@ public class BodyNode implements JottTree {
         }
         if (ifTypeFound != null) return ifTypeFound;
         else return type;
-    }
-
-    /*HELPER FUNCTIONS*/
-
-    public boolean doesHaveAReturnStatement() {
-        return returnStmt != null;
     }
 
     public String getReturnType() throws SemanticException {
