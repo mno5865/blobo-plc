@@ -52,7 +52,7 @@ public class ProgramNode implements JottTree {
     }
 
     @Override
-    public String convertToC() {
+    public String convertToC() throws SemanticException {
         StringBuilder out = new StringBuilder();
         if (funcDefs != null) {
             for (FuncDefNode funcDef : funcDefs) {

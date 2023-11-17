@@ -117,9 +117,8 @@ public class ParamNode implements JottTree {
         return switch (expr.getType()) {
             case "Double" -> "%lf";
             case "Integer" -> "%d";
-            case "String", "Boolean" -> "%s";
+            default -> "%s";
         };
-        //todo remove this after i remove errors
     }
 
     public String convertToJavaConcat(String className) {

@@ -82,7 +82,7 @@ public class BodyNode implements JottTree {
     }
 
     @Override
-    public String convertToC() {
+    public String convertToC() throws SemanticException {
         indentationLevel++;
         StringBuilder out = new StringBuilder();
         out.append(getTabs());

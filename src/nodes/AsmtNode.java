@@ -59,7 +59,7 @@ public class AsmtNode implements BodyStmtNode {
     }
 
     @Override
-    public String convertToC() {
+    public String convertToC() throws SemanticException {
         String out = "";
         if (this.type != null) {
             out += this.type.convertToC() + " ";

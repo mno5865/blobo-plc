@@ -25,7 +25,7 @@ public class BinaryOperationNode implements ExprNode {
     }
 
     @Override
-    public String convertToC() {
+    public String convertToC() throws SemanticException {
         return leftExpr.convertToC() + operator.convertToC() + rightExpr.convertToC();
     }
 
@@ -55,7 +55,7 @@ public class BinaryOperationNode implements ExprNode {
     }
 
     @Override
-    public String getType() {
+    public String getType() throws SemanticException {
         if (operator.isMathOp()) {
             if (leftExpr.getType().equals("Integer") && rightExpr.getType().equals("Integer")) return "Integer";
             if (leftExpr.getType().equals("Double") && rightExpr.getType().equals("Double")) return "Double";

@@ -35,7 +35,7 @@ public class ParamTailNode implements JottTree {
     }
 
     @Override
-    public String convertToC() {
+    public String convertToC() throws SemanticException {
         return ", " + expr.convertToC();
     }
 
