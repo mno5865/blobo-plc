@@ -73,7 +73,7 @@ public class FuncDefNode implements JottTree {
     }
 
     @Override
-    public String convertToC() throws SemanticException {
+    public String convertToC() throws SemanticException { // todo make sure that C main returns a number because return type is int
         if (funcName.getName().equals("main")){
             return "int " +
                     funcName.convertToC() +

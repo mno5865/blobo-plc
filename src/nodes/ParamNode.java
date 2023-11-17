@@ -113,11 +113,15 @@ public class ParamNode implements JottTree {
         }
     }
 
+    public ExprNode getExpr() {
+        return this.expr;
+    }
+
     public String getFormatSpecifierAndQuotes() throws SemanticException { // todo ask scott about these
         return switch (expr.getType()) {
-            case "Double" -> "%lf";
-            case "Integer" -> "%d";
-            default -> "%s";
+            case "Double" -> "\"%lf\"";
+            case "String" -> "\"%s\"";
+            default -> "\"%d\"";
         };
     }
 
