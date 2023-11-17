@@ -126,7 +126,15 @@ public class ParamNode implements JottTree {
     }
 
     public String convertToJavaConcat(String className) {
-        return "";
+        StringBuilder out = new StringBuilder();
+        if (expr != null) {
+            out.append(this.expr.convertToJava(className));
+            out.append(" + ");
+            for (ParamTailNode param : paramTail) {
+                out.append(param.getExpr().convertToJava(className));
+            }
+        }
+        return out.toString();
     }
 
     public String convertToCConcat() {
@@ -134,6 +142,14 @@ public class ParamNode implements JottTree {
     }
 
     public String convertToPythonConcat() {
-        return "";
+        StringBuilder out = new StringBuilder();
+        if (expr != null) {
+            out.append(this.expr.convertToPython());
+            out.append(" + ");
+            for (ParamTailNode param : paramTail) {
+                out.append(param.getExpr().convertToPython());
+            }
+        }
+        return out.toString();
     }
 }

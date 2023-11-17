@@ -76,9 +76,12 @@ public class SymbolTable {
         List<String> functionDefinition = new ArrayList<>();
         functionDefinition.add(funcName.getName());
         functionDefinition.addAll(params.getParamTypes());
-        if (funcReturnTypes.get(functionDefinition) == null)
+        if (!doesFunctionExist(functionDefinition))
             throw new SemanticException("The function " + funcName.getName() +
                     " does not exist with the given parameters", funcName.getToken());
+        if (funcName.getToken().getTokenString().equals("print")) return "Void";
+        if (funcName.getToken().getTokenString().equals("length")) return "Integer";
+        if (funcName.getToken().getTokenString().equals("concat")) return "String";
         return funcReturnTypes.get(functionDefinition);
     }
 
