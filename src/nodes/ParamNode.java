@@ -119,9 +119,9 @@ public class ParamNode implements JottTree {
 
     public String getFormatSpecifierAndQuotes() throws SemanticException { // todo ask scott about these
         return switch (expr.getType()) {
-            case "Double" -> "\"%lf\"";
-            case "String" -> "\"%s\"";
-            default -> "\"%d\"";
+            case "Double" -> "\"%lf\\n\"";
+            case "String" -> "\"%s\\n\"";
+            default -> "\"%d\\n\"";
         };
     }
 

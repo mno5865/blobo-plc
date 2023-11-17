@@ -47,7 +47,7 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     @Override
     public String convertToJava(String className) { //todo ask scott about all the default functions
         if (this.funcName.getToken().getTokenString().equals("print")) {
-            return "System.out.print" + "(" + this.params.convertToJava(className) + ")";
+            return "System.out.println" + "(" + this.params.convertToJava(className) + ")";
         } else if (this.funcName.getToken().getTokenString().equals("length")) {
             return this.params.convertToJava(className) + ".length";
         } else if (this.funcName.getToken().getTokenString().equals("concat")) {
@@ -72,7 +72,7 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     @Override
     public String convertToPython() {
         if (this.funcName.getToken().getTokenString().equals("print")) {
-            return "print" + "(" + this.params.convertToPython() + ")";
+            return "print" + "(" + this.params.convertToPython() + "\\n" + ")";
         } else if (this.funcName.getToken().getTokenString().equals("length")) {
             return "len" + "(" + this.params.convertToPython() + ")";
         } else if (this.funcName.getToken().getTokenString().equals("concat")) {
