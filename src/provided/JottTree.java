@@ -25,7 +25,7 @@ public interface JottTree {
      * Will output a string of this tree in C
      * @return a string representing the C code of this tree
      */
-    public String convertToC();
+    public String convertToC() throws SemanticException;
 
     /**
      * Will output a string of this tree in Python

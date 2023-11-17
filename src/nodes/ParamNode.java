@@ -81,7 +81,7 @@ public class ParamNode implements JottTree {
     }
 
     @Override
-    public String convertToC() {
+    public String convertToC() throws SemanticException {
         StringBuilder out = new StringBuilder();
         if (expr != null) {
             out.append(this.expr.convertToC());
@@ -111,5 +111,26 @@ public class ParamNode implements JottTree {
         for (ParamTailNode param : paramTail) {
             param.validateTree();
         }
+    }
+
+    public String getFormatSpecifierAndQuotes() throws SemanticException { // todo ask scott about these
+        return switch (expr.getType()) {
+            case "Double" -> "%lf";
+            case "Integer" -> "%d";
+            case "String", "Boolean" -> "%s";
+        };
+        //todo remove this after i remove errors
+    }
+
+    public String convertToJavaConcat(String className) {
+        return "";
+    }
+
+    public String convertToCConcat() {
+        return "";
+    }
+
+    public String convertToPythonConcat() {
+        return "";
     }
 }
