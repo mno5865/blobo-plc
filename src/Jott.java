@@ -6,6 +6,7 @@ import provided.Token;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public class Jott {
         String inputFilename = args[0]; // the name of the user's input file
         String outputFilename = args[1]; // the name of the user's output file
         String languageSpec = args[2]; // the language that we will translate into
-        String[] input = inputFilename.split("\\.");
+        String[] input = Paths.get(inputFilename).toString().split("\\.");
 
         if (input.length != 2) throw new Exception("Input file was entered in incorrectly");
         if (!Objects.equals(input[1], "jott")) {
