@@ -108,8 +108,12 @@ public class BodyNode implements JottTree {
         indentationLevel++;
         StringBuilder out = new StringBuilder();
         out.append(getTabs());
-        for (BodyStmtNode bodyStmt : bodyStmts) {
-            out.append("\t").append(bodyStmt.convertToPython());
+        for (int i = 0; i < this.bodyStmts.size(); i++) {
+            out.append(this.bodyStmts.get(i).convertToPython());
+            if (i < this.bodyStmts.size() - 1) {
+                out.append("\n");
+                out.append(getTabs());
+            }
         }
         String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
