@@ -98,7 +98,7 @@ public class BodyNode implements JottTree {
         }
         String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
-                this.returnStmt.convertToC() + "\n" : out.toString());
+                this.returnStmt.convertToC() : out.toString());
         indentationLevel--;
         return out.toString().concat("\n");
     }

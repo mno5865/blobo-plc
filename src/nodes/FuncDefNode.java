@@ -71,7 +71,7 @@ public class FuncDefNode implements JottTree {
                 this.params.convertToJava(className) +
                 ") {\n" +
                 this.body.convertToJava(className) +
-                "\t}";
+                "}\n";
     }
 
     @Override
@@ -84,7 +84,7 @@ public class FuncDefNode implements JottTree {
                     params.convertToC() +
                     ") {\n" +
                     body.convertToC() +
-                    "}";
+                    "}\n";
         }
         return returnType.convertToC() + " " +
                 funcName.convertToC() +
@@ -92,7 +92,7 @@ public class FuncDefNode implements JottTree {
                 params.convertToC() +
                 ") {\n" +
                 body.convertToC() +
-                "}";
+                "}\n";
     }
 
     @Override

@@ -50,9 +50,9 @@ public class Jott {
             case "Jott" -> code = root.convertToJott();
             case "Java" -> {
                 BodyNode.setIndentationLevel(1);
-                code = "public class " + input[0] + " {\n\t";
+                code = "public class " + input[0] + " {\n";
                 code += root.convertToJava(input[0]);
-                code += "\n}";
+                code += "}";
             }
             case "Python" -> code = root.convertToPython();
             case "C" -> {
@@ -61,6 +61,7 @@ public class Jott {
                         #include <stdio.h>
                         #include <stdbool.h>
                         #include <string.h>
+                        
                         """;
                 code += root.convertToC();
             }
