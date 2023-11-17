@@ -65,7 +65,7 @@ public class AsmtNode implements BodyStmtNode {
             out += this.type.convertToC() + " ";
         }
         //if (this.type.getType().equals("String") && expr.) else
-        if (this.type.getType().equals("String")) {
+        if (this.type.getTypeString().equals("String")) {
             return out + this.id.convertToC() + "[]" + " = " + this.expr.convertToC() + ";";
         }
         return out + this.id.convertToC() + " = " + this.expr.convertToC() + ";";
