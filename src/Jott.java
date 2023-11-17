@@ -54,7 +54,7 @@ public class Jott {
                 code = "#include <stdlib.h>\n" +
                         "#include <stdio.h>\n" +
                         "#include <string.h>\n" +
-                        "#include <stdbool.h>";
+                        "#include <stdbool.h>\n\n";
                 code += root.convertToC();
             }
         };

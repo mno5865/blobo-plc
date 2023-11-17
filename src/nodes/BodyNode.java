@@ -59,14 +59,6 @@ public class BodyNode implements JottTree {
         return out.toString().concat("\n");
     }
 
-    public String getTabs() {
-        StringBuilder out = new StringBuilder();
-        for (int j = 0; j < indentationLevel; j++) {
-            out.append("\t");
-        }
-        return out.toString();
-    }
-
     @Override
     public String convertToJava(String className) {
         indentationLevel++;
@@ -106,7 +98,7 @@ public class BodyNode implements JottTree {
         }
         String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
-                this.returnStmt.convertToJott() : out.toString());
+                this.returnStmt.convertToC() : out.toString());
         indentationLevel--;
         return out.toString().concat("\n");
     }
@@ -131,13 +123,6 @@ public class BodyNode implements JottTree {
         if (returnStmt != null) returnStmt.validateTree();
     }
 
-    public String getReturnType() throws SemanticException {
-        if (returnStmt == null) {
-            return "Void";
-        }
-        return returnStmt.getExprType();
-    }
-
     public String returnPath(String returnValue) throws SemanticException {
         String type;
         String ifTypeFound = null;
@@ -156,9 +141,23 @@ public class BodyNode implements JottTree {
         else return type;
     }
 
+    /*HELPER FUNCTIONS*/
+
     public boolean doesHaveAReturnStatement() {
         return returnStmt != null;
     }
+
+    public String getReturnType() throws SemanticException {
+        if (returnStmt == null) {
+            return "Void";
+        }
+        return returnStmt.getExprType();
+    }
+
+    public String getTabs() {
+        return "\t".repeat(Math.max(0, indentationLevel));
+    }
+
     public static void setIndentationLevel(int level){
         indentationLevel = level;
     }
