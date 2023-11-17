@@ -38,8 +38,13 @@ public class Jott {
             System.err.println("Expected a list of tokens, but got null");
             return;
         }
+
         JottTree root = JottParser.parse(tokenList);
-        assert root != null;
+        if (root == null) {
+            System.err.println("Expected a JottTree, but got null");
+            return;
+        }
+
         String code = "";
         switch (languageSpec) {
             case "Jott" -> code = root.convertToJott();
@@ -51,13 +56,15 @@ public class Jott {
             }
             case "Python" -> code = root.convertToPython();
             case "C" -> {
-                code = "#include <stdlib.h>\n" +
-                        "#include <stdio.h>\n" +
-                        "#include <string.h>\n" +
-                        "#include <stdbool.h>\n\n";
+                code = """
+                        #include <stdlib.h>
+                        #include <stdio.h>
+                        #include <stdbool.h>
+                        #include <string.h>
+                        """;
                 code += root.convertToC();
             }
-        };
+        }
 
         // for debugging purposes be sure to remove before phase 4 submission
         System.out.println(code);
