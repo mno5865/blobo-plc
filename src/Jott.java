@@ -58,6 +58,7 @@ public class Jott {
             }
         };
 
+        // for debugging purposes be sure to remove before phase 4 submission
         System.out.println(code);
         try {
             FileWriter writer = new FileWriter(outputFilename);
