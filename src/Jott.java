@@ -1,3 +1,4 @@
+import nodes.BodyNode;
 import provided.JottParser;
 import provided.JottTokenizer;
 import provided.JottTree;
@@ -43,8 +44,8 @@ public class Jott {
         switch (languageSpec) {
             case "Jott" -> code = root.convertToJott();
             case "Java" -> {
+                BodyNode.setIndentationLevel(1);
                 code = "public class " + input[0] + " {\n\t";
-
                 code += root.convertToJava(input[0]);
                 code += "\n}";
             }
@@ -53,7 +54,7 @@ public class Jott {
                 code = "#include <stdlib.h>\n" +
                         "#include <stdio.h>\n" +
                         "#include <string.h>\n" +
-                        "#include <stdbool.h>";
+                        "#include <stdbool.h>\n\n";
                 code += root.convertToC();
             }
         };
