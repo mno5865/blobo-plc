@@ -70,7 +70,7 @@ public class FuncDefNode implements JottTree {
                 this.params.convertToJava(className) +
                 "){\n" +
                 this.body.convertToJava(className) +
-                "}";
+                "\t}";
     }
 
     @Override
