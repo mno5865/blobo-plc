@@ -40,6 +40,13 @@ public class SymbolTable {
         funcParamVariables.put(functionDefinition, variables);
     }
 
+    public static void setScope(IDNode funcName, List<String> funcParamTypes) {
+        List<String> functionDefinition = new ArrayList<>();
+        functionDefinition.add(funcName.getName());
+        functionDefinition.addAll(funcParamTypes);
+        scopeFunc = functionDefinition;
+    }
+
     public static void addVariable(String varType, String varName, ExprNode expr) throws SemanticException {
         if (doesVarExistInScope(varName)){
             throw new SemanticException("variable is already defined", expr.getToken().getFilename(),

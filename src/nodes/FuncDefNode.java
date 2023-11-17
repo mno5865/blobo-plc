@@ -48,6 +48,7 @@ public class FuncDefNode implements JottTree {
 
     @Override
     public String convertToJott() {
+        SymbolTable.setScope(funcName, params.getParamTypes());
         return "def " +
                 this.funcName.convertToJott() +
                 "[" +
@@ -61,6 +62,7 @@ public class FuncDefNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
+        SymbolTable.setScope(funcName, params.getParamTypes());
         return "public " +
                 this.returnType.convertToJava(className) +
                 " " +
@@ -74,6 +76,7 @@ public class FuncDefNode implements JottTree {
 
     @Override
     public String convertToC() throws SemanticException { // todo make sure that C main returns a number because return type is int
+        SymbolTable.setScope(funcName, params.getParamTypes());
         if (funcName.getName().equals("main")){
             return "int " +
                     funcName.convertToC() +
