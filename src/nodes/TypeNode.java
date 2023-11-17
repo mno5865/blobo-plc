@@ -78,7 +78,7 @@ public class TypeNode implements JottTree {
         };
     }
 
-    public String getType() {
+    public String getTypeString() {
         return type;
     }
 }

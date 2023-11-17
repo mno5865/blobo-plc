@@ -69,7 +69,7 @@ public class FuncDefParamTailNode implements JottTree {
     }
 
     public String getType() {
-        return paramType.getType();
+        return paramType.getTypeString();
     }
 
     public String getName() {

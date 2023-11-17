@@ -87,16 +87,16 @@ public class AsmtNode implements BodyStmtNode {
         }
         // < type > < id >= < expr >;   - just check that type is same type as expr
         if (this.type != null) {
-            if (!Objects.equals(this.expr.getType(), this.type.getType())) {
+            if (!Objects.equals(this.expr.getType(), this.type.getTypeString())) {
                 throw new SemanticException("Variable type is different than expression type",
                         expr.getToken().getFilename(), expr.getToken().getLineNum());
             } else {
-                SymbolTable.addVariable(this.type.getType(), this.id.getName(), this.expr);
+                SymbolTable.addVariable(this.type.getTypeString(), this.id.getName(), this.expr);
             }
         } else {
             // check if the variable exists
             if (!SymbolTable.doesVarExistInScope(this.id.getName())) {
-                throw new SemanticException("Variable does not exist", expr.getToken().getFilename(), 
+                throw new SemanticException("Variable does not exist", expr.getToken().getFilename(),
                         expr.getToken().getLineNum());
             } else {
                 if (!SymbolTable.getVariableType(this.id.getName()).equals(this.expr.getType())) {
