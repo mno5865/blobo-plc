@@ -63,7 +63,8 @@ public class FuncDefNode implements JottTree {
     @Override
     public String convertToJava(String className) {
         SymbolTable.setScope(funcName, params.getParamTypes());
-        return "\tpublic " +
+        return "\tpublic static " +
+                /*(funcName.getName().equals("main") ? "static" : "") +*/
                 returnType.convertToJava(className) + " " +
                 funcName.convertToJava(className) +
                 "(" +
