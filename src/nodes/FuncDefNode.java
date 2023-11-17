@@ -99,7 +99,8 @@ public class FuncDefNode implements JottTree {
                 "(" +
                 params.convertToPython() +
                 "):\n" +
-                body.convertToPython();
+                body.convertToPython()
+                + "\n";
     }
 
     @Override

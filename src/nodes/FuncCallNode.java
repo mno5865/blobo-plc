@@ -72,7 +72,7 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     @Override
     public String convertToPython() {
         if (this.funcName.getToken().getTokenString().equals("print")) {
-            return "print" + "(" + this.params.convertToPython() + "\\n" + ")";
+            return "print" + "(" + this.params.convertToPython() + ")";
         } else if (this.funcName.getToken().getTokenString().equals("length")) {
             return "len" + "(" + this.params.convertToPython() + ")";
         } else if (this.funcName.getToken().getTokenString().equals("concat")) {
