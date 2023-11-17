@@ -60,12 +60,12 @@ public class BodyNode implements JottTree {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         indentationLevel++;
         StringBuilder out = new StringBuilder();
         out.append(getTabs());
         for (int i = 0; i < this.bodyStmts.size(); i++) {
-            out.append(this.bodyStmts.get(i).convertToJava(className));
+            out.append(this.bodyStmts.get(i).convertToJava());
             if (this.bodyStmts.get(i) instanceof FuncCallNode) {
                 out.append(";");
             }
@@ -76,7 +76,7 @@ public class BodyNode implements JottTree {
         }
         String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
-                this.returnStmt.convertToJava(className) : out.toString());
+                this.returnStmt.convertToJava() : out.toString());
         indentationLevel--;
         return out.toString().concat("\n");
     }

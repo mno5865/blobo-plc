@@ -20,8 +20,8 @@ public class BinaryOperationNode implements ExprNode {
     }
 
     @Override
-    public String convertToJava(String className) {
-        return leftExpr.convertToJava(className) + operator.convertToJava(className) + rightExpr.convertToJava(className);
+    public String convertToJava() {
+        return leftExpr.convertToJava() + operator.convertToJava() + rightExpr.convertToJava();
     }
 
     @Override

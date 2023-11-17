@@ -77,7 +77,7 @@ public class IfStmtNode implements BodyStmtNode {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         return "";
     }
 

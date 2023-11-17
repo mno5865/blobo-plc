@@ -5,7 +5,6 @@ import errors.SyntaxException;
 import provided.Token;
 import provided.TokenType;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import static nodes.BasicParsers.parseToken;
@@ -39,8 +38,8 @@ public class VarDecNode implements BodyStmtNode {
     }
 
     @Override
-    public String convertToJava(String className) {
-        return this.type.convertToJava(className) + " " + this.id.convertToJava(className) + ";";
+    public String convertToJava() {
+        return this.type.convertToJava() + " " + this.id.convertToJava() + ";";
     }
 
     @Override

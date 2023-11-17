@@ -26,7 +26,7 @@ public class IDNode implements ExprNode {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         return this.idName.getTokenString();
     }
 

@@ -28,7 +28,7 @@ public class StringNode implements ExprNode {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         return this.stringLiteral.getTokenString();
     }
 

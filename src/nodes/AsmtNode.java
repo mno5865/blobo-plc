@@ -50,12 +50,12 @@ public class AsmtNode implements BodyStmtNode {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         String out = "";
         if (this.type != null) {
-            out += this.type.convertToJava(className) + " ";
+            out += this.type.convertToJava() + " ";
         }
-        return out + this.id.convertToJava(className) + " = " + this.expr.convertToJava(className) + ";";
+        return out + this.id.convertToJava() + " = " + this.expr.convertToJava() + ";";
     }
 
     @Override

@@ -47,7 +47,7 @@ public class WhileLoopNode implements BodyStmtNode {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         return "";
     }
 

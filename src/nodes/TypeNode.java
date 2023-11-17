@@ -38,7 +38,7 @@ public class TypeNode implements JottTree {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         return switch (this.type) {
             case "Double" -> "double";
             case "Integer" -> "int";

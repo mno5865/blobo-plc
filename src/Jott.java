@@ -52,7 +52,7 @@ public class Jott {
             case "Java" -> {
                 BodyNode.setIndentationLevel(1);
                 code = "public class " + input[0] + " {\n";
-                code += root.convertToJava(input[0]);
+                code += root.convertToJava();
                 code += "}";
             }
             case "Python" -> code = root.convertToPython();

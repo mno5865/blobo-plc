@@ -28,7 +28,7 @@ public class BoolNode implements ExprNode {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         return this.bool.getTokenString().toLowerCase();
     }
 

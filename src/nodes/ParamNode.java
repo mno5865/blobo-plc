@@ -69,12 +69,12 @@ public class ParamNode implements JottTree {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         StringBuilder out = new StringBuilder();
         if (expr != null) {
-            out.append(this.expr.convertToJava(className));
+            out.append(this.expr.convertToJava());
             for (ParamTailNode param : paramTail) {
-                out.append(param.convertToJava(className));
+                out.append(param.convertToJava());
             }
         }
         return out.toString();
@@ -128,10 +128,10 @@ public class ParamNode implements JottTree {
     public String convertToJavaConcat(String className) {
         StringBuilder out = new StringBuilder();
         if (expr != null) {
-            out.append(this.expr.convertToJava(className));
+            out.append(this.expr.convertToJava());
             out.append(" + ");
             for (ParamTailNode param : paramTail) {
-                out.append(param.getExpr().convertToJava(className));
+                out.append(param.getExpr().convertToJava());
             }
         }
         return out.toString();

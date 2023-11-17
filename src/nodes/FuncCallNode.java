@@ -45,15 +45,15 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     }
 
     @Override
-    public String convertToJava(String className) { //todo ask scott about all the default functions
+    public String convertToJava() { //todo ask scott about all the default functions
         if (this.funcName.getToken().getTokenString().equals("print")) {
-            return "System.out.println" + "(" + this.params.convertToJava(className) + ")";
+            return "System.out.println" + "(" + this.params.convertToJava() + ")";
         } else if (this.funcName.getToken().getTokenString().equals("length")) {
-            return this.params.convertToJava(className) + ".length";
+            return this.params.convertToJava() + ".length";
         } else if (this.funcName.getToken().getTokenString().equals("concat")) {
             return this.params.convertToJavaConcat(className);
         }
-        return this.funcName.convertToJava(className) + "(" + this.params.convertToJava(className) + ")";
+        return this.funcName.convertToJava() + "(" + this.params.convertToJava() + ")";
     }
 
     // todo removes the semanticException error

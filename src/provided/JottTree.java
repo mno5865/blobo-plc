@@ -19,7 +19,7 @@ public interface JottTree {
      * Will output a string of this tree in Java
      * @return a string representing the Java code of this tree
      */
-    public String convertToJava(String className);
+    public String convertToJava();
 
     /**
      * Will output a string of this tree in C

@@ -21,7 +21,7 @@ public class NumberNode implements ExprNode {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         return this.number.getTokenString();
     }
 

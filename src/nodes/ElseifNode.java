@@ -50,7 +50,7 @@ public class ElseifNode implements JottTree {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         return "";
     }
 

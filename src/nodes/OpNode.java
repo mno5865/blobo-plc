@@ -31,7 +31,7 @@ public class OpNode implements ExprNode {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         return this.operator.getTokenString();
     }
 

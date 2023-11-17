@@ -42,7 +42,7 @@ public class ElseNode implements JottTree {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava() {
         return "";
     }
 
