@@ -28,9 +28,6 @@ public class BodyNode implements JottTree {
             } else {
                 bodyStmtNodes.add(BodyStmtNode.parseBodyStmtNode(tokens));
             }
-            /*if (tokens.isEmpty()) {
-                throw new SyntaxException("Body expects closing brace }", token.getFilename(), token.getLineNum());
-            }*/
             token = tokens.get(0);
         }
         ReturnStmtNode returnStmtNode = null;
@@ -72,7 +69,24 @@ public class BodyNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        return "";
+        indentationLevel++;
+        StringBuilder out = new StringBuilder();
+        out.append(getTabs());
+        for (int i = 0; i < this.bodyStmts.size(); i++) {
+            out.append(this.bodyStmts.get(i).convertToJava(className));
+            if (this.bodyStmts.get(i) instanceof FuncCallNode) {
+                out.append(";");
+            }
+            if (i < this.bodyStmts.size() - 1) {
+                out.append("\n");
+                out.append(getTabs());
+            }
+        }
+        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
+        out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
+                this.returnStmt.convertToJava(className) : out.toString());
+        indentationLevel--;
+        return out.toString().concat("\n");
     }
 
     @Override
@@ -144,5 +158,8 @@ public class BodyNode implements JottTree {
 
     public boolean doesHaveAReturnStatement() {
         return returnStmt != null;
+    }
+    public static void setIndentationLevel(int level){
+        indentationLevel = level;
     }
 }
