@@ -78,17 +78,65 @@ public class IfStmtNode implements BodyStmtNode {
 
     @Override
     public String convertToJava() {
-        return "";
+        StringBuilder str = new StringBuilder("if");
+        str.append("(");
+        str.append(this.expr.convertToJava());
+        str.append(") ");
+        str.append("{\n");
+        str.append(this.body.convertToJava());
+        str.append("\t}");
+        if (!this.elseIfList.isEmpty()) {
+            for (ElseifNode elseifNode : this.elseIfList) {
+                String out2 = elseifNode.convertToJava();
+                str.append(out2);
+            }
+        }
+        if (this.elseNode != null) {
+            String out3 = this.elseNode.convertToJava();
+            str.append(out3);
+        }
+        return str.toString();
     }
 
     @Override
-    public String convertToC() {
-        return "";
+    public String convertToC() throws SemanticException {
+        StringBuilder str = new StringBuilder("if");
+        str.append("(");
+        str.append(this.expr.convertToC());
+        str.append(") ");
+        str.append("{\n");
+        str.append(this.body.convertToC());
+        str.append("\t}");
+        if (!this.elseIfList.isEmpty()) {
+            for (ElseifNode elseifNode : this.elseIfList) {
+                String out2 = elseifNode.convertToC();
+                str.append(out2);
+            }
+        }
+        if (this.elseNode != null) {
+            String out3 = this.elseNode.convertToC();
+            str.append(out3);
+        }
+        return str.toString();
     }
 
     @Override
     public String convertToPython() {
-        return "";
+        StringBuilder str = new StringBuilder("if ");
+        str.append(this.expr.convertToPython());
+        str.append(": \n");
+        str.append(this.body.convertToPython());
+        if (!this.elseIfList.isEmpty()) {
+            for (ElseifNode elseifNode : this.elseIfList) {
+                String out2 = elseifNode.convertToPython();
+                str.append(out2);
+            }
+        }
+        if (this.elseNode != null) {
+            String out3 = this.elseNode.convertToPython();
+            str.append(out3);
+        }
+        return str.toString();
     }
 
     @Override

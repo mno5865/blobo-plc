@@ -51,7 +51,7 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
         } else if (this.funcName.getToken().getTokenString().equals("length")) {
             return this.params.convertToJava() + ".length";
         } else if (this.funcName.getToken().getTokenString().equals("concat")) {
-            return this.params.convertToJavaConcat(className);
+            return this.params.convertToJavaConcat("");
         }
         return this.funcName.convertToJava() + "(" + this.params.convertToJava() + ")";
     }

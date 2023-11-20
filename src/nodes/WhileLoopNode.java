@@ -48,17 +48,35 @@ public class WhileLoopNode implements BodyStmtNode {
 
     @Override
     public String convertToJava() {
-        return "";
+        StringBuilder str = new StringBuilder("while");
+        str.append("(");
+        str.append(this.expr.convertToJava());
+        str.append(") ");
+        str.append("{\n");
+        str.append(this.body.convertToJava());
+        str.append("\t}");
+        return str.toString();
     }
 
     @Override
-    public String convertToC() {
-        return "";
+    public String convertToC() throws SemanticException {
+        StringBuilder str = new StringBuilder("while");
+        str.append("(");
+        str.append(this.expr.convertToC());
+        str.append(") ");
+        str.append("{\n");
+        str.append(this.body.convertToC());
+        str.append("\t}");
+        return str.toString();
     }
 
     @Override
     public String convertToPython() {
-        return "";
+        StringBuilder str = new StringBuilder("while ");
+        str.append(this.expr.convertToPython());
+        str.append(":\n");
+        str.append(this.body.convertToPython());
+        return str.toString();
     }
 
     @Override
