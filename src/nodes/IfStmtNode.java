@@ -84,7 +84,7 @@ public class IfStmtNode implements BodyStmtNode {
         str.append(") ");
         str.append("{\n");
         str.append(this.body.convertToJava());
-        str.append("\t}");
+        str.append(BodyNode.getTabs()).append("}");
         if (!this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
                 String out2 = elseifNode.convertToJava();
@@ -106,7 +106,7 @@ public class IfStmtNode implements BodyStmtNode {
         str.append(") ");
         str.append("{\n");
         str.append(this.body.convertToC());
-        str.append("\t}");
+        str.append(BodyNode.getTabs()).append("}");
         if (!this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
                 String out2 = elseifNode.convertToC();
