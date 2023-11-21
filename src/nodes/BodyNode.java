@@ -52,7 +52,7 @@ public class BodyNode implements JottTree {
                 out.append(getTabs());
             }
         }
-        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
+        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n" + getTabs() : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
                 this.returnStmt.convertToJott() : out.toString());
         indentationLevel--;
@@ -74,7 +74,7 @@ public class BodyNode implements JottTree {
                 out.append(getTabs());
             }
         }
-        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
+        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n" + getTabs() : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
                 this.returnStmt.convertToJava() : out.toString());
         indentationLevel--;
@@ -96,7 +96,7 @@ public class BodyNode implements JottTree {
                 out.append(getTabs());
             }
         }
-        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
+        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n" + getTabs() : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
                 this.returnStmt.convertToC() : out.toString());
         indentationLevel--;
@@ -105,6 +105,9 @@ public class BodyNode implements JottTree {
 
     @Override
     public String convertToPython() {
+        if (bodyStmts.isEmpty()) {
+            return "";
+        }
         indentationLevel++;
         StringBuilder out = new StringBuilder();
         out.append(getTabs());
@@ -115,11 +118,23 @@ public class BodyNode implements JottTree {
                 out.append(getTabs());
             }
         }
-        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n\t" : ""; //if no return statement don't add newline
+        String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n" + getTabs() : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +
                 this.returnStmt.convertToPython() : out.toString());
         indentationLevel--;
-        return out.toString().concat("\n");
+
+        for (int i = out.length(); i > 0; i--) {
+            if (out.toString().toCharArray()[out.length() - 1] == '\n') {
+                break;
+            }
+            if (out.toString().toCharArray()[out.length() - 1] != '\n' &&
+                    out.toString().toCharArray()[out.length() - 1] != '\t') {
+                    out.append("\n");
+                    break;
+            }
+        }
+
+        return out.toString();
     }
 
     @Override

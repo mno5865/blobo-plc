@@ -34,28 +34,28 @@ public class ElseNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = "\telse";
-        out += "{\n";
-        out += "\t" + this.body.convertToJott();
-        out += "\t}";
+        String out = "else";
+        out += " {\n";
+        out += this.body.convertToJott();
+        out += BodyNode.getTabs() + "}";
         return out;
     }
 
     @Override
     public String convertToJava() {
         StringBuilder str = new StringBuilder("else");
-        str.append("{\n");
+        str.append(" {\n");
         str.append(this.body.convertToJava());
-        str.append("\t}");
+        str.append(BodyNode.getTabs()).append("}");
         return str.toString();
     }
 
     @Override
     public String convertToC() throws SemanticException {
         StringBuilder str = new StringBuilder("else");
-        str.append("{\n");
+        str.append(" {\n");
         str.append(this.body.convertToC());
-        str.append("\t}");
+        str.append(BodyNode.getTabs()).append("}");
         return str.toString();
     }
 

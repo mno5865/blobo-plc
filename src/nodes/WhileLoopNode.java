@@ -37,12 +37,13 @@ public class WhileLoopNode implements BodyStmtNode {
     @Override
     public String convertToJott() {
         String out = "while";
-        out += "[";
+        out += " [";
         out += this.expr.convertToJott();
         out += "]";
-        out += "{\n";
+        out += " {\n";
         out += this.body.convertToJott();
-        out += "\t}";
+        out += BodyNode.getTabs();
+        out += "}";
         return out;
     }
 
@@ -52,9 +53,10 @@ public class WhileLoopNode implements BodyStmtNode {
         str.append("(");
         str.append(this.expr.convertToJava());
         str.append(") ");
-        str.append("{\n");
+        str.append(" {\n");
         str.append(this.body.convertToJava());
-        str.append("\t}");
+        str.append(BodyNode.getTabs());
+        str.append("}");
         return str.toString();
     }
 
@@ -64,9 +66,10 @@ public class WhileLoopNode implements BodyStmtNode {
         str.append("(");
         str.append(this.expr.convertToC());
         str.append(") ");
-        str.append("{\n");
+        str.append(" {\n");
         str.append(this.body.convertToC());
-        str.append("\t}");
+        str.append(BodyNode.getTabs());
+        str.append("}");
         return str.toString();
     }
 

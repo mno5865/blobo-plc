@@ -39,37 +39,40 @@ public class ElseifNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        String out = "\n\telseif";
+        String out = "elseif";
         out += "[";
         out += this.expr.convertToJott();
         out += "]";
-        out += "{\n";
-        out += "\t" + this.body.convertToJott();
-        out += "\t}";
+        out += " {\n";
+        out += this.body.convertToJott();
+        out += BodyNode.getTabs();
+        out += "}";
         return out;
     }
 
     @Override
     public String convertToJava() {
-        StringBuilder str = new StringBuilder("\n\t else if");
+        StringBuilder str = new StringBuilder("else if");
         str.append("(");
         str.append(this.expr.convertToJava());
         str.append(") ");
-        str.append("{\n");
+        str.append(" {\n");
         str.append(this.body.convertToJava());
-        str.append("\t}");
+        str.append(BodyNode.getTabs());
+        str.append("}");
         return str.toString();
     }
 
     @Override
     public String convertToC() throws SemanticException {
-        StringBuilder str = new StringBuilder("\n\t else if");
+        StringBuilder str = new StringBuilder("else if");
         str.append("(");
         str.append(this.expr.convertToC());
         str.append(") ");
-        str.append("{\n");
+        str.append(" {\n");
         str.append(this.body.convertToC());
-        str.append("\t}");
+        str.append(BodyNode.getTabs());
+        str.append("}");
         return str.toString();
     }
 
