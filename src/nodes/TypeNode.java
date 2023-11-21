@@ -54,8 +54,8 @@ public class TypeNode implements JottTree {
         return switch (this.type) {
             case "Double" -> "float";
             case "Integer" -> "int";
-            case "String" -> "char";
-            case "Boolean" -> "bool"; // Todo add to imports: #import <stdbool.h>
+            case "String" -> "char*";
+            case "Boolean" -> "bool";
             case "Void" -> "void";
             default -> "";
         };
