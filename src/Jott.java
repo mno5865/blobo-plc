@@ -51,7 +51,7 @@ public class Jott {
             case "Jott" -> code = root.convertToJott();
             case "Java" -> {
                 BodyNode.setIndentationLevel(1);
-                code = "public class " + input[0] + " {\n";
+                code = "public class " + args[1].split("\\.")[0] + " {\n";
                 code += root.convertToJava();
                 code += "}";
             }
