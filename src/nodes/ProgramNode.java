@@ -70,6 +70,7 @@ public class ProgramNode implements JottTree {
                 out.append(funcDef.convertToPython());
             }
         }
+        out.append("main()");
         return out.toString();
     }
 
