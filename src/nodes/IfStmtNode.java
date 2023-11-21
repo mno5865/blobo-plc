@@ -88,12 +88,12 @@ public class IfStmtNode implements BodyStmtNode {
         if (!this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
                 String out2 = elseifNode.convertToJava();
-                str.append(out2);
+                str.append(BodyNode.getTabs()).append(out2);
             }
         }
         if (this.elseNode != null) {
             String out3 = this.elseNode.convertToJava();
-            str.append(out3);
+            str.append(BodyNode.getTabs()).append(out3);
         }
         return str.toString();
     }
@@ -110,12 +110,12 @@ public class IfStmtNode implements BodyStmtNode {
         if (!this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
                 String out2 = elseifNode.convertToC();
-                str.append(out2);
+                str.append(BodyNode.getTabs()).append(out2);
             }
         }
         if (this.elseNode != null) {
             String out3 = this.elseNode.convertToC();
-            str.append(out3);
+            str.append(BodyNode.getTabs()).append(out3);
         }
         return str.toString();
     }
@@ -129,12 +129,12 @@ public class IfStmtNode implements BodyStmtNode {
         if (!this.elseIfList.isEmpty()) {
             for (ElseifNode elseifNode : this.elseIfList) {
                 String out2 = elseifNode.convertToPython();
-                str.append(out2);
+                str.append(BodyNode.getTabs()).append(out2);
             }
         }
         if (this.elseNode != null) {
             String out3 = this.elseNode.convertToPython();
-            str.append(out3);
+            str.append(BodyNode.getTabs()).append(out3);
         }
         return str.toString();
     }

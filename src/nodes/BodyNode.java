@@ -161,7 +161,7 @@ public class BodyNode implements JottTree {
         return returnStmt.getExprType();
     }
 
-    public String getTabs() {
+    public static String getTabs() {
         return "\t".repeat(Math.max(0, indentationLevel));
     }
 
