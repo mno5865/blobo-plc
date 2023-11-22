@@ -87,14 +87,24 @@ public class BodyNode implements JottTree {
         StringBuilder out = new StringBuilder();
         out.append(getTabs());
         for (int i = 0; i < this.bodyStmts.size(); i++) {
-            out.append(this.bodyStmts.get(i).convertToC());
-            if (this.bodyStmts.get(i) instanceof FuncCallNode) {
-                out.append(";");
+            boolean isFuncNode = this.bodyStmts.get(i) instanceof FuncCallNode;
+            if (isFuncNode && (MemoryAllocation.functionContainsConcat(((FuncCallNode)this.bodyStmts.get(i)))
+                    || ((FuncCallNode)this.bodyStmts.get(i)).getName().equals("concat"))) {
+                ArrayList<String> linesWithAllocation = MemoryAllocation.handleConcat((FuncCallNode)this.bodyStmts.get(i));
+                out.append(linesWithAllocation.get(0));
+                MemoryAllocation.setLastVariable(linesWithAllocation.get(1));
             }
-            if (i < this.bodyStmts.size() - 1) {
-                out.append("\n");
-                out.append(getTabs());
+            if (isFuncNode && !((FuncCallNode)this.bodyStmts.get(i)).getName().equals("concat")) {
+                out.append(this.bodyStmts.get(i).convertToC());
+                if (this.bodyStmts.get(i) instanceof FuncCallNode) {
+                    out.append(";");
+                }
+                if (i < this.bodyStmts.size() - 1) {
+                    out.append("\n");
+                    out.append(getTabs());
+                }
             }
+            MemoryAllocation.clearLastVariable();
         }
         String newlineAndTab = (!bodyStmts.isEmpty()) ? "\n" + getTabs() : ""; //if no return statement don't add newline
         out = new StringBuilder((this.returnStmt != null) ? out + newlineAndTab +

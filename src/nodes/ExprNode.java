@@ -53,5 +53,9 @@ public interface ExprNode extends JottTree {
 
     default double evaluate() throws SemanticException {
         return 0;
-    };
+    }
+
+    default boolean checkForConcat() {
+        return false;
+    }
 }

@@ -64,7 +64,7 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
         } else if (this.funcName.getToken().getTokenString().equals("length")) {
             return "strlen(" + this.params.convertToC() + ")";
         } else if (this.funcName.getToken().getTokenString().equals("concat")) {
-            return this.params.convertToCConcat();
+            return MemoryAllocation.getLastVariable(); // todo this is kind of a bad idea
         }
         return this.funcName.convertToC() + "(" + this.params.convertToC() + ")";
     }
@@ -101,5 +101,22 @@ public class FuncCallNode implements ExprNode, BodyStmtNode {
     @Override
     public Token getToken() {
         return funcName.getToken();
+    }
+
+    @Override
+    public boolean checkForConcat() {
+        return funcName.getToken().getTokenString().equals("concat");
+    }
+
+    public ExprNode getParam(int paramNumber) {
+        return this.params.getParam(paramNumber);
+    }
+
+    public ParamNode getParams() {
+        return this.params;
+    }
+
+    public String getName() {
+        return this.funcName.getName();
     }
 }

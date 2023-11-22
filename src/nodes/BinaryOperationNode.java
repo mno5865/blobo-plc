@@ -98,4 +98,17 @@ public class BinaryOperationNode implements ExprNode {
         }
         return paramValue;
     }
+
+    @Override
+    public boolean checkForConcat() {
+        return leftExpr.checkForConcat() || rightExpr.checkForConcat();
+    }
+
+    public ExprNode getLeftExpr() {
+        return leftExpr;
+    }
+
+    public ExprNode getRightExpr() {
+        return rightExpr;
+    }
 }

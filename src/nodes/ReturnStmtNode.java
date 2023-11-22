@@ -54,8 +54,13 @@ public class ReturnStmtNode implements JottTree {
 
     @Override
     public String convertToC() throws SemanticException {
-        if (this.expr != null)
+        if (this.expr != null) {
+            if (this.expr.checkForConcat()) {
+                ArrayList<String> linesWithAllocation = MemoryAllocation.handleConcat(expr);
+                return linesWithAllocation.get(0) + "return " + linesWithAllocation.get(1) + ";";
+            }
             return "return " + expr.convertToC() + ";";
+        }
         else return "";
     }
 

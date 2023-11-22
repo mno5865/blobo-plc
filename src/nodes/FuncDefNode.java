@@ -77,6 +77,7 @@ public class FuncDefNode implements JottTree {
     @Override
     public String convertToC() throws SemanticException { // todo make sure that C main returns a number because return type is int
         SymbolTable.setScope(funcName, params.getParamTypes());
+        MemoryAllocation.resetCounter();
         if (funcName.getName().equals("main")){
             return "int " +
                     funcName.convertToC() +

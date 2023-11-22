@@ -60,14 +60,18 @@ public class AsmtNode implements BodyStmtNode {
 
     @Override
     public String convertToC() throws SemanticException {
+        boolean hasConcat = expr.checkForConcat();
+        if (hasConcat) {
+            ArrayList<String> linesOfCode = MemoryAllocation.handleConcat(expr);
+            return linesOfCode.get(0) + this.type.convertToC() + " " + this.id.convertToC() + " = " +
+                    linesOfCode.get(1) + ";";
+        }
+
         String out = "";
         if (this.type != null) {
             out += this.type.convertToC() + " ";
         }
         //if (this.type.getType().equals("String") && expr.) else
-        if (this.type.getTypeString().equals("String")) {
-            return out + this.id.convertToC() + "[]" + " = " + this.expr.convertToC() + ";";
-        }
         return out + this.id.convertToC() + " = " + this.expr.convertToC() + ";";
     }
 
