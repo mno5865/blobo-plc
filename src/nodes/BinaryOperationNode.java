@@ -16,22 +16,22 @@ public class BinaryOperationNode implements ExprNode {
 
     @Override
     public String convertToJott() {
-        return leftExpr.convertToJott() + operator.convertToJott() + rightExpr.convertToJott();
+        return leftExpr.convertToJott() + " " + operator.convertToJott() + " " + rightExpr.convertToJott();
     }
 
     @Override
     public String convertToJava() {
-        return leftExpr.convertToJava() + operator.convertToJava() + rightExpr.convertToJava();
+        return leftExpr.convertToJava() + " " + operator.convertToJava() + " " + rightExpr.convertToJava();
     }
 
     @Override
     public String convertToC() throws SemanticException {
-        return leftExpr.convertToC() + operator.convertToC() + rightExpr.convertToC();
+        return leftExpr.convertToC() + " " + operator.convertToC() + " " + rightExpr.convertToC();
     }
 
     @Override
     public String convertToPython() {
-        return leftExpr.convertToPython() + operator.convertToPython() + rightExpr.convertToPython();
+        return leftExpr.convertToPython() + " " + operator.convertToPython() + " " + rightExpr.convertToPython();
     }
 
     @Override
