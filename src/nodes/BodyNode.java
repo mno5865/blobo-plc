@@ -121,7 +121,7 @@ public class BodyNode implements JottTree {
 
     @Override
     public String convertToPython() {
-        if (bodyStmts.isEmpty()) {
+        if (bodyStmts.isEmpty() && returnStmt == null) {
             return "";
         }
         indentationLevel++;
