@@ -94,7 +94,7 @@ public class BodyNode implements JottTree {
                 out.append(linesWithAllocation.get(0));
                 MemoryAllocation.setLastVariable(linesWithAllocation.get(1));
             }
-            if (isFuncNode && !((FuncCallNode)this.bodyStmts.get(i)).getName().equals("concat")) {
+            else if (isFuncNode && !((FuncCallNode)this.bodyStmts.get(i)).getName().equals("concat")) {
                 out.append(this.bodyStmts.get(i).convertToC());
                 if (this.bodyStmts.get(i) instanceof FuncCallNode) {
                     out.append(";");
