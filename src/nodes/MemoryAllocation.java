@@ -45,7 +45,7 @@ public class MemoryAllocation {
                 firstParam = outputLines.get(1);
                 outputLines.remove(1);
             }
-            String firstConcat = "strcat(" + name + ", " + firstParam + ")" + endOfLine;
+            String firstConcat = "strcpy(" + name + ", " + firstParam + ")" + endOfLine;
             String secondConcat = "strcat(" + name + ", " + secondParam + ")" + endOfLine;
             String firstMalloc = "(char*)malloc(sizeof(char) * " +
                     String.format("(strlen(%s) + ", firstParam) +

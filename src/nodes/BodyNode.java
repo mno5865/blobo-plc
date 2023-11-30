@@ -103,6 +103,12 @@ public class BodyNode implements JottTree {
                     out.append("\n");
                     out.append(getTabs());
                 }
+            } else {
+                out.append(this.bodyStmts.get(i).convertToC());
+                if (i < this.bodyStmts.size() - 1) {
+                    out.append("\n");
+                    out.append(getTabs());
+                }
             }
             MemoryAllocation.clearLastVariable();
         }
