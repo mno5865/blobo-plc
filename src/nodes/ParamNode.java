@@ -156,8 +156,10 @@ public class ParamNode implements JottTree {
     }
 
     public ArrayList<ExprNode> getParams() {
+        if (expr == null) return new ArrayList<>();
         ArrayList<ExprNode> params = new ArrayList<>();
         params.add(expr);
+        if (paramTail == null) return params;
         for (ParamTailNode expression : paramTail) {
             params.add(expression.getExpr());
         }
