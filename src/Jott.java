@@ -51,7 +51,9 @@ public class Jott {
             case "Jott" -> code = root.convertToJott();
             case "Java" -> {
                 BodyNode.setIndentationLevel(1);
-                code = "public class " + args[1].split("\\.")[0] + " {\n";
+                String[] outputPath = outputFilename.split(System.getProperty("file.separator"));
+                String className = outputPath[outputPath.length - 1];
+                code = "public class " + className.split("\\.")[0] + " {\n";
                 code += root.convertToJava();
                 code += "}";
             }
@@ -69,7 +71,7 @@ public class Jott {
         }
 
         // for debugging purposes be sure to remove before phase 4 submission
-        System.out.println(code);
+//        System.out.println(code);
         try {
             FileWriter writer = new FileWriter(outputFilename);
             if (code == null) {
