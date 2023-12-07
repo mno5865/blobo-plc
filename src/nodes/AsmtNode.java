@@ -60,7 +60,9 @@ public class AsmtNode implements BodyStmtNode {
 
     @Override
     public String convertToC() throws SemanticException {
+        boolean typeWasNull = type == null;
         if (this.type == null && SymbolTable.doesVarExistInScope(this.id.getName())) {
+            typeWasNull = true;
             this.type = new TypeNode(SymbolTable.getVariableType(this.id.getName()));
         }
         boolean hasConcat = expr.checkForConcat();
@@ -74,11 +76,7 @@ public class AsmtNode implements BodyStmtNode {
                     linesOfCode.get(1) + ";";
         }
 
-        String out = "";
-        if (this.type != null) {
-            out += this.type.convertToC() + " ";
-        }
-        //if (this.type.getType().equals("String") && expr.) else
+        String out = typeWasNull ? "" : this.type.convertToC() + " ";
         return out + this.id.convertToC() + " = " + this.expr.convertToC() + ";";
     }
 
