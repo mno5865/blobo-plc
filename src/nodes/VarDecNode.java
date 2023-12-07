@@ -56,5 +56,6 @@ public class VarDecNode implements BodyStmtNode {
     public void validateTree() throws SemanticException {
         type.validateTree();
         id.validateTree();
+        SymbolTable.addUndefinedVariable(this.type.getTypeString(), this.id.getName(), id.getToken());
     }
 }

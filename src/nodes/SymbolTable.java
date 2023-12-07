@@ -1,6 +1,7 @@
 package nodes;
 
 import errors.SemanticException;
+import provided.Token;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +58,18 @@ public class SymbolTable {
                     expr.getToken());
         HashMap<String, VariableInfo> existingVariables = funcDefinitions.get(scopeFunc);
         existingVariables.put(varName, new VariableInfo(varType, expr));
+    }
+
+    public static void addUndefinedVariable(String varType, String varName, Token token) throws SemanticException {
+        if (doesVarExistInScope(varName)){
+            throw new SemanticException("variable is already defined", token.getFilename(),
+                    token.getLineNum());
+        }
+        if (Character.isUpperCase(varName.toCharArray()[0]))
+            throw new SemanticException("All variables defined must start with a lowercase letter",
+                    token);
+        HashMap<String, VariableInfo> existingVariables = funcDefinitions.get(scopeFunc);
+        existingVariables.put(varName, new VariableInfo(varType, null));
     }
 
     public static boolean doesFunctionExist(List<String> funcDefinition) {

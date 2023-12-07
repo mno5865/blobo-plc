@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class AsmtNode implements BodyStmtNode {
-    private final TypeNode type;
+    private TypeNode type;
     private final IDNode id;
     private final ExprNode expr;
 
@@ -60,9 +60,16 @@ public class AsmtNode implements BodyStmtNode {
 
     @Override
     public String convertToC() throws SemanticException {
+        if (this.type == null && SymbolTable.doesVarExistInScope(this.id.getName())) {
+            this.type = new TypeNode(SymbolTable.getVariableType(this.id.getName()));
+        }
         boolean hasConcat = expr.checkForConcat();
         if (hasConcat) {
             ArrayList<String> linesOfCode = MemoryAllocation.handleConcat(expr);
+            if (SymbolTable.doesVarExistInScope(this.id.getName())) {
+                return linesOfCode.get(0) + this.id.convertToC() + " = " +
+                        linesOfCode.get(1) + ";";
+            }
             return linesOfCode.get(0) + this.type.convertToC() + " " + this.id.convertToC() + " = " +
                     linesOfCode.get(1) + ";";
         }
