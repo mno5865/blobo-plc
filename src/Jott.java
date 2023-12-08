@@ -61,7 +61,8 @@ public class Jott {
                 } else {
                     className = outputFilename.split("\\.")[0];
                 }
-                className = className.substring(0, 1).toUpperCase() + className.substring(1);
+                //don't capitalize output if user doesn't intend for it to be
+                //className = className.substring(0, 1).toUpperCase() + className.substring(1);
                 code = "public class " + className + " {\n";
                 code += root.convertToJava();
                 code += "}";
