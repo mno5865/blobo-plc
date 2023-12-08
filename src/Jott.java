@@ -51,9 +51,9 @@ public class Jott {
             case "Jott" -> code = root.convertToJott();
             case "Java" -> {
                 BodyNode.setIndentationLevel(1);
-                String[] outputPath = outputFilename.split(System.getProperty("file.separator"));
-                String className = outputPath[outputPath.length - 1];
-                code = "public class " + className.split("\\.")[0] + " {\n";
+                String className = outputFilename.split("\\.")[0];
+                className = className.substring(0, 1).toUpperCase() + className.substring(1);
+                code = "public class " + className + " {\n";
                 code += root.convertToJava();
                 code += "}";
             }
