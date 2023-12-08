@@ -88,7 +88,7 @@ public class BodyNode implements JottTree {
         out.append(getTabs());
         for (int i = 0; i < this.bodyStmts.size(); i++) {
             boolean isFuncNode = this.bodyStmts.get(i) instanceof FuncCallNode;
-            String functionName = ((FuncCallNode)this.bodyStmts.get(i)).getName();
+            String functionName = isFuncNode ? ((FuncCallNode)this.bodyStmts.get(i)).getName() : "";
             if (isFuncNode && (MemoryAllocation.functionContainsConcat(((FuncCallNode)this.bodyStmts.get(i)))
                     || functionName.equals("concat"))) {
                 ArrayList<String> linesWithAllocation = MemoryAllocation.handleConcat((FuncCallNode)this.bodyStmts.get(i));
