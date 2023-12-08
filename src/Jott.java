@@ -51,7 +51,16 @@ public class Jott {
             case "Jott" -> code = root.convertToJott();
             case "Java" -> {
                 BodyNode.setIndentationLevel(1);
-                String className = outputFilename.split("\\.")[0];
+                String className;
+                if (outputFilename.contains("/")) {
+                    String[] pathArray = outputFilename.split("/");
+                    className = pathArray[pathArray.length - 1].split("\\.")[0];
+                } else if (outputFilename.contains("\\")) {
+                    String[] pathArray = outputFilename.split("\\\\");
+                    className = pathArray[pathArray.length - 1].split("\\.")[0];
+                } else {
+                    className = outputFilename.split("\\.")[0];
+                }
                 className = className.substring(0, 1).toUpperCase() + className.substring(1);
                 code = "public class " + className + " {\n";
                 code += root.convertToJava();
